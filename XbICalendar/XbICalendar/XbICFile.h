@@ -33,13 +33,17 @@
 /**
 
  */
-- (BOOL) read;
+- (XbICComponent *) read;
 
 
 /**
  
  */
 - (BOOL) save;
+
+/**
+ */
+- (XbICComponent *) vCalendar;
 
 @end
 

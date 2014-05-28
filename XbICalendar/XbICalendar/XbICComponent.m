@@ -1,16 +1,11 @@
 //
 //  XbICComponent.m
-//  XbICalendar
-//
-//  Created by Andrew Halls on 5/27/14.
-//  Copyright (c) 2014 GaltSoft. All rights reserved.
 //
 
 #import "XBICalendar.h"
 
 @interface XbICComponent ()
 
-@property (nonatomic, assign) NSArray * properties;
 
 @end
 
@@ -24,9 +19,26 @@
     return self;
 }
 
++ (instancetype) newComponentFactory: (icalcomponent *) c {
+    XbICComponent * component;
+    switch ( icalcomponent_isa(c)) {
+        case ICAL_VCALENDAR_COMPONENT:
+            component = [[XbICVCalendar alloc] init];
+            break;
+            
+        case ICAL_VEVENT_COMPONENT:
+            component = [[XbICVEvent alloc] init];
+            break;
+            
+        default:
+            component = [[XbICComponent alloc]init];
+            break;
+    }
+    return component;
+}
 +(instancetype)componentWithIcalComponent: (icalcomponent *) c {
     
-    XbICComponent * component = [[XbICComponent alloc] init];
+    XbICComponent * component = [XbICComponent newComponentFactory: c];
 
     if (component) {
         component.kind = icalcomponent_isa(c);
@@ -65,6 +77,49 @@
     }
     
     return component;
+}
+
+- (NSArray *) propertiesOfKind: (icalproperty_kind) kind {
+    NSMutableArray * results =[[NSMutableArray alloc] init];
+    
+    for (XbICProperty * property in self.properties) {
+        if (property.kind == kind) {
+            [results addObject: property];
+        }
+    }
+    
+    return results;
+}
+
+- (NSArray *) componentsOfKind: (icalcomponent_kind) kind {
+    NSMutableArray * results =[[NSMutableArray alloc] init];
+    
+    for (XbICComponent * component in self.subcomponents) {
+        if (component.kind == kind) {
+            [results addObject: component];
+        }
+    }
+    
+    return results;
+}
+
+
+#pragma mark - NSObject Overides
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@: %p> Key: %d",
+            NSStringFromClass([self class]), self, self.kind];
+}
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+    XbICComponent *object = [[[self class] allocWithZone:zone] init];
+    
+    if (object) {
+        object.subcomponents = [self.subcomponents copyWithZone: zone];
+        object.properties = [self.properties copyWithZone:zone];
+        
+    }
+    
+    return object;
 }
 
 

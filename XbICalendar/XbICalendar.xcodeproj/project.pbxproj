@@ -32,6 +32,10 @@
 		F12F4E4219346A41003631C5 /* XbICComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4019346A41003631C5 /* XbICComponent.m */; };
 		F12F4E4519346AB6003631C5 /* XbICProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4419346AB6003631C5 /* XbICProperty.m */; };
 		F12F4E4619346AB6003631C5 /* XbICProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4419346AB6003631C5 /* XbICProperty.m */; };
+		F12F4E491935B259003631C5 /* XbICVCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E481935B259003631C5 /* XbICVCalendar.m */; };
+		F12F4E4A1935B259003631C5 /* XbICVCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E481935B259003631C5 /* XbICVCalendar.m */; };
+		F12F4E4D1935CF03003631C5 /* XbICVEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4C1935CF03003631C5 /* XbICVEvent.m */; };
+		F12F4E4E1935CF03003631C5 /* XbICVEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4C1935CF03003631C5 /* XbICVEvent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +80,10 @@
 		F12F4E4019346A41003631C5 /* XbICComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICComponent.m; sourceTree = "<group>"; };
 		F12F4E4319346AB6003631C5 /* XbICProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICProperty.h; sourceTree = "<group>"; };
 		F12F4E4419346AB6003631C5 /* XbICProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICProperty.m; sourceTree = "<group>"; };
+		F12F4E471935B259003631C5 /* XbICVCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICVCalendar.h; sourceTree = "<group>"; };
+		F12F4E481935B259003631C5 /* XbICVCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICVCalendar.m; sourceTree = "<group>"; };
+		F12F4E4B1935CF03003631C5 /* XbICVEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICVEvent.h; sourceTree = "<group>"; };
+		F12F4E4C1935CF03003631C5 /* XbICVEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICVEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +198,10 @@
 				F12F4E4019346A41003631C5 /* XbICComponent.m */,
 				F12F4E4319346AB6003631C5 /* XbICProperty.h */,
 				F12F4E4419346AB6003631C5 /* XbICProperty.m */,
+				F12F4E471935B259003631C5 /* XbICVCalendar.h */,
+				F12F4E481935B259003631C5 /* XbICVCalendar.m */,
+				F12F4E4B1935CF03003631C5 /* XbICVEvent.h */,
+				F12F4E4C1935CF03003631C5 /* XbICVEvent.m */,
 			);
 			name = XbICalendar;
 			path = XBICalendar;
@@ -346,7 +358,9 @@
 				F12F48FC19332EA4003631C5 /* main.m in Sources */,
 				F12F490619332EA4003631C5 /* XbICViewController.m in Sources */,
 				F12F4E4519346AB6003631C5 /* XbICProperty.m in Sources */,
+				F12F4E4D1935CF03003631C5 /* XbICVEvent.m in Sources */,
 				F12F4928193338CB003631C5 /* XbICFile.m in Sources */,
+				F12F4E491935B259003631C5 /* XbICVCalendar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +368,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F12F4E4E1935CF03003631C5 /* XbICVEvent.m in Sources */,
+				F12F4E4A1935B259003631C5 /* XbICVCalendar.m in Sources */,
 				F12F491B19332EA5003631C5 /* XbICalendarTests.m in Sources */,
 				F12F4E4619346AB6003631C5 /* XbICProperty.m in Sources */,
 				F12F4E4219346A41003631C5 /* XbICComponent.m in Sources */,

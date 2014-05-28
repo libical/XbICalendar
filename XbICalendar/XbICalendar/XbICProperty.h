@@ -2,7 +2,6 @@
 //  XbICProperty.h
 //
 
-#import <Foundation/Foundation.h>
 
 @interface XbICProperty : NSObject
 

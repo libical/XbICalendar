@@ -9,7 +9,7 @@
 
 @property (nonatomic, copy) NSString * pathname;
 
-@property (nonatomic, assign) XbICComponent *icsFileRoot;
+@property (nonatomic, strong) XbICComponent *icsFileRoot;
 
 @end
 
@@ -21,7 +21,6 @@
     self = [super init];
     if (self) {
         self.pathname = pathname;
-        
     
         NSBundle *pluginBundle = [NSBundle bundleForClass: [XbICFile class]];
         NSString *zoneinfoPath = [NSString stringWithFormat: @"%@/zoneinfo", [pluginBundle resourcePath]];
@@ -43,10 +42,9 @@
 }
 
 
-- (BOOL) read {
+- (XbICComponent *) read {
     
-    BOOL result = NO;
-    
+
     NSString * caldata = [NSString stringWithContentsOfFile:self.pathname
                                                    encoding:NSUTF8StringEncoding
                                                       error:NULL];
@@ -57,12 +55,11 @@
    
         if (root) {
             self.icsFileRoot = [XbICComponent componentWithIcalComponent: root];
-            result = YES;;
-            
+
             icalcomponent_free(root);
         }
     }
-    return result;
+    return self.icsFileRoot;
 }
 
 
@@ -70,6 +67,19 @@
     
     return NO;
     
+}
+
+- (XbICComponent *) vCalendar {
+    
+    XbICComponent * result = nil;
+    
+    if (self.icsFileRoot.kind == ICAL_VCALENDAR_COMPONENT) {
+        result  = self.icsFileRoot;
+    }
+    else {
+        NSLog(@"Empty ICS File or invalid component");
+    }
+    return result;
 }
 
 
@@ -83,6 +93,7 @@
     
     if (object) {
         object.pathname = [self.pathname copyWithZone:zone];
+        object.icsFileRoot = [self.pathname copyWithZone:zone];
     }
     
     return object;
