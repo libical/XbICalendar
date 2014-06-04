@@ -1,7 +1,7 @@
 //
 //  XbICProperty.h
 //
-
+#import "ical.h"
 
 @interface XbICProperty : NSObject
 

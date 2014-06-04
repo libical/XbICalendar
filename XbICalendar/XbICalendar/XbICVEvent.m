@@ -2,7 +2,7 @@
 //  XbICVEvent.m
 //
 
-#import "XBICalendar.h"
+#import "XbICVEvent.h"
 
 @implementation XbICVEvent
 
@@ -107,12 +107,19 @@
     return (NSString *)[((XbICProperty *)properties[0]) value];
 }
 
-/*
-e;
- //-(XbICPerson *) organizer;
+-(XbICPerson *) organizer {
+    NSArray * properties = [self propertiesOfKind:ICAL_ORGANIZER_PROPERTY];
+    if (properties.count != 1 ) {
+        NSLog(@"ICAL_ORGANIZER_PROPERTY");
+        return nil;
+    }
+    return properties[0];
+}
 
- -(NSArray *) Attendees;
 
- */
+-(NSArray *) attendees; {
+    return [self propertiesOfKind:ICAL_ATTENDEE_PROPERTY];
+}
+
 
 @end

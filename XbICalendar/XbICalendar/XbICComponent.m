@@ -2,7 +2,10 @@
 //  XbICComponent.m
 //
 
-#import "XBICalendar.h"
+#import "XbICComponent.h"
+#import "XbICVCalendar.h"
+#import "XbICVEvent.h"
+
 
 @interface XbICComponent ()
 
@@ -19,7 +22,7 @@
     return self;
 }
 
-+ (instancetype) newComponentFactory: (icalcomponent *) c {
++ (instancetype) componentFactory: (icalcomponent *) c {
     XbICComponent * component;
     switch ( icalcomponent_isa(c)) {
         case ICAL_VCALENDAR_COMPONENT:
@@ -38,7 +41,7 @@
 }
 +(instancetype)componentWithIcalComponent: (icalcomponent *) c {
     
-    XbICComponent * component = [XbICComponent newComponentFactory: c];
+    XbICComponent * component = [XbICComponent componentFactory: c];
 
     if (component) {
         component.kind = icalcomponent_isa(c);

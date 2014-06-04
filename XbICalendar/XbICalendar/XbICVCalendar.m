@@ -2,7 +2,9 @@
 //  XbICVCalendar.m
 //
 
-#import "XBICalendar.h"
+#import "XbICVCalendar.h"
+#import "XbICFile.h"
+#import "XbICProperty.h"
 
 @interface XbICVCalendar ()
 
@@ -11,7 +13,7 @@
 @implementation XbICVCalendar
 
 
-#pragma mark - object lifecylce 
+#pragma mark - Class Methods
 
 +(instancetype) vCalendarFromFile: (NSString *) pathname  {
     
@@ -31,6 +33,8 @@
     
     return vCalendar;
 }
+
+
 #pragma mark - Custom Accessors
 
 -(NSString *) method {

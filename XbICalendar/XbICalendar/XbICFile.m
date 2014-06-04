@@ -2,7 +2,7 @@
 //  XbICFile.m
 //
 
-#import "XBICalendar.h"
+#import "XbICFile.h"
 
 
 @interface XbICFile ()

@@ -2,6 +2,10 @@
 //  XbICVEvent.h
 //
 
+#import "ical.h"
+#import "XbICComponent.h"
+#import "XbICPerson.h"
+
 
 @interface XbICVEvent : XbICComponent
 
@@ -10,9 +14,9 @@
 -(NSDate *) dateStamp;
 -(NSDate *) dateCreated;
 -(NSDate *) dateLastModified;
-//-(XbICPerson *) organizer;
+-(XbICPerson *) organizer;
 -(NSString *) UID;
--(NSArray *) Attendees;
+-(NSArray *) attendees;
 -(NSString *) location;
 -(NSString *) description;
 -(NSNumber *) sequence;

@@ -1,7 +1,8 @@
 //
 //  XbICFile.h
 //
-
+#import "ical.h"
+#import "XbICComponent.h"
 
 /**
  The XbICFile class provides an interface to read and write ICalendar (ICS) files.

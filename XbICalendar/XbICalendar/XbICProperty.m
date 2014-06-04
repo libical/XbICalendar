@@ -29,9 +29,26 @@
 //    
 //}
 
++ (instancetype) propertyFactory: (icalproperty *) p {
+    XbICProperty * property;
+    switch ( icalproperty_isa(p)) {
+        case ICAL_ORGANIZER_PROPERTY:
+        case ICAL_OWNER_PROPERTY:
+        case ICAL_ATTENDEE_PROPERTY:
+            property = [[XbICPerson alloc] init];
+            break;
+            
+        default:
+            property = [[XbICProperty alloc] init];
+            break;
+    }
+    return property;
+}
+
 +(instancetype) propertyWithIcalProperty: (icalproperty *) p {
     
-    XbICProperty * property = [[XbICProperty alloc] init];
+    XbICProperty * property = [XbICProperty propertyFactory:p];
+    
     if (property) {
     
         property.kind = icalproperty_isa(p);

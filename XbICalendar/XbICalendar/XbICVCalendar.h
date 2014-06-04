@@ -1,8 +1,8 @@
 //
 //  XbICVCalendar.h
-//  XbICalendar
 //
-
+#import "ical.h"
+#import "XbICComponent.h"
 
 @interface XbICVCalendar : XbICComponent
 

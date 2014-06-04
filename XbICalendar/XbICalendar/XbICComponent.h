@@ -2,7 +2,7 @@
 //  XbICComponent.h
 //
 
-
+#import "ical.h"
 
 @interface XbICComponent : NSObject
 

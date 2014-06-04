@@ -107,17 +107,23 @@
                    "VIEW&eid=cmRmdThlYWlrMXNzMXRjM3Q3MjVwcGlqbG8gYWhhbGxzQGdhZ2dsZS5uZXQ&tok=MT"
                    "kjYW5kcmV3QGdhbHRzb2Z0LmNvbTUwMjM5OTI1MTk0NzQyMWFlNDA5OGMzZjNmODIyMzdhNjhiM"
                    "TZmMWI&ctz=America/Denver&hl=en." ], @"" );
+    
+    XbICPerson * organizer = [event organizer];
+    XCTAssertNotNil(organizer, @"");
+    XCTAssertTrue([organizer isKindOfClass:[XbICPerson class]], @"");
+    XCTAssertTrue([((NSString *)[organizer value]) isEqualToString: @"mailto:andrew@galtsoft.com"], @"");
+    XCTAssertTrue([[organizer name] isEqualToString: @"Andrew Halls"], @"");
 
     
-    /*
-     //
-     -(XbICPerson *) organizer;
-
-     -(NSArray *) Attendees;
-     */
-
-    NSLog(@"Exit");
-     
+    NSArray * attendees = [event attendees];
+    XCTAssertEqual(attendees.count, 3, @"");
+    
+    XbICPerson * attendee1 = attendees[0];
+    XCTAssertNotNil(attendee1, @"");
+    XCTAssertTrue([attendee1 isKindOfClass:[XbICPerson class]], @"");
+    XCTAssertTrue([((NSString *)[attendee1 value]) isEqualToString: @"mailto:andrewhalls.iphone@gmail.com"], @"");
+    XCTAssertTrue([[attendee1 name] isEqualToString: @"Andrew Halls"], @"");
+    XCTAssertTrue([attendee1 RSVP], @"");
 
 }
 
