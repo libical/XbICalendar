@@ -10,13 +10,13 @@
 -(NSDate *) dateStamp;
 -(NSDate *) dateCreated;
 -(NSDate *) dateLastModified;
--(NSTimeZone *) timeZone;
 //-(XbICPerson *) organizer;
 -(NSString *) UID;
 -(NSArray *) Attendees;
 -(NSString *) location;
+-(NSString *) description;
 -(NSNumber *) sequence;
 -(NSString *) status;
--(NSString *) confirmed;
+-(NSString *) summary;
 
 @end

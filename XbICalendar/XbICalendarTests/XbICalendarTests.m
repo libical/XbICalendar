@@ -90,19 +90,34 @@
     dateReference = [dateFormatter dateFromString:@"20140501T205540Z"];
     XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
                                [dateReference timeIntervalSinceReferenceDate],0.001,@"");
+    
+    
+    XCTAssertEqual([event sequence], @(0), @"Should be Equal");
+    
+    XCTAssertTrue([[event UID] isEqualToString:@"rdfu8eaik1ss1tc3t725ppijlo@google.com" ], @"" );
+    
+    XCTAssertNil([event location] , @"" );
+    
+    XCTAssertTrue([[event summary] isEqualToString:@"Test Event" ], @"" );
+    
+    XCTAssertTrue([[event status] isEqualToString:@"CONFIRMED" ], @"" );
+    
+    
+    XCTAssertTrue([[event description] isEqualToString:@"View your event at http://www.google.com/calendar/event?action="
+                   "VIEW&eid=cmRmdThlYWlrMXNzMXRjM3Q3MjVwcGlqbG8gYWhhbGxzQGdhZ2dsZS5uZXQ&tok=MT"
+                   "kjYW5kcmV3QGdhbHRzb2Z0LmNvbTUwMjM5OTI1MTk0NzQyMWFlNDA5OGMzZjNmODIyMzdhNjhiM"
+                   "TZmMWI&ctz=America/Denver&hl=en." ], @"" );
 
     
     /*
-     -(NSTimeZone *) timeZone;
-     //-(XbICPerson *) organizer;
-     -(NSString *) UID;
+     //
+     -(XbICPerson *) organizer;
+
      -(NSArray *) Attendees;
-     -(NSString *) location;
-     -(NSNumber *) sequence;
-     -(NSString *) status;
-     -(NSString *) confirmed
      */
+
     NSLog(@"Exit");
+     
 
 }
 

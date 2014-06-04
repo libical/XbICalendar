@@ -57,6 +57,14 @@
                 property.value = [property dateFromValue: v];
                 break;
                 
+            case ICAL_SEQUENCE_PROPERTY:
+                property.value = [property numberFromIntValue: v];
+                break;
+                
+            case ICAL_XLICERROR_PROPERTY:
+                NSLog(@"Error: %d, %@", property.kind, [property stringFromValue:v]);
+                break;
+                
             default:
                 property.value = [property stringFromValue: v];
                 break;
@@ -117,6 +125,12 @@
    // t.is_date
     
     return [calendar dateFromComponents: components];
+    
+}
+
+-(NSNumber *) numberFromIntValue: (icalvalue *) v {
+    
+    return [NSNumber numberWithInt: icalvalue_get_integer(v)];
     
 }
 

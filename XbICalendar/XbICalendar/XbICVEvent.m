@@ -55,18 +55,64 @@
     return (NSDate *)[((XbICProperty *)properties[0]) value];
     
 }
+-(NSNumber *) sequence {
+    NSArray * properties = [self propertiesOfKind:ICAL_SEQUENCE_PROPERTY];
+    if (properties.count != 1 ) {
+        NSLog(@"ICAL_SEQUENCE_PROPERTY");
+        return nil;
+    }
+    return (NSNumber *)[((XbICProperty *)properties[0]) value];
+    
+}
+-(NSString *) UID {
+    NSArray * properties = [self propertiesOfKind:ICAL_UID_PROPERTY];
+    if (properties.count != 1 ) {
+        NSLog(@"ICAL_UID_PROPERTY");
+        return nil;
+    }
+    return (NSString *)[((XbICProperty *)properties[0]) value];
+}
 
+-(NSString *) location {
+    NSArray * properties = [self propertiesOfKind:ICAL_LOCATION_PROPERTY];
+    if (properties.count != 1 ) {
+        NSLog(@"ICAL_LOCATION_PROPERTY");
+        return nil;
+    }
+    return (NSString *)[((XbICProperty *)properties[0]) value];
+}
+
+-(NSString *) summary {
+    NSArray * properties = [self propertiesOfKind:ICAL_SUMMARY_PROPERTY];
+    if (properties.count != 1 ) {
+        NSLog(@"ICAL_SUMMARY_PROPERTY");
+        return nil;
+    }
+    return (NSString *)[((XbICProperty *)properties[0]) value];
+}
+-(NSString *) status {
+    NSArray * properties = [self propertiesOfKind:ICAL_STATUS_PROPERTY];
+    if (properties.count != 1 ) {
+        NSLog(@"ICAL_STATUS_PROPERTY");
+        return nil;
+    }
+    return (NSString *)[((XbICProperty *)properties[0]) value];
+}
+-(NSString *) description {
+    NSArray * properties = [self propertiesOfKind:ICAL_DESCRIPTION_PROPERTY];
+    if (properties.count != 1 ) {
+        NSLog(@"ICAL_STATUS_PROPERTY");
+        return nil;
+    }
+    return (NSString *)[((XbICProperty *)properties[0]) value];
+}
 
 /*
-
- -(NSTimeZone *) timeZone;
+e;
  //-(XbICPerson *) organizer;
- -(NSString *) UID;
+
  -(NSArray *) Attendees;
- -(NSString *) location;
- -(NSNumber *) sequence;
- -(NSString *) status;
- -(NSString *) confirmed
+
  */
 
 @end
