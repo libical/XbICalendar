@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
   spec.license      = 'MIT'
   spec.authors      = { "Andrew Halls" => "andrew@galtsoft.com" }
   
-  spec.source       = { :git => "https://github.com/ahalls/XbICalendar", :tag => spec.version.to_s }
+  spec.source       = { :git => "https://github.com/ahalls/XbICalendar.git", :tag => spec.version.to_s }
   
   spec.requires_arc = true
   
@@ -18,5 +18,4 @@ Pod::Spec.new do |spec|
   spec.ios.vendored_libraries = 'libical/lib/libical.a'
   spec.ios.source_files       = 'libical', 'libical/src/**/*.h'
   
-
 end
