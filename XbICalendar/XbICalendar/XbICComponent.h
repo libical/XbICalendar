@@ -19,5 +19,7 @@
 
 - (NSArray *) componentsOfKind: (icalcomponent_kind) kind;
 
+-(instancetype) firstComponentOfKind: (icalcomponent_kind) kind;
+
 
 @end

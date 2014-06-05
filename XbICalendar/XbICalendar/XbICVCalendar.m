@@ -19,19 +19,23 @@
     
     XbICFile * file = [XbICFile fileWithPathname:pathname];
     
-    XbICVCalendar * vCalendar = (XbICVCalendar *) [file read];
+    XbICComponent *  component = (XbICVCalendar *) [file read];
     
-    if (vCalendar.kind != ICAL_VCALENDAR_COMPONENT) {
+    if (component.kind ==ICAL_XROOT_COMPONENT) {
+        component = [component firstComponentOfKind:ICAL_VCALENDAR_COMPONENT];
+    }
+    
+    if (component.kind != ICAL_VCALENDAR_COMPONENT) {
         NSLog(@"Unexpected Component in ICS File");
         return nil;
     }
 
-    if (![[vCalendar version] isEqualToString:@"2.0"] ) {
+    if (![[(XbICVCalendar *)component version] isEqualToString:@"2.0"] ) {
         NSLog(@"Unexpected ICS File Version");
         return nil;
     }
     
-    return vCalendar;
+    return (XbICVCalendar *) component;
 }
 
 

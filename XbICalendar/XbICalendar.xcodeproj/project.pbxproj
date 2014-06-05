@@ -29,14 +29,13 @@
 		F12F4E3C19346826003631C5 /* zoneinfo in Resources */ = {isa = PBXBuildFile; fileRef = F12F4E3B19346826003631C5 /* zoneinfo */; };
 		F12F4E3D19346826003631C5 /* zoneinfo in Resources */ = {isa = PBXBuildFile; fileRef = F12F4E3B19346826003631C5 /* zoneinfo */; };
 		F12F4E4119346A41003631C5 /* XbICComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4019346A41003631C5 /* XbICComponent.m */; };
-		F12F4E4219346A41003631C5 /* XbICComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4019346A41003631C5 /* XbICComponent.m */; };
-		F12F4E4519346AB6003631C5 /* XbICProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4419346AB6003631C5 /* XbICProperty.m */; };
-		F12F4E4619346AB6003631C5 /* XbICProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4419346AB6003631C5 /* XbICProperty.m */; };
 		F12F4E491935B259003631C5 /* XbICVCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E481935B259003631C5 /* XbICVCalendar.m */; };
-		F12F4E4A1935B259003631C5 /* XbICVCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E481935B259003631C5 /* XbICVCalendar.m */; };
 		F12F4E4D1935CF03003631C5 /* XbICVEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4C1935CF03003631C5 /* XbICVEvent.m */; };
-		F12F4E4E1935CF03003631C5 /* XbICVEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4C1935CF03003631C5 /* XbICVEvent.m */; };
 		F1DC7727193F208500DB07D4 /* XbICPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = F1DC7726193F208500DB07D4 /* XbICPerson.m */; };
+		F1F5D71419402CEA00D81F71 /* XbICFileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F5D71319402CEA00D81F71 /* XbICFileTableViewController.m */; };
+		F1F5D71519402E9700D81F71 /* invite.ics in Resources */ = {isa = PBXBuildFile; fileRef = F12F493419346287003631C5 /* invite.ics */; };
+		F1F5D71619402E9C00D81F71 /* 2445.ics in Resources */ = {isa = PBXBuildFile; fileRef = F12F492A19333E35003631C5 /* 2445.ics */; };
+		F1F5D7171940395A00D81F71 /* XbICProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4419346AB6003631C5 /* XbICProperty.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +86,8 @@
 		F12F4E4C1935CF03003631C5 /* XbICVEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICVEvent.m; sourceTree = "<group>"; };
 		F1DC7725193F208500DB07D4 /* XbICPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICPerson.h; sourceTree = "<group>"; };
 		F1DC7726193F208500DB07D4 /* XbICPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICPerson.m; sourceTree = "<group>"; };
+		F1F5D71219402CEA00D81F71 /* XbICFileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICFileTableViewController.h; sourceTree = "<group>"; };
+		F1F5D71319402CEA00D81F71 /* XbICFileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICFileTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,13 +151,15 @@
 		F12F48F519332EA4003631C5 /* XbICalendarExample */ = {
 			isa = PBXGroup;
 			children = (
+				F12F490119332EA4003631C5 /* Main.storyboard */,
+				F1F5D71119402C1C00D81F71 /* Resources */,
+				F12F48F619332EA4003631C5 /* Supporting Files */,
 				F12F48FE19332EA4003631C5 /* XbICAppDelegate.h */,
 				F12F48FF19332EA4003631C5 /* XbICAppDelegate.m */,
-				F12F490119332EA4003631C5 /* Main.storyboard */,
+				F1F5D71219402CEA00D81F71 /* XbICFileTableViewController.h */,
+				F1F5D71319402CEA00D81F71 /* XbICFileTableViewController.m */,
 				F12F490419332EA4003631C5 /* XbICViewController.h */,
 				F12F490519332EA4003631C5 /* XbICViewController.m */,
-				F12F490719332EA4003631C5 /* Images.xcassets */,
-				F12F48F619332EA4003631C5 /* Supporting Files */,
 			);
 			path = XbICalendarExample;
 			sourceTree = "<group>";
@@ -256,6 +259,14 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		F1F5D71119402C1C00D81F71 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F12F490719332EA4003631C5 /* Images.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,8 +346,10 @@
 			files = (
 				F12F4E3C19346826003631C5 /* zoneinfo in Resources */,
 				F12F490819332EA4003631C5 /* Images.xcassets in Resources */,
+				F1F5D71619402E9C00D81F71 /* 2445.ics in Resources */,
 				F12F48FA19332EA4003631C5 /* InfoPlist.strings in Resources */,
 				F12F490319332EA4003631C5 /* Main.storyboard in Resources */,
+				F1F5D71519402E9700D81F71 /* invite.ics in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,9 +373,10 @@
 			files = (
 				F12F4E4119346A41003631C5 /* XbICComponent.m in Sources */,
 				F12F490019332EA4003631C5 /* XbICAppDelegate.m in Sources */,
+				F1F5D7171940395A00D81F71 /* XbICProperty.m in Sources */,
 				F12F48FC19332EA4003631C5 /* main.m in Sources */,
+				F1F5D71419402CEA00D81F71 /* XbICFileTableViewController.m in Sources */,
 				F12F490619332EA4003631C5 /* XbICViewController.m in Sources */,
-				F12F4E4519346AB6003631C5 /* XbICProperty.m in Sources */,
 				F12F4E4D1935CF03003631C5 /* XbICVEvent.m in Sources */,
 				F12F4928193338CB003631C5 /* XbICFile.m in Sources */,
 				F12F4E491935B259003631C5 /* XbICVCalendar.m in Sources */,
@@ -374,11 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F12F4E4E1935CF03003631C5 /* XbICVEvent.m in Sources */,
-				F12F4E4A1935B259003631C5 /* XbICVCalendar.m in Sources */,
 				F12F491B19332EA5003631C5 /* XbICalendarTests.m in Sources */,
-				F12F4E4619346AB6003631C5 /* XbICProperty.m in Sources */,
-				F12F4E4219346A41003631C5 /* XbICComponent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

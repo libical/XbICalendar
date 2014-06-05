@@ -10,4 +10,6 @@
 
 @interface XbICViewController : UIViewController
 
+@property (nonatomic, strong) NSString * fileName;
+
 @end

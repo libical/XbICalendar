@@ -76,6 +76,9 @@
     if (self.icsFileRoot.kind == ICAL_VCALENDAR_COMPONENT) {
         result  = self.icsFileRoot;
     }
+    else if (self.icsFileRoot.kind == ICAL_VCALENDAR_COMPONENT){
+        
+    }
     else {
         NSLog(@"Empty ICS File or invalid component");
     }

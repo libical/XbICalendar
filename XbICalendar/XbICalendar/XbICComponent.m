@@ -106,6 +106,13 @@
     return results;
 }
 
+-(instancetype) firstComponentOfKind: (icalcomponent_kind) kind {
+    NSArray * results = [self  componentsOfKind: kind];
+    if (results.count > 0) {
+        return results[0];
+    }
+    return nil;
+}
 
 #pragma mark - NSObject Overides
 - (NSString *)description {
