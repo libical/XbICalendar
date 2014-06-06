@@ -15,6 +15,8 @@
 
 +(instancetype)componentWithIcalComponent: (icalcomponent *) c;
 
++(instancetype) componentWithString: (NSString *) content;
+
 - (NSArray *) propertiesOfKind: (icalproperty_kind) kind;
 
 - (NSArray *) componentsOfKind: (icalcomponent_kind) kind;

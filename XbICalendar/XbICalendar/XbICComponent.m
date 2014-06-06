@@ -82,6 +82,19 @@
     return component;
 }
 
++(instancetype) componentWithString: (NSString *) content {
+    icalcomponent *root = icalparser_parse_string([content cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+    XbICComponent * component;
+    
+    if (root) {
+        component = [XbICComponent componentWithIcalComponent: root];
+        
+        icalcomponent_free(root);
+    }
+    return component;
+}
+
 - (NSArray *) propertiesOfKind: (icalproperty_kind) kind {
     NSMutableArray * results =[[NSMutableArray alloc] init];
     

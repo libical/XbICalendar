@@ -1,12 +1,20 @@
 XbICalendar
 ===========
 
-Objective-C Wrapper for the libical library
+Easy to use Objective-C Wrapper for the libical library
 
 
 Status
 ------
-Just starting out.
+Barely usable for my project.  Need ideas and some help!  Have not published the podspec yet because we are not ready for the unawary. 
+
+
+Podfile Entry
+-------------
+'''
+pod 'XbICalendar', :podspec => 'https://raw.githubusercontent.com/ahalls/XbICalendar/master/XbICalendar.podspec'
+'''
+
 
 Process
 =======

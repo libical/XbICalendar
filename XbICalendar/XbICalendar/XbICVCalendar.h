@@ -7,6 +7,7 @@
 @interface XbICVCalendar : XbICComponent
 
 +(instancetype) vCalendarFromFile: (NSString *) pathname;
++(instancetype) vCalendarFromString: (NSString *) content;
 
 -(NSString *) version;
 -(NSString *) method;

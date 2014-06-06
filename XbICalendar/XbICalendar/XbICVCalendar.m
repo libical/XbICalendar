@@ -21,6 +21,20 @@
     
     XbICComponent *  component = (XbICVCalendar *) [file read];
     
+
+    
+    return [XbICVCalendar vCalendarfromCompnent:component];
+}
+
++(instancetype) vCalendarFromString: (NSString *) content {
+    
+    XbICComponent *  component  = [  XbICComponent componentWithString:content];
+    
+    return [XbICVCalendar vCalendarfromCompnent:component];
+    
+}
+
++(instancetype) vCalendarfromCompnent: (XbICComponent *) component {
     if (component.kind ==ICAL_XROOT_COMPONENT) {
         component = [component firstComponentOfKind:ICAL_VCALENDAR_COMPONENT];
     }
@@ -29,15 +43,13 @@
         NSLog(@"Unexpected Component in ICS File");
         return nil;
     }
-
+    
     if (![[(XbICVCalendar *)component version] isEqualToString:@"2.0"] ) {
         NSLog(@"Unexpected ICS File Version");
         return nil;
     }
-    
     return (XbICVCalendar *) component;
 }
-
 
 #pragma mark - Custom Accessors
 
