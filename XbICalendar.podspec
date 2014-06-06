@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "XbICalendar"
-  spec.version      = "0.1.0"
+  spec.version      = "0.1.1"
   spec.summary      = "XbICalendar is a easy-to-use, framework for iOS that wraps libical."
   spec.homepage     = "https://github.com/ahalls/XbICalendar"
   spec.license      = 'MIT'
