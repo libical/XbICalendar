@@ -5,6 +5,7 @@
 #import "XbICComponent.h"
 #import "XbICVCalendar.h"
 #import "XbICVEvent.h"
+#import "XbICZoneDirectory.h"
 
 
 @interface XbICComponent ()
@@ -17,7 +18,7 @@
 -(instancetype) init {
     self = [super init];
     if (self) {
-        
+        [XbICZoneDirectory sharedZoneDirectory];
     }
     return self;
 }

@@ -134,10 +134,39 @@
     XbICVCalendar * vCalendar =  [XbICVCalendar vCalendarFromString:testData];
     XCTAssertTrue([vCalendar.method isEqualToString:@"REQUEST"], @"");
     
-    NSArray * events = [vCalendar componentsOfKind:ICAL_VEVENT_COMPONENT];
-    XCTAssertEqual(events.count, 1, @"Expecting a single event");
     
-    XbICVEvent * event = events[0];
+    XbICVEvent * vEvent = (XbICVEvent *) [vCalendar firstComponentOfKind:ICAL_VEVENT_COMPONENT];
+    XCTAssertTrue([vEvent isKindOfClass:[XbICVEvent class]], @"");
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT: 0];
+    [dateFormatter setDateFormat:@"yyyyMMdd'T'HHmmss'Z'"];
+    
+    NSDate * date = [vEvent dateStart];
+    NSDate * dateReference = [dateFormatter dateFromString:@"20140609T151100"];
+    XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
+                               [dateReference timeIntervalSinceReferenceDate],0.001,@"");
+    
+    date = [vEvent dateEnd];
+    dateReference = [dateFormatter dateFromString:@"20140502T170000Z"];
+    XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
+                               [dateReference timeIntervalSinceReferenceDate],0.001,@"");
+    
+    date = [vEvent dateStamp];
+    dateReference = [dateFormatter dateFromString:@"20140606T091218Z"];
+    XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
+                               [dateReference timeIntervalSinceReferenceDate],0.001,@"");
+    date = [vEvent dateCreated];
+    dateReference = [dateFormatter dateFromString:@"20140501T205317Z"];
+    XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
+                               [dateReference timeIntervalSinceReferenceDate],0.001,@"");
+    
+    date = [vEvent dateLastModified];
+    dateReference = [dateFormatter dateFromString:@"20140501T205540Z"];
+    XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
+                               [dateReference timeIntervalSinceReferenceDate],0.001,@"");
+    
+
     
     
 }

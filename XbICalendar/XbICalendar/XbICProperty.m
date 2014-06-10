@@ -50,6 +50,8 @@
     XbICProperty * property = [XbICProperty propertyFactory:p];
     
     if (property) {
+        
+        property.parameters = [property parametersWithIcalProperty: p];
     
         property.kind = icalproperty_isa(p);
    
@@ -71,7 +73,7 @@
             case ICAL_MAXDATE_PROPERTY:
             case ICAL_MINDATE_PROPERTY:
             case ICAL_RECURRENCEID_PROPERTY:
-                property.value = [property dateFromValue: v];
+                property.value = [property dateFromValue: v parameters: property.parameters];
                 break;
                 
             case ICAL_SEQUENCE_PROPERTY:
@@ -89,7 +91,7 @@
         
     }
     
-    property.parameters = [property parametersWithIcalProperty: p];
+
     
     return property;
     
@@ -124,7 +126,7 @@
 
 #pragma mark - Value Primatives
 
--(NSDate *) dateFromValue: (icalvalue *) v {
+-(NSDate *) dateFromValue: (icalvalue *) v parameters: (NSArray *) parameters{
     struct icaltimetype t = icalvalue_get_datetime(v);
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -136,7 +138,15 @@
     [components setHour:t.hour];
     [components setMinute: t.minute];
     [components setSecond: t.second];
-    [components setTimeZone: (t.is_utc) ? [NSTimeZone timeZoneForSecondsFromGMT:0]: [NSTimeZone localTimeZone]];
+    const char * timezone = icaltimezone_get_tzid(t.zone);
+    if (t.is_utc) {
+        [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    }
+    else {
+  
+        [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    }
+
    
    // t.is_daylight
    // t.is_date

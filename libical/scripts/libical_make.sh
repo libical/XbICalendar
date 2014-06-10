@@ -6,9 +6,6 @@ set -o xtrace
 
 PATH="`xcode-select -print-path`/usr/bin:/usr/bin:/bin"
 
-# set the prefix
-PREFIX=${HOME}/Library/libical
-OUTPUTDIR=./lib
 
 if [ ! -n "$ARCH" ]; then
     export ARCH=armv7
@@ -55,12 +52,13 @@ fi
 echo "IOSROOT = $IOSROOT"
 
 # Set up relevant environment variables 
-export CPPFLAGS="-arch $ARCH -I$SDKROOT/usr/include $MIOS"
+export CPPFLAGS="-arch $ARCH -I$SDKROOT/usr/include $MIOS --debug"
 export CFLAGS="$CPPFLAGS -pipe -no-cpp-precomp -isysroot $SDKROOT "
 export CXXFLAGS="$CFLAGS"
 export LDFLAGS="-L$SDKROOT/usr/lib/ -arch $ARCH"
 
 export CLANG=$DEVROOT/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+
 
 export CC=$CLANG
 export CXX=$CLANG
@@ -92,29 +90,29 @@ then
         exit
 fi
 
-if [ -d $OUTPUTDIR/$ARCH ]
+if [ -d $OUTPUT_DIR/$ARCH ]
 then 
-       rm -rf $OUTPUTDIR/$ARCH
+       rm -rf $OUTPUT_DIR/$ARCH
 fi
 
 find ./src -name \*.a -exec rm {} \;
 make clean
 
 
-./configure --prefix=$PREFIX --disable-dependency-tracking --host $HOST CXX=$CXX CC=$CC LD=$LD AR=$AR AS=$AS LIBTOOL=$LIBTOOL STRIP=$STRIP RANLIB=$RANLIB
+./configure --prefix="$OUTPUT_DIR" --disable-dependency-tracking --host $HOST CXX=$CXX CC=$CC LD=$LD AR=$AR AS=$AS LIBTOOL=$LIBTOOL STRIP=$STRIP RANLIB=$RANLIB
 
 make -j4
 
 # copy the files to the arch folder
 
-mkdir -p $OUTPUTDIR
-mkdir -p $OUTPUTDIR/$ARCH
+mkdir -p $OUTPUT_DIR
+mkdir -p $OUTPUT_DIR/$ARCH
 
-cp `find . -name \*.a` $OUTPUTDIR/$ARCH/
-cp config.log $OUTPUTDIR/$ARCH/config.log
+cp `find . -name \*.a` $OUTPUT_DIR/$ARCH/
+cp config.log $OUTPUT_DIR/$ARCH/config.log
 
-$LIPO -info $OUTPUTDIR/$ARCH/*.a
+$LIPO -info $OUTPUT_DIR/$ARCH/*.a
 
 echo $ARCH DONE
 
-echo "See $OUTPUTDIR"
+echo "See $OUTPUT_DIR"

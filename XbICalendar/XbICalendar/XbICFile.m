@@ -22,9 +22,6 @@
     if (self) {
         self.pathname = pathname;
     
-        NSBundle *pluginBundle = [NSBundle bundleForClass: [XbICFile class]];
-        NSString *zoneinfoPath = [NSString stringWithFormat: @"%@/zoneinfo", [pluginBundle resourcePath]];
-        set_zone_directory((char *)[zoneinfoPath cStringUsingEncoding:NSUTF8StringEncoding]);
         
         //TODO: Need to check this is configured properly
         

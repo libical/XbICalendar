@@ -6,10 +6,13 @@ set -o xtrace
 BUILD_DIR=$(dirname "${0}")/../build
 pushd $BUILD_DIR > /dev/null
 WORKING_DIR=`pwd`
+export OUTPUT_DIR="$WORKING_DIR/output"
+mkdir -p $OUTPUT_DIR
+
 SCRIPTS_DIR=$WORKING_DIR/../scripts
 echo "WORKING_DIR : $WORKING_DIR"
 echo "SCRIPTS_DIR : $SCRIPTS_DIR"
-
+echo "OUTPUT_DIR  : $OUTPUT_DIR"
 LIPO="xcrun -sdk iphoneos lipo"
 
 # Download the lastest build Tools
@@ -43,36 +46,51 @@ LIBRARY_TARBALL="libical.tar.gz"
 if [ ! -e  ./$LIBRARY_TARBALL ]; then
   LIBRARY_DISTRO_URL="http://downloads.sourceforge.net/project/freeassociation/libical/libical-1.0/libical-1.0.tar.gz"
 
-
   curl -L  $LIBRARY_DISTRO_URL -o $LIBRARY_TARBALL
   gunzip -c $LIBRARY_TARBALL| tar xopf -
 fi
 
+
 LIBRARY_DIR="libical-1.0"
 pushd $LIBRARY_DIR > /dev/null
-export OUTPUTDIR="./lib"
+
+
 
 ./bootstrap
+./configure --prefix="$OUTPUT_DIR"
 
-ARCH=armv7 $SCRIPTS_DIR/libical_make.sh
-ARCH=armv7s $SCRIPTS_DIR/libical_make.sh
-ARCH=arm64 $SCRIPTS_DIR/libical_make.sh
-ARCH=i386 $SCRIPTS_DIR/libical_make.sh
-ARCH=x86_64 $SCRIPTS_DIR/libical_make.sh
+archList=( armv7 armv7s arm64 i386 x86_64 )
+for AA in "${archList[@]}"
+do
+    ARCH="$AA" $SCRIPTS_DIR/libical_make.sh
+done
 
 # build up fat library
 $LIPO \
-    -arch arm64  $OUTPUTDIR/arm64/libical.a \
-    -arch armv7  $OUTPUTDIR/armv7/libical.a \
-    -arch armv7s $OUTPUTDIR/armv7s/libical.a \
-    -arch i386 $OUTPUTDIR/i386/libical.a \
-    -create -output $OUTPUTDIR/libical.a
+    -arch arm64  $OUTPUT_DIR/arm64/libical.a \
+    -arch armv7  $OUTPUT_DIR/armv7/libical.a \
+    -arch armv7s $OUTPUT_DIR/armv7s/libical.a \
+    -arch x86_64 $OUTPUT_DIR/x86_64/libical.a \
+    -arch i386 $OUTPUT_DIR/i386/libical.a \
+    -create -output $OUTPUT_DIR/libical.a
 
 #  x86_64 is failing in the configuration step
-#    -arch x86_64 $OUTPUTDIR/x86_64/libical-static.a \
 
-cp  $OUTPUTDIR/libical.a ../../lib
-cp  ./src/libical/ical.h ../../src/include
+
+# make zoneinfo directory
+# This isn't 
+pushd zoneinfo
+  make install
+
+popd  >/dev/null
+
+# Move things to their final place
+mkdir -p ../../lib
+cp -f $OUTPUT_DIR/libical.a ../../lib
+mkidr - p ../../src/include
+cp  -f ./src/libical/ical.h ../../src/include
+rm -rf ../../zoneinfo
+mv  $OUTPUT_DIR/share/libical/zoneinfo ../../zoneinfo
 
 # Return to previous working directory
 popd  > /dev/null
