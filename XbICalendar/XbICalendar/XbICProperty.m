@@ -126,7 +126,7 @@
 
 #pragma mark - Value Primatives
 
--(NSDate *) dateFromValue: (icalvalue *) v parameters: (NSArray *) parameters{
+-(NSDate *) dateFromValue: (icalvalue *) v parameters: (NSDictionary *) parameters{
     struct icaltimetype t = icalvalue_get_datetime(v);
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -138,13 +138,21 @@
     [components setHour:t.hour];
     [components setMinute: t.minute];
     [components setSecond: t.second];
-    const char * timezone = icaltimezone_get_tzid(t.zone);
+    
     if (t.is_utc) {
         [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     }
     else {
-  
-        [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        NSString * tzid = parameters[@"TZID"];
+        if (tzid) {
+            NSTimeZone * tz = [NSTimeZone timeZoneWithName:tzid];
+            [components setTimeZone: tz];
+        }
+        else {
+            [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+            
+        }
     }
 
    

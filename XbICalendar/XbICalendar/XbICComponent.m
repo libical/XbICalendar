@@ -15,13 +15,11 @@
 
 @implementation XbICComponent
 
--(instancetype) init {
-    self = [super init];
-    if (self) {
-        [XbICZoneDirectory sharedZoneDirectory];
-    }
-    return self;
++(void) initialize {
+            [XbICZoneDirectory sharedZoneDirectory];
 }
+
+
 
 + (instancetype) componentFactory: (icalcomponent *) c {
     XbICComponent * component;
