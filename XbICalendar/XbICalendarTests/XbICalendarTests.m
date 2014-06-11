@@ -151,21 +151,27 @@
                                [dateReference timeIntervalSinceReferenceDate],0.001,@"");
     
     date = [vEvent dateEnd];
-    dateReference = [dateFormatter dateFromString:@"20140502T170000Z"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"America/Los_Angeles"]];
+    dateReference = [dateFormatter dateFromString:@"20140609T161100"];
     XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
                                [dateReference timeIntervalSinceReferenceDate],0.001,@"");
     
     date = [vEvent dateStamp];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     dateReference = [dateFormatter dateFromString:@"20140606T091218Z"];
+
     XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
                                [dateReference timeIntervalSinceReferenceDate],0.001,@"");
+    
     date = [vEvent dateCreated];
-    dateReference = [dateFormatter dateFromString:@"20140501T205317Z"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    dateReference = [dateFormatter dateFromString:@"20140606T091133Z"];
     XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
                                [dateReference timeIntervalSinceReferenceDate],0.001,@"");
     
     date = [vEvent dateLastModified];
-    dateReference = [dateFormatter dateFromString:@"20140501T205540Z"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    dateReference = [dateFormatter dateFromString:@"20140606T091147Z"];
     XCTAssertEqualWithAccuracy([date timeIntervalSinceReferenceDate],
                                [dateReference timeIntervalSinceReferenceDate],0.001,@"");
     
