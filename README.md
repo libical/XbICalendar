@@ -14,10 +14,10 @@ Barely usable for my project.  Need ideas and some help!  Have not published the
 Podfile entry:
 
 ```
-pod 'XbICalendar', :podspec => 'https://raw.githubusercontent.com/ahalls/XbICalendar/master/XbICalendar.podspec'
+pod 'XbICalendar', :podspec => 'https://raw.githubusercontent.com/libical/XbICalendar/master/XbICalendar.podspec'
 ```
 ### Import the Header files into your project source files
-Add '#import "XbICalendar.h"'
+Add `#import "XbICalendar.h"`
 
 ### Example Usage
 ```objc
