@@ -1,35 +1,20 @@
-The MIT License (MIT)
+To match the license of libical, XbICalendar is distributed under two licenses.
 
-Copyright (c) 2014 GaltSoft, LLC,  Eagle, CO USA
+You may choose the terms of either:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ * The Mozilla Public License (MPL) v1.0
+ 
+ or
+ 
+ * The GNU Library General Public License (LGPL) v2.1
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+----------------------------------------------------------------------
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Software distributed under these licenses is distributed on an "AS
+IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+implied. See the License for the specific language governing rights
+and limitations under the License.
+Libical is distributed under both the LGPL and the MPL. The MPL
+notice, reproduced below, covers the use of either of the licenses. 
 
-—-
-LibIcal License
-
-The code and datafiles in this distribution are licensed under the
-Mozilla Public License. See http://www.mozilla.org/NPL/MPL-1.0.html
-for a copy of the license. Alternately, you may use libical under
-the terms of the GNU Library General Public License. See
-http://www.fsf.org/copyleft/lesser.html for a copy of the LGPL.
-
-This dual license ensures that the library can be incorporated into
-both proprietary code and GPL'd programs, and will benefit from improvements
-made by programmers in both realms. I will only accept changes into
-my version of the library if they are similarly dual-licensed.
+----------------------------------------------------------------------
