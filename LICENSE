@@ -1,6 +1,6 @@
-To match the license of libical, XbICalendar is distributed under two licenses.
 
-You may choose the terms of either:
+Calendar is distributed under two licenses. The same as the underlying 
+libical project.
 
  * The Mozilla Public License (MPL) v1.0
  
