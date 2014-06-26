@@ -8,19 +8,36 @@ Status
 ------
 Barely usable for my project.  Need ideas and some help!  Have not published the podspec yet because we are not ready for the unawary. 
 
+## Installation
 
-Podfile Entry
--------------
+### Cocoapods
+Podfile entry:
+
 '''
 pod 'XbICalendar', :podspec => 'https://raw.githubusercontent.com/ahalls/XbICalendar/master/XbICalendar.podspec'
 '''
+### Import the Header files into your project source files
+Add '#import "XbICalendar.h"'
 
+### Example Usage
+'''objc
+#import "XBICalendar.h"
+...
+    NSString *path = [bundle pathForResource:@"invite" ofType:@"ics"];
+    XbICVCalendar * vCalendar =  [XbICVCalendar vCalendarFromFile:path];
+    
+    NSArray * events = [vCalendar componentsOfKind:ICAL_VEVENT_COMPONENT];
+    XbICVEvent * event = events[0];
+  
+    NSString description = [event description];
 
-Process
-=======
-1) Automatic Build of libical library of iOS and OSX
-2) Cocoapod spec file
-3) Minimual Objective-C Interface
+ '''
+
+## Guidelines for contributions
+
+* Fork XbICalendar and create a feature branch. Develop your feature.
+* Open a pull request.
+
 
 License
 =======
