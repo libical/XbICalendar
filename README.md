@@ -13,14 +13,14 @@ Barely usable for my project.  Need ideas and some help!  Have not published the
 ### Cocoapods
 Podfile entry:
 
-'''
+```
 pod 'XbICalendar', :podspec => 'https://raw.githubusercontent.com/ahalls/XbICalendar/master/XbICalendar.podspec'
-'''
+```
 ### Import the Header files into your project source files
 Add '#import "XbICalendar.h"'
 
 ### Example Usage
-'''objc
+```objc
 #import "XBICalendar.h"
 ...
     NSString *path = [bundle pathForResource:@"invite" ofType:@"ics"];
@@ -31,7 +31,7 @@ Add '#import "XbICalendar.h"'
   
     NSString description = [event description];
 
- '''
+``` 
 
 ## Guidelines for contributions
 
