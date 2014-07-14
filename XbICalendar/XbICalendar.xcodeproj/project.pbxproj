@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DAE352B19720D050097A2D6 /* 2446.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE352A19720D050097A2D6 /* 2446.ics */; };
+		4DAE352E19721C9C0097A2D6 /* XbICalendarIcsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE352D19721C9C0097A2D6 /* XbICalendarIcsTest.m */; };
+		4DAE3530197221770097A2D6 /* XbICalendar2446Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE352F197221770097A2D6 /* XbICalendar2446Tests.m */; };
+		4DAE3532197370380097A2D6 /* calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3531197370380097A2D6 /* calendar.ics */; };
+		4DAE3534197370580097A2D6 /* XbICalendarCalendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE3533197370580097A2D6 /* XbICalendarCalendarTests.m */; };
+		4DAE3536197379190097A2D6 /* classify.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3535197379190097A2D6 /* classify.ics */; };
+		4DAE3538197379920097A2D6 /* XbICalendarClassifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE3537197379920097A2D6 /* XbICalendarClassifyTests.m */; };
+		4DAE353A19737C660097A2D6 /* incoming.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE353919737C660097A2D6 /* incoming.ics */; };
+		4DAE353C19737D1D0097A2D6 /* XbICalendarIncomingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE353B19737D1D0097A2D6 /* XbICalendarIncomingTests.m */; };
 		F12F48F019332EA4003631C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48EF19332EA4003631C5 /* Foundation.framework */; };
 		F12F48F219332EA4003631C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48F119332EA4003631C5 /* CoreGraphics.framework */; };
 		F12F48F419332EA4003631C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48F319332EA4003631C5 /* UIKit.framework */; };
@@ -49,6 +58,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4DAE352A19720D050097A2D6 /* 2446.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2446.ics; sourceTree = "<group>"; };
+		4DAE352C19721C9C0097A2D6 /* XbICalendarIcsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICalendarIcsTest.h; sourceTree = "<group>"; };
+		4DAE352D19721C9C0097A2D6 /* XbICalendarIcsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarIcsTest.m; sourceTree = "<group>"; };
+		4DAE352F197221770097A2D6 /* XbICalendar2446Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendar2446Tests.m; sourceTree = "<group>"; };
+		4DAE3531197370380097A2D6 /* calendar.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calendar.ics; sourceTree = "<group>"; };
+		4DAE3533197370580097A2D6 /* XbICalendarCalendarTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarCalendarTests.m; sourceTree = "<group>"; };
+		4DAE3535197379190097A2D6 /* classify.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = classify.ics; sourceTree = "<group>"; };
+		4DAE3537197379920097A2D6 /* XbICalendarClassifyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarClassifyTests.m; sourceTree = "<group>"; };
+		4DAE353919737C660097A2D6 /* incoming.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = incoming.ics; sourceTree = "<group>"; };
+		4DAE353B19737D1D0097A2D6 /* XbICalendarIncomingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarIncomingTests.m; sourceTree = "<group>"; };
 		F12F48EC19332EA4003631C5 /* XbICalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XbICalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12F48EF19332EA4003631C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F12F48F119332EA4003631C5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -179,9 +198,15 @@
 		F12F491419332EA5003631C5 /* XbICalendarTests */ = {
 			isa = PBXGroup;
 			children = (
-				F12F492919333E1A003631C5 /* TestData */,
-				F12F491A19332EA5003631C5 /* XbICalendarTests.m */,
 				F12F491519332EA5003631C5 /* Supporting Files */,
+				F12F492919333E1A003631C5 /* TestData */,
+				4DAE352C19721C9C0097A2D6 /* XbICalendarIcsTest.h */,
+				4DAE352D19721C9C0097A2D6 /* XbICalendarIcsTest.m */,
+				F12F491A19332EA5003631C5 /* XbICalendarTests.m */,
+				4DAE352F197221770097A2D6 /* XbICalendar2446Tests.m */,
+				4DAE3533197370580097A2D6 /* XbICalendarCalendarTests.m */,
+				4DAE3537197379920097A2D6 /* XbICalendarClassifyTests.m */,
+				4DAE353B19737D1D0097A2D6 /* XbICalendarIncomingTests.m */,
 			);
 			path = XbICalendarTests;
 			sourceTree = "<group>";
@@ -221,8 +246,12 @@
 		F12F492919333E1A003631C5 /* TestData */ = {
 			isa = PBXGroup;
 			children = (
-				F12F493419346287003631C5 /* invite.ics */,
 				F12F492A19333E35003631C5 /* 2445.ics */,
+				4DAE352A19720D050097A2D6 /* 2446.ics */,
+				4DAE3531197370380097A2D6 /* calendar.ics */,
+				4DAE3535197379190097A2D6 /* classify.ics */,
+				4DAE353919737C660097A2D6 /* incoming.ics */,
+				F12F493419346287003631C5 /* invite.ics */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -361,7 +390,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12F4E3D19346826003631C5 /* zoneinfo in Resources */,
+				4DAE352B19720D050097A2D6 /* 2446.ics in Resources */,
 				F12F492B19333E35003631C5 /* 2445.ics in Resources */,
+				4DAE3536197379190097A2D6 /* classify.ics in Resources */,
+				4DAE3532197370380097A2D6 /* calendar.ics in Resources */,
+				4DAE353A19737C660097A2D6 /* incoming.ics in Resources */,
 				F12F491919332EA5003631C5 /* InfoPlist.strings in Resources */,
 				F12F493519346287003631C5 /* invite.ics in Resources */,
 			);
@@ -393,6 +426,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12F491B19332EA5003631C5 /* XbICalendarTests.m in Sources */,
+				4DAE353C19737D1D0097A2D6 /* XbICalendarIncomingTests.m in Sources */,
+				4DAE352E19721C9C0097A2D6 /* XbICalendarIcsTest.m in Sources */,
+				4DAE3538197379920097A2D6 /* XbICalendarClassifyTests.m in Sources */,
+				4DAE3530197221770097A2D6 /* XbICalendar2446Tests.m in Sources */,
+				4DAE3534197370580097A2D6 /* XbICalendarCalendarTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +553,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/ahalls/Work/github/XbICalendar/libical/lib,
+					"$(SRCROOT)/../libical/lib",
 				);
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -534,7 +572,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/ahalls/Work/github/XbICalendar/libical/lib,
+					"$(SRCROOT)/../libical/lib",
 				);
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -560,7 +598,7 @@
 				INFOPLIST_FILE = "XbICalendarTests/XbICalendarTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/ahalls/Work/github/XbICalendar/libical/lib,
+					"$(SRCROOT)/../libical/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -582,7 +620,7 @@
 				INFOPLIST_FILE = "XbICalendarTests/XbICalendarTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/ahalls/Work/github/XbICalendar/libical/lib,
+					"$(SRCROOT)/../libical/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
