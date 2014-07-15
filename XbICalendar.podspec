@@ -2,11 +2,11 @@ Pod::Spec.new do |spec|
   spec.name         = "XbICalendar"
   spec.version      = "0.1.3"
   spec.summary      = "XbICalendar is a easy-to-use, framework for iOS that wraps libical."
-  spec.homepage     = "https://github.com/ahalls/XbICalendar"
+  spec.homepage     = "https://github.com/libical/XbICalendar"
   spec.license      = 'MPL or LGPL'
   spec.authors      = { "Andrew Halls" => "andrew@galtsoft.com" }
   
-  spec.source       = { :git => "https://github.com/ahalls/XbICalendar.git", :tag => spec.version.to_s }
+  spec.source       = { :git => "https://github.com/libical/XbICalendar.git", :tag => spec.version.to_s }
   
   spec.requires_arc = true
   
