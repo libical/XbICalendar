@@ -33,14 +33,14 @@
 
 - (void)test_event_with_organizer
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:0];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
     
     XCTAssertEqualObjects([[vEvent organizer] emailAddress], @"Mailto:B@example.com", @"Unexpected event organizer");
 }
 
 - (void)test_event_with_start_date
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:0];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
     
     [self assertUtcDateString:@"19970701T190000Z"
                 isEqualToDate:[vEvent dateStart]
@@ -49,7 +49,7 @@
 
 - (void)test_event_with_end_date
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:0];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
     
     [self assertUtcDateString:@"19970701T193000Z"
                 isEqualToDate:[vEvent dateEnd]
@@ -58,7 +58,7 @@
 
 - (void)test_event_with_timestamp
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:0];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
     
     [self assertUtcDateString:@"19970611T190000Z"
                 isEqualToDate:[vEvent dateStamp]
@@ -67,35 +67,35 @@
 
 - (void)test_event_with_summary
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:1];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:1];
     
-    XCTAssertEqualObjects([vEvent summary], @"Phone Conference");
+    XCTAssertEqualObjects([vEvent summary], @"Phone Conference", @"event summary is incorrect");
 }
 
 - (void)test_event_with_uid
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:0];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
     
     XCTAssertEqualObjects([vEvent UID], @"calsrv.example.com-873970198738777@example.com", @"Unexpected event UID");
 }
 
 - (void)test_event_with_sequence
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:2];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:2];
     
     XCTAssertEqual([vEvent sequence], @2, @"Unexpected sequence");
 }
 
 - (void)test_event_with_status
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:0];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
     
     XCTAssertEqualObjects([vEvent status], @"CONFIRMED", @"Unexpected status");
 }
 
 - (void)test_event_with_attendees
 {
-    XbICVEvent * vEvent = [self eventAtIndex:0 ofCalendarAtIndex:0];
+    XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
     NSArray * attendees = [vEvent attendees];
     XCTAssertEqual([attendees count], 6, @"Expected 6 attendees");
     

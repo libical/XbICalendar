@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0767EC197ADF440017ED72 /* overlaps.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4D0767EB197ADF440017ED72 /* overlaps.ics */; };
+		4D0767EE197ADF5C0017ED72 /* XbICalendarOverlapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0767ED197ADF5C0017ED72 /* XbICalendarOverlapTests.m */; };
+		4D0767F0197AE41A0017ED72 /* process-calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4D0767EF197AE41A0017ED72 /* process-calendar.ics */; };
+		4D0767F2197AE4470017ED72 /* XbICalendarProcessCalendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0767F1197AE4470017ED72 /* XbICalendarProcessCalendarTests.m */; };
+		4D0767F4197AFE200017ED72 /* process-incoming.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4D0767F3197AFE200017ED72 /* process-incoming.ics */; };
+		4D0767F6197AFE5F0017ED72 /* XbICalendarProcessIncomingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0767F5197AFE5F0017ED72 /* XbICalendarProcessIncomingTests.m */; };
+		4DA795251979F12E0033A008 /* large.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DA795241979F12E0033A008 /* large.ics */; };
+		4DA795271979F1460033A008 /* XbICalendarLargeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA795261979F1460033A008 /* XbICalendarLargeTests.m */; };
 		4DAE352B19720D050097A2D6 /* 2446.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE352A19720D050097A2D6 /* 2446.ics */; };
 		4DAE352E19721C9C0097A2D6 /* XbICalendarIcsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE352D19721C9C0097A2D6 /* XbICalendarIcsTest.m */; };
 		4DAE3530197221770097A2D6 /* XbICalendar2446Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE352F197221770097A2D6 /* XbICalendar2446Tests.m */; };
@@ -16,6 +24,16 @@
 		4DAE3538197379920097A2D6 /* XbICalendarClassifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE3537197379920097A2D6 /* XbICalendarClassifyTests.m */; };
 		4DAE353A19737C660097A2D6 /* incoming.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE353919737C660097A2D6 /* incoming.ics */; };
 		4DAE353C19737D1D0097A2D6 /* XbICalendarIncomingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE353B19737D1D0097A2D6 /* XbICalendarIncomingTests.m */; };
+		4DC71123197B00B5003D4962 /* restriction.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DC71122197B00B5003D4962 /* restriction.ics */; };
+		4DC71125197B00CA003D4962 /* XbICalendarRestrictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71124197B00CA003D4962 /* XbICalendarRestrictionTests.m */; };
+		4DC71129197B32C3003D4962 /* smallcluster.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DC71126197B32C3003D4962 /* smallcluster.ics */; };
+		4DC7112A197B32C3003D4962 /* spanlist.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DC71127197B32C3003D4962 /* spanlist.ics */; };
+		4DC7112B197B32C3003D4962 /* stresstest.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DC71128197B32C3003D4962 /* stresstest.ics */; };
+		4DC7112D197B32DC003D4962 /* XbICalendarSmallClusterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7112C197B32DC003D4962 /* XbICalendarSmallClusterTests.m */; };
+		4DC7112F197B32EC003D4962 /* XbICalendarSpanListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC7112E197B32EC003D4962 /* XbICalendarSpanListTests.m */; };
+		4DC71131197B32FA003D4962 /* XbICalendarStressTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */; };
+		4DC71133197B3F27003D4962 /* XbICalendarInviteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */; };
+		4DC71135197B4A6A003D4962 /* XbICalendar2445Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */; };
 		F12F48F019332EA4003631C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48EF19332EA4003631C5 /* Foundation.framework */; };
 		F12F48F219332EA4003631C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48F119332EA4003631C5 /* CoreGraphics.framework */; };
 		F12F48F419332EA4003631C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48F319332EA4003631C5 /* UIKit.framework */; };
@@ -29,7 +47,7 @@
 		F12F491019332EA5003631C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48EF19332EA4003631C5 /* Foundation.framework */; };
 		F12F491119332EA5003631C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48F319332EA4003631C5 /* UIKit.framework */; };
 		F12F491919332EA5003631C5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F12F491719332EA5003631C5 /* InfoPlist.strings */; };
-		F12F491B19332EA5003631C5 /* XbICalendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F491A19332EA5003631C5 /* XbICalendarTests.m */; };
+		F12F491B19332EA5003631C5 /* XbICalendarInMemoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F491A19332EA5003631C5 /* XbICalendarInMemoryTests.m */; };
 		F12F4928193338CB003631C5 /* XbICFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4927193338CB003631C5 /* XbICFile.m */; };
 		F12F492B19333E35003631C5 /* 2445.ics in Resources */ = {isa = PBXBuildFile; fileRef = F12F492A19333E35003631C5 /* 2445.ics */; };
 		F12F493519346287003631C5 /* invite.ics in Resources */ = {isa = PBXBuildFile; fileRef = F12F493419346287003631C5 /* invite.ics */; };
@@ -58,6 +76,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D0767EB197ADF440017ED72 /* overlaps.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = overlaps.ics; sourceTree = "<group>"; };
+		4D0767ED197ADF5C0017ED72 /* XbICalendarOverlapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarOverlapTests.m; sourceTree = "<group>"; };
+		4D0767EF197AE41A0017ED72 /* process-calendar.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "process-calendar.ics"; sourceTree = "<group>"; };
+		4D0767F1197AE4470017ED72 /* XbICalendarProcessCalendarTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarProcessCalendarTests.m; sourceTree = "<group>"; };
+		4D0767F3197AFE200017ED72 /* process-incoming.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "process-incoming.ics"; sourceTree = "<group>"; };
+		4D0767F5197AFE5F0017ED72 /* XbICalendarProcessIncomingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarProcessIncomingTests.m; sourceTree = "<group>"; };
+		4DA795241979F12E0033A008 /* large.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = large.ics; sourceTree = "<group>"; };
+		4DA795261979F1460033A008 /* XbICalendarLargeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarLargeTests.m; sourceTree = "<group>"; };
 		4DAE352A19720D050097A2D6 /* 2446.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2446.ics; sourceTree = "<group>"; };
 		4DAE352C19721C9C0097A2D6 /* XbICalendarIcsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICalendarIcsTest.h; sourceTree = "<group>"; };
 		4DAE352D19721C9C0097A2D6 /* XbICalendarIcsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarIcsTest.m; sourceTree = "<group>"; };
@@ -68,6 +94,16 @@
 		4DAE3537197379920097A2D6 /* XbICalendarClassifyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarClassifyTests.m; sourceTree = "<group>"; };
 		4DAE353919737C660097A2D6 /* incoming.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = incoming.ics; sourceTree = "<group>"; };
 		4DAE353B19737D1D0097A2D6 /* XbICalendarIncomingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarIncomingTests.m; sourceTree = "<group>"; };
+		4DC71122197B00B5003D4962 /* restriction.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = restriction.ics; sourceTree = "<group>"; };
+		4DC71124197B00CA003D4962 /* XbICalendarRestrictionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarRestrictionTests.m; sourceTree = "<group>"; };
+		4DC71126197B32C3003D4962 /* smallcluster.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = smallcluster.ics; sourceTree = "<group>"; };
+		4DC71127197B32C3003D4962 /* spanlist.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spanlist.ics; sourceTree = "<group>"; };
+		4DC71128197B32C3003D4962 /* stresstest.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stresstest.ics; sourceTree = "<group>"; };
+		4DC7112C197B32DC003D4962 /* XbICalendarSmallClusterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarSmallClusterTests.m; sourceTree = "<group>"; };
+		4DC7112E197B32EC003D4962 /* XbICalendarSpanListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarSpanListTests.m; sourceTree = "<group>"; };
+		4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarStressTestTests.m; sourceTree = "<group>"; };
+		4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteTests.m; sourceTree = "<group>"; };
+		4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendar2445Tests.m; sourceTree = "<group>"; };
 		F12F48EC19332EA4003631C5 /* XbICalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XbICalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12F48EF19332EA4003631C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F12F48F119332EA4003631C5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -86,7 +122,7 @@
 		F12F490E19332EA5003631C5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		F12F491619332EA5003631C5 /* XbICalendarTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XbICalendarTests-Info.plist"; sourceTree = "<group>"; };
 		F12F491819332EA5003631C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F12F491A19332EA5003631C5 /* XbICalendarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XbICalendarTests.m; sourceTree = "<group>"; };
+		F12F491A19332EA5003631C5 /* XbICalendarInMemoryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInMemoryTests.m; sourceTree = "<group>"; };
 		F12F492519333899003631C5 /* XbICalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XbICalendar.h; sourceTree = "<group>"; };
 		F12F4926193338CB003631C5 /* XbICFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICFile.h; sourceTree = "<group>"; };
 		F12F4927193338CB003631C5 /* XbICFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICFile.m; sourceTree = "<group>"; };
@@ -200,13 +236,23 @@
 			children = (
 				F12F491519332EA5003631C5 /* Supporting Files */,
 				F12F492919333E1A003631C5 /* TestData */,
-				4DAE352C19721C9C0097A2D6 /* XbICalendarIcsTest.h */,
-				4DAE352D19721C9C0097A2D6 /* XbICalendarIcsTest.m */,
-				F12F491A19332EA5003631C5 /* XbICalendarTests.m */,
+				4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */,
 				4DAE352F197221770097A2D6 /* XbICalendar2446Tests.m */,
 				4DAE3533197370580097A2D6 /* XbICalendarCalendarTests.m */,
 				4DAE3537197379920097A2D6 /* XbICalendarClassifyTests.m */,
+				4DAE352C19721C9C0097A2D6 /* XbICalendarIcsTest.h */,
+				4DAE352D19721C9C0097A2D6 /* XbICalendarIcsTest.m */,
 				4DAE353B19737D1D0097A2D6 /* XbICalendarIncomingTests.m */,
+				F12F491A19332EA5003631C5 /* XbICalendarInMemoryTests.m */,
+				4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */,
+				4DA795261979F1460033A008 /* XbICalendarLargeTests.m */,
+				4D0767ED197ADF5C0017ED72 /* XbICalendarOverlapTests.m */,
+				4D0767F1197AE4470017ED72 /* XbICalendarProcessCalendarTests.m */,
+				4D0767F5197AFE5F0017ED72 /* XbICalendarProcessIncomingTests.m */,
+				4DC71124197B00CA003D4962 /* XbICalendarRestrictionTests.m */,
+				4DC7112C197B32DC003D4962 /* XbICalendarSmallClusterTests.m */,
+				4DC7112E197B32EC003D4962 /* XbICalendarSpanListTests.m */,
+				4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */,
 			);
 			path = XbICalendarTests;
 			sourceTree = "<group>";
@@ -252,6 +298,14 @@
 				4DAE3535197379190097A2D6 /* classify.ics */,
 				4DAE353919737C660097A2D6 /* incoming.ics */,
 				F12F493419346287003631C5 /* invite.ics */,
+				4DA795241979F12E0033A008 /* large.ics */,
+				4D0767EB197ADF440017ED72 /* overlaps.ics */,
+				4D0767EF197AE41A0017ED72 /* process-calendar.ics */,
+				4D0767F3197AFE200017ED72 /* process-incoming.ics */,
+				4DC71122197B00B5003D4962 /* restriction.ics */,
+				4DC71126197B32C3003D4962 /* smallcluster.ics */,
+				4DC71127197B32C3003D4962 /* spanlist.ics */,
+				4DC71128197B32C3003D4962 /* stresstest.ics */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -389,14 +443,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DC71123197B00B5003D4962 /* restriction.ics in Resources */,
 				F12F4E3D19346826003631C5 /* zoneinfo in Resources */,
 				4DAE352B19720D050097A2D6 /* 2446.ics in Resources */,
+				4DA795251979F12E0033A008 /* large.ics in Resources */,
+				4DC71129197B32C3003D4962 /* smallcluster.ics in Resources */,
 				F12F492B19333E35003631C5 /* 2445.ics in Resources */,
 				4DAE3536197379190097A2D6 /* classify.ics in Resources */,
+				4DC7112A197B32C3003D4962 /* spanlist.ics in Resources */,
+				4D0767F4197AFE200017ED72 /* process-incoming.ics in Resources */,
 				4DAE3532197370380097A2D6 /* calendar.ics in Resources */,
 				4DAE353A19737C660097A2D6 /* incoming.ics in Resources */,
+				4D0767EC197ADF440017ED72 /* overlaps.ics in Resources */,
+				4D0767F0197AE41A0017ED72 /* process-calendar.ics in Resources */,
 				F12F491919332EA5003631C5 /* InfoPlist.strings in Resources */,
 				F12F493519346287003631C5 /* invite.ics in Resources */,
+				4DC7112B197B32C3003D4962 /* stresstest.ics in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,11 +487,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F12F491B19332EA5003631C5 /* XbICalendarTests.m in Sources */,
+				4DC71135197B4A6A003D4962 /* XbICalendar2445Tests.m in Sources */,
+				4DC7112F197B32EC003D4962 /* XbICalendarSpanListTests.m in Sources */,
+				4DC7112D197B32DC003D4962 /* XbICalendarSmallClusterTests.m in Sources */,
+				F12F491B19332EA5003631C5 /* XbICalendarInMemoryTests.m in Sources */,
+				4DC71133197B3F27003D4962 /* XbICalendarInviteTests.m in Sources */,
+				4D0767F6197AFE5F0017ED72 /* XbICalendarProcessIncomingTests.m in Sources */,
 				4DAE353C19737D1D0097A2D6 /* XbICalendarIncomingTests.m in Sources */,
+				4DA795271979F1460033A008 /* XbICalendarLargeTests.m in Sources */,
 				4DAE352E19721C9C0097A2D6 /* XbICalendarIcsTest.m in Sources */,
 				4DAE3538197379920097A2D6 /* XbICalendarClassifyTests.m in Sources */,
+				4D0767EE197ADF5C0017ED72 /* XbICalendarOverlapTests.m in Sources */,
+				4DC71131197B32FA003D4962 /* XbICalendarStressTestTests.m in Sources */,
+				4D0767F2197AE4470017ED72 /* XbICalendarProcessCalendarTests.m in Sources */,
 				4DAE3530197221770097A2D6 /* XbICalendar2446Tests.m in Sources */,
+				4DC71125197B00CA003D4962 /* XbICalendarRestrictionTests.m in Sources */,
 				4DAE3534197370580097A2D6 /* XbICalendarCalendarTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
