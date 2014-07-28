@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong, readwrite) XbICComponent * rootComponent;
 @property (nonatomic, copy, readwrite) NSArray * calendars;
+@property (nonatomic, copy, readwrite) NSArray * events;
 @end
 
 @implementation XbICalendarIcsTest
@@ -32,6 +33,15 @@
     NSString *icsFileName = [self icsFileNameUnderTest];
     self.rootComponent = [self componentFromIcsFileName:icsFileName];
     self.calendars = [self.rootComponent componentsOfKind:ICAL_VCALENDAR_COMPONENT];
+    self.events = [self.rootComponent componentsOfKind:ICAL_VEVENT_COMPONENT];
+    
+    if ([self.calendars count] == 0 && self.rootComponent.kind == ICAL_VCALENDAR_COMPONENT) {
+        self.calendars = @[self.rootComponent];
+    }
+    
+    if ([self shouldExpectOneOrMoreCalendars]) {
+        XCTAssertTrue(self.calendars != nil && [self.calendars count] > 0);
+    }
 }
 
 - (NSString *)icsFileNameUnderTest
@@ -39,6 +49,11 @@
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
+}
+
+- (BOOL)shouldExpectOneOrMoreCalendars
+{
+    return YES;
 }
 
 - (XbICComponent *)componentFromIcsFileName:(NSString *)fileName
@@ -63,13 +78,13 @@
                                @"%@", failureMessage);
 }
 
-- (XbICVEvent *)eventAtIndex:(NSUInteger)eventIndex ofCalendarAtIndex:(NSUInteger)calendarIndex
+- (XbICVEvent *)componentAtIndex:(NSUInteger)componentIndex kind:(icalcomponent_kind)kind ofCalendarAtIndex:(NSUInteger)calendarIndex
 {
     XbICVCalendar * vCalendar = self.calendars[calendarIndex];
-    NSArray * events = [vCalendar componentsOfKind:ICAL_VEVENT_COMPONENT];
-    XCTAssertTrue([events count] >= eventIndex + 1, @"Expected an event at index %d", eventIndex);
+    NSArray * components = [vCalendar componentsOfKind:kind];
+    XCTAssertTrue([components count] >= componentIndex + 1, @"Expected an event at index %d", componentIndex);
     
-    return events[eventIndex];
+    return components[componentIndex];
 }
 
 #pragma mark - Helper methods
