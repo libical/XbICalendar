@@ -43,4 +43,11 @@
 // Override this when testing a .ics file which has no calendars.  Default: YES.
 - (BOOL)shouldExpectOneOrMoreCalendars;
 
+- (NSString *) pathTemporaryDirectory;
+
+// Override if you are testing writing of files.
+-(BOOL) isWritingFiles;
+
+- (NSString *) filePathForTemporaryDirectoryICSFileName;
+
 @end

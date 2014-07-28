@@ -40,7 +40,6 @@
 
 
 - (XbICComponent *) read {
-    
 
     NSString * caldata = [NSString stringWithContentsOfFile:self.pathname
                                                    encoding:NSUTF8StringEncoding
@@ -60,27 +59,12 @@
 }
 
 
-- (BOOL) save {
+- (BOOL) writeVCalendar: (XbICVCalendar *) vCalendar {
+    
     
     return NO;
-    
 }
 
-- (XbICComponent *) vCalendar {
-    
-    XbICComponent * result = nil;
-    
-    if (self.icsFileRoot.kind == ICAL_VCALENDAR_COMPONENT) {
-        result  = self.icsFileRoot;
-    }
-    else if (self.icsFileRoot.kind == ICAL_VCALENDAR_COMPONENT){
-        
-    }
-    else {
-        NSLog(@"Empty ICS File or invalid component");
-    }
-    return result;
-}
 
 
 #pragma mark - NSObject Overides

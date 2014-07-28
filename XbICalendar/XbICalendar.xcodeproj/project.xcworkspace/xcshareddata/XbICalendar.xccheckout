@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>30311233-534A-44EC-A645-CC70BE07FEAD</string>
+	<string>A18745F6-3D23-441E-B4FF-E9008233DD45</string>
 	<key>IDESourceControlProjectName</key>
 	<string>XbICalendar</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>1907E667-1E1F-4135-BE13-DCAE259C76C4</key>
-		<string>https://github.com/markdlv/XbICalendar.git</string>
+		<key>D04947F8-6C2F-4BEC-AFB1-7CCDB4FD88AF</key>
+		<string>ssh://github.com/libical/XbICalendar.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>XbICalendar/XbICalendar.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>1907E667-1E1F-4135-BE13-DCAE259C76C4</key>
+		<key>D04947F8-6C2F-4BEC-AFB1-7CCDB4FD88AF</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/markdlv/XbICalendar.git</string>
+	<string>ssh://github.com/libical/XbICalendar.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>1907E667-1E1F-4135-BE13-DCAE259C76C4</string>
+	<string>D04947F8-6C2F-4BEC-AFB1-7CCDB4FD88AF</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>1907E667-1E1F-4135-BE13-DCAE259C76C4</string>
+			<string>D04947F8-6C2F-4BEC-AFB1-7CCDB4FD88AF</string>
 			<key>IDESourceControlWCCName</key>
 			<string>XbICalendar</string>
 		</dict>

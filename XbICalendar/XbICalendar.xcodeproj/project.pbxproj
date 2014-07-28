@@ -34,6 +34,19 @@
 		4DC71131197B32FA003D4962 /* XbICalendarStressTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */; };
 		4DC71133197B3F27003D4962 /* XbICalendarInviteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */; };
 		4DC71135197B4A6A003D4962 /* XbICalendar2445Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */; };
+		F113ED3419863A7B00C37F81 /* 2446.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE352A19720D050097A2D6 /* 2446.ics */; };
+		F113ED3519863A7F00C37F81 /* calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3531197370380097A2D6 /* calendar.ics */; };
+		F113ED3619863A8200C37F81 /* classify.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3535197379190097A2D6 /* classify.ics */; };
+		F113ED3719863A8400C37F81 /* incoming.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE353919737C660097A2D6 /* incoming.ics */; };
+		F113ED3819863A8900C37F81 /* large.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DA795241979F12E0033A008 /* large.ics */; };
+		F113ED3919863A8C00C37F81 /* overlaps.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4D0767EB197ADF440017ED72 /* overlaps.ics */; };
+		F113ED3A19863A8E00C37F81 /* process-calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4D0767EF197AE41A0017ED72 /* process-calendar.ics */; };
+		F113ED3B19863A9100C37F81 /* process-incoming.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4D0767F3197AFE200017ED72 /* process-incoming.ics */; };
+		F113ED3C19863A9400C37F81 /* restriction.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DC71122197B00B5003D4962 /* restriction.ics */; };
+		F113ED3D19863A9700C37F81 /* smallcluster.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DC71126197B32C3003D4962 /* smallcluster.ics */; };
+		F113ED3E19863A9A00C37F81 /* spanlist.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DC71127197B32C3003D4962 /* spanlist.ics */; };
+		F113ED3F19863A9D00C37F81 /* stresstest.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DC71128197B32C3003D4962 /* stresstest.ics */; };
+		F113ED41198643FD00C37F81 /* XbICalendarInviteWriteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F113ED40198643FD00C37F81 /* XbICalendarInviteWriteTests.m */; };
 		F12F48F019332EA4003631C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48EF19332EA4003631C5 /* Foundation.framework */; };
 		F12F48F219332EA4003631C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48F119332EA4003631C5 /* CoreGraphics.framework */; };
 		F12F48F419332EA4003631C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12F48F319332EA4003631C5 /* UIKit.framework */; };
@@ -104,6 +117,7 @@
 		4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarStressTestTests.m; sourceTree = "<group>"; };
 		4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteTests.m; sourceTree = "<group>"; };
 		4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendar2445Tests.m; sourceTree = "<group>"; };
+		F113ED40198643FD00C37F81 /* XbICalendarInviteWriteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteWriteTests.m; sourceTree = "<group>"; };
 		F12F48EC19332EA4003631C5 /* XbICalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XbICalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F12F48EF19332EA4003631C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F12F48F119332EA4003631C5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -234,6 +248,7 @@
 		F12F491419332EA5003631C5 /* XbICalendarTests */ = {
 			isa = PBXGroup;
 			children = (
+				F113ED40198643FD00C37F81 /* XbICalendarInviteWriteTests.m */,
 				F12F491519332EA5003631C5 /* Supporting Files */,
 				F12F492919333E1A003631C5 /* TestData */,
 				4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */,
@@ -431,11 +446,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12F4E3C19346826003631C5 /* zoneinfo in Resources */,
+				F113ED3F19863A9D00C37F81 /* stresstest.ics in Resources */,
+				F113ED3619863A8200C37F81 /* classify.ics in Resources */,
+				F113ED3419863A7B00C37F81 /* 2446.ics in Resources */,
+				F113ED3A19863A8E00C37F81 /* process-calendar.ics in Resources */,
 				F12F490819332EA4003631C5 /* Images.xcassets in Resources */,
+				F113ED3519863A7F00C37F81 /* calendar.ics in Resources */,
+				F113ED3819863A8900C37F81 /* large.ics in Resources */,
+				F113ED3E19863A9A00C37F81 /* spanlist.ics in Resources */,
 				F1F5D71619402E9C00D81F71 /* 2445.ics in Resources */,
+				F113ED3D19863A9700C37F81 /* smallcluster.ics in Resources */,
 				F12F48FA19332EA4003631C5 /* InfoPlist.strings in Resources */,
+				F113ED3719863A8400C37F81 /* incoming.ics in Resources */,
+				F113ED3919863A8C00C37F81 /* overlaps.ics in Resources */,
 				F12F490319332EA4003631C5 /* Main.storyboard in Resources */,
 				F1F5D71519402E9700D81F71 /* invite.ics in Resources */,
+				F113ED3C19863A9400C37F81 /* restriction.ics in Resources */,
+				F113ED3B19863A9100C37F81 /* process-incoming.ics in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +520,7 @@
 				F12F491B19332EA5003631C5 /* XbICalendarInMemoryTests.m in Sources */,
 				4DC71133197B3F27003D4962 /* XbICalendarInviteTests.m in Sources */,
 				4D0767F6197AFE5F0017ED72 /* XbICalendarProcessIncomingTests.m in Sources */,
+				F113ED41198643FD00C37F81 /* XbICalendarInviteWriteTests.m in Sources */,
 				4DAE353C19737D1D0097A2D6 /* XbICalendarIncomingTests.m in Sources */,
 				4DA795271979F1460033A008 /* XbICalendarLargeTests.m in Sources */,
 				4DAE352E19721C9C0097A2D6 /* XbICalendarIcsTest.m in Sources */,

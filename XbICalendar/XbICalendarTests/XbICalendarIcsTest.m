@@ -7,6 +7,7 @@
 //
 
 #import "XbICalendarIcsTest.h"
+#import <XCTest/XCTest.h>
 
 @interface XbICalendarIcsTest ()
 @property (nonatomic, strong, readwrite) NSDateFormatter *utcDateFormatter;
@@ -42,8 +43,18 @@
     if ([self shouldExpectOneOrMoreCalendars]) {
         XCTAssertTrue(self.calendars != nil && [self.calendars count] > 0);
     }
+    
+    if ([self isWritingFiles]) {
+        [self createTemporaryDirectory];
+    }
 }
 
+- (void)tearDown {
+    [super tearDown];
+    if ([self isWritingFiles]) {
+        [self deleteTemporaryDirectory];
+    }
+}
 - (NSString *)icsFileNameUnderTest
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -82,7 +93,8 @@
 {
     XbICVCalendar * vCalendar = self.calendars[calendarIndex];
     NSArray * components = [vCalendar componentsOfKind:kind];
-    XCTAssertTrue([components count] >= componentIndex + 1, @"Expected an event at index %d", componentIndex);
+    XCTAssertTrue([components count] >= componentIndex + 1,
+                  @"Expected an event at index %lu", (unsigned long)componentIndex);
     
     return components[componentIndex];
 }
@@ -94,5 +106,43 @@
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     return [bundle pathForResource:fileName ofType:@"ics"];
 }
+
+- (NSString *) filePathForTemporaryDirectoryICSFileName {
+    return [[[self pathTemporaryDirectory] stringByAppendingPathComponent:self.icsFileNameUnderTest ] stringByAppendingPathExtension:@"ics"];
+}
+
+- (NSString *) pathTemporaryDirectory {
+    return [NSTemporaryDirectory() stringByAppendingPathComponent:@"testdata"];
+}
+
+-(BOOL) isWritingFiles {
+    // Override if test case is writing temporary files.
+    return NO;
+}
+
+-(void) createTemporaryDirectory {
+    NSError * error;
+    
+    [[NSFileManager defaultManager]
+     createDirectoryAtPath:[self pathTemporaryDirectory]
+            withIntermediateDirectories:YES attributes:nil error:&error];
+    
+    if(error) {
+        XCTFail(@"Error: %@", error);
+    }
+}
+
+-(void) deleteTemporaryDirectory {
+    NSError * error;
+    
+    [[NSFileManager defaultManager]
+     removeItemAtPath: [self pathTemporaryDirectory]  error:&error];
+    
+    if(error) {
+        XCTFail(@"Error: %@", error);
+    }
+
+}
+
 
 @end
