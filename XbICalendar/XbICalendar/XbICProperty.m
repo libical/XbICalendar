@@ -4,6 +4,13 @@
 
 #import "XBICalendar.h"
 
+@interface XbICProperty ()
+
+@property (nonatomic, strong) NSDateFormatter * dateFormatter;
+
+@end
+
+
 @implementation XbICProperty
 
 -(instancetype) init {
@@ -14,20 +21,6 @@
     return self;
 }
 
-//-(instancetype) initWithKey: (NSString *) key value: (NSObject *) value parameters: (NSDictionary *) parameters {
-//    self = [super init];
-//    if (self) {
-//        self.key = key;
-//        self.value = value;
-//        self.parameters = parameters;
-//    }
-//    return  self;
-//}
-//+(instancetype) propertyWithKey: (NSString *) key value: (NSObject *) value parameters: (NSDictionary *) parameters {
-//    
-//    return [[XbICProperty alloc] initWithKey:key value:value parameters:parameters];
-//    
-//}
 
 + (instancetype) propertyFactory: (icalproperty *) p {
     XbICProperty * property;
@@ -60,31 +53,65 @@
         
         property.valueKind = icalvalue_isa(v);
         
+        if (ICAL_XLICERROR_PROPERTY == property.kind) {
+            NSLog(@"Error: %d, %@", property.kind, [property stringFromValue:v]);
+            
+        }
         
-        switch (property.kind) {
-            case ICAL_ACKNOWLEDGED_PROPERTY:
-            case ICAL_COMPLETED_PROPERTY:
-            case ICAL_CREATED_PROPERTY:
-            case ICAL_DATEMAX_PROPERTY :
-            case ICAL_DATEMIN_PROPERTY:
-            case ICAL_DTEND_PROPERTY:
-            case ICAL_DTSTAMP_PROPERTY:
-            case ICAL_DTSTART_PROPERTY:
-            case ICAL_DUE_PROPERTY:
-            case ICAL_EXDATE_PROPERTY:
-            case ICAL_LASTMODIFIED_PROPERTY:
-            case ICAL_MAXDATE_PROPERTY:
-            case ICAL_MINDATE_PROPERTY:
-            case ICAL_RECURRENCEID_PROPERTY:
-                property.value = [property dateFromValue: v parameters: property.parameters];
+        switch (property.valueKind) {
+
+            case ICAL_DATETIME_VALUE:
+                property.value = [property datetimeFromValue: v parameters: property.parameters];
                 break;
                 
-            case ICAL_SEQUENCE_PROPERTY:
+            case ICAL_INTEGER_VALUE:
                 property.value = [property numberFromIntValue: v];
                 break;
+            
+            case ICAL_DATE_VALUE:
+                property.value = [property dateFromValue: v];
+                break;
+
+            case ICAL_RECUR_VALUE:
+               property.value = [property stringFromValue: v];
+#warning Needs work
+                break;
                 
-            case ICAL_XLICERROR_PROPERTY:
-                NSLog(@"Error: %d, %@", property.kind, [property stringFromValue:v]);
+            case ICAL_UTCOFFSET_VALUE:
+                property.value = [property stringFromValue: v];
+#warning Needs work
+                break;
+                
+            case ICAL_PERIOD_VALUE:
+                property.value = [property stringFromValue: v];
+#warning Needs work
+                break;
+            case ICAL_DURATION_VALUE:
+                property.value = [property stringFromValue: v];
+#warning Needs work
+                break;
+            case ICAL_REQUESTSTATUS_VALUE:
+                property.value = [property stringFromValue: v];
+#warning Needs work
+                break;
+
+            
+            case ICAL_NO_VALUE:
+                property.value = nil;
+                break;
+            
+            case ICAL_ACTION_VALUE:
+            case ICAL_ATTACH_VALUE:
+            case ICAL_CALADDRESS_VALUE:
+            case ICAL_STATUS_VALUE:
+            case ICAL_CLASS_VALUE:
+            case ICAL_URI_VALUE:
+            case ICAL_TEXT_VALUE:
+            case ICAL_STRING_VALUE:
+            case ICAL_TRANSP_VALUE:
+            case ICAL_METHOD_VALUE:
+            case ICAL_X_VALUE:
+                property.value = [property stringFromValue: v];
                 break;
                 
             default:
@@ -129,7 +156,7 @@
 
 #pragma mark - Value Primatives
 
--(NSDate *) dateFromValue: (icalvalue *) v parameters: (NSDictionary *) parameters{
+-(NSDate *) datetimeFromValue: (icalvalue *) v parameters: (NSDictionary *) parameters{
     struct icaltimetype t = icalvalue_get_datetime(v);
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -166,6 +193,10 @@
     
 }
 
+-(NSDate *) dateFromValue: (icalvalue *) v {
+    return [self.dateFormatter dateFromString: [self stringFromValue:v]];
+}
+
 -(NSNumber *) numberFromIntValue: (icalvalue *) v {
     
     return [NSNumber numberWithInt: icalvalue_get_integer(v)];
@@ -177,8 +208,17 @@
     return [NSString stringWithCString: icalvalue_as_ical_string(v) encoding: NSASCIIStringEncoding];
 }
 
+#pragma mark - custom accessors
+-(NSDateFormatter *) dateFormatter {
+    if (!_dateFormatter) {
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        self.dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+        self.dateFormatter.dateFormat = @"yyyyMMdd";
+    }
+    return _dateFormatter;
+}
 
-#pragma mark - Serilize 
+#pragma mark - Serialize
 
 -(icalvalue *) icalBuildValue {
     icalvalue * value;
