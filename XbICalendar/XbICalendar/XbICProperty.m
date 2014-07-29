@@ -54,8 +54,11 @@
         property.parameters = [property parametersWithIcalProperty: p];
     
         property.kind = icalproperty_isa(p);
-   
+        
+       
         icalvalue* v =  icalproperty_get_value (p);
+        
+        property.valueKind = icalvalue_isa(v);
         
         
         switch (property.kind) {
@@ -174,6 +177,60 @@
     return [NSString stringWithCString: icalvalue_as_ical_string(v) encoding: NSASCIIStringEncoding];
 }
 
+
+#pragma mark - Serilize 
+
+-(icalvalue *) icalBuildValue {
+    icalvalue * value;
+    switch (self.valueKind) {
+//        case ICAL_ACKNOWLEDGED_PROPERTY:
+//        case ICAL_COMPLETED_PROPERTY:
+//        case ICAL_CREATED_PROPERTY:
+//        case ICAL_DATEMAX_PROPERTY :
+//        case ICAL_DATEMIN_PROPERTY:
+//        case ICAL_DTEND_PROPERTY:
+//        case ICAL_DTSTAMP_PROPERTY:
+//        case ICAL_DTSTART_PROPERTY:
+//        case ICAL_DUE_PROPERTY:
+//        case ICAL_EXDATE_PROPERTY:
+//        case ICAL_LASTMODIFIED_PROPERTY:
+//        case ICAL_MAXDATE_PROPERTY:
+//        case ICAL_MINDATE_PROPERTY:
+//        case ICAL_RECURRENCEID_PROPERTY:
+//            property.value = [property dateFromValue: v parameters: property.parameters];
+//            break;
+//            
+//        case ICAL_SEQUENCE_PROPERTY:
+//            property.value = [property numberFromIntValue: v];
+//            break;
+//            
+//        case ICAL_XLICERROR_PROPERTY:
+//            NSLog(@"Error: %d, %@", property.kind, [property stringFromValue:v]);
+//            break;
+        
+        case ICAL_STRING_VALUE:
+        default:
+            value = icalvalue_new_string([(NSString *)self.value cStringUsingEncoding:(NSASCIIStringEncoding)]);
+        break;
+    }
+    
+    return value;
+}
+-(icalproperty *) icalBuildProperty {
+    icalproperty * ical_property = icalproperty_new(self.kind);
+    icalproperty_set_value(ical_property, [self icalBuildValue]);
+    
+//    for (XbICProperty * property in self.properties) {
+//        
+//        icalproperty * ical_property = [property icalBuildProperty];
+//        
+//        icalcomponent_add_property(ical_component, ical_property);
+//        
+//    }
+    
+    return ical_property;
+
+}
 
 #pragma mark - NSObject Overides
 - (NSString *)description {

@@ -23,5 +23,8 @@
 
 -(instancetype) firstComponentOfKind: (icalcomponent_kind) kind;
 
+-(icalcomponent *) icalBuildComponent;
+
+-(NSString *) stringSerializeComponent;
 
 @end

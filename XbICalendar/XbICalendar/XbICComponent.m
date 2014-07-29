@@ -126,6 +126,35 @@
     return nil;
 }
 
+#pragma mark - Output
+
+
+-(icalcomponent *) icalBuildComponent {
+    icalcomponent * ical_component = icalcomponent_new(self.kind);
+    
+    for (XbICProperty * property in self.properties) {
+        
+        icalproperty * ical_property = [property icalBuildProperty];
+        
+        icalcomponent_add_property(ical_component, ical_property);
+        
+    }
+    
+    return ical_component;
+}
+
+-(NSString *) stringSerializeComponent {
+    NSString * buffer  = @"";
+    icalcomponent *root = [self icalBuildComponent];
+    
+    char * _buffer = icalcomponent_as_ical_string(root);
+    
+    buffer = [buffer stringByAppendingString:[NSString stringWithCString:_buffer encoding:NSUTF8StringEncoding]];
+    
+    return buffer;
+}
+
+
 #pragma mark - NSObject Overides
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@: %p> Key: %d",
