@@ -27,4 +27,7 @@
 
 -(NSString *) stringSerializeComponent;
 
+
+
+
 @end

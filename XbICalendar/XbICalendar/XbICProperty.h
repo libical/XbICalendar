@@ -16,4 +16,7 @@
 //+(instancetype) propertyWithKey: (NSString *) key value: (NSObject *) value parameters: (NSDictionary *) parameters;
 +(instancetype) propertyWithIcalProperty: (icalproperty *) p;
 -(icalproperty *) icalBuildProperty ;
+
+
+
 @end

@@ -64,7 +64,7 @@
     NSString * buffer = [vCalendar stringSerializeComponent];
     
     NSError * error;
-    if (![buffer writeToFile:self.path atomically:YES  encoding: NSUTF8StringEncoding error: &error]) {
+    if (![buffer writeToFile:self.pathname atomically:YES  encoding: NSUTF8StringEncoding error: &error]) {
         NSLog(@"Error: %@",error);
         return NO;
     }

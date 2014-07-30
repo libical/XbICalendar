@@ -45,10 +45,10 @@
     if (property) {
         
         property.parameters = [property parametersWithIcalProperty: p];
-    
+        
         property.kind = icalproperty_isa(p);
         
-       
+        
         icalvalue* v =  icalproperty_get_value (p);
         
         property.valueKind = icalvalue_isa(v);
@@ -59,7 +59,7 @@
         }
         
         switch (property.valueKind) {
-
+                
             case ICAL_DATETIME_VALUE:
                 property.value = [property datetimeFromValue: v parameters: property.parameters];
                 break;
@@ -67,13 +67,13 @@
             case ICAL_INTEGER_VALUE:
                 property.value = [property numberFromIntValue: v];
                 break;
-            
+                
             case ICAL_DATE_VALUE:
                 property.value = [property dateFromValue: v];
                 break;
-
+                
             case ICAL_RECUR_VALUE:
-               property.value = [property stringFromValue: v];
+                property.value = [property stringFromValue: v];
 #warning Needs work
                 break;
                 
@@ -94,12 +94,12 @@
                 property.value = [property stringFromValue: v];
 #warning Needs work
                 break;
-
-            
+                
+                
             case ICAL_NO_VALUE:
                 property.value = nil;
                 break;
-            
+                
             case ICAL_ACTION_VALUE:
             case ICAL_ATTACH_VALUE:
             case ICAL_CALADDRESS_VALUE:
@@ -121,7 +121,7 @@
         
     }
     
-
+    
     
     return property;
     
@@ -136,19 +136,17 @@
     while (pm) {
         
         NSString * keyvaluepair = [NSString stringWithCString:icalparameter_as_ical_string(pm)
-                                                  encoding:NSASCIIStringEncoding];
+                                                     encoding:NSASCIIStringEncoding];
         
         NSArray * arr = [keyvaluepair componentsSeparatedByString:@"="];
         
         if (arr.count > 1) {
             [parameters setObject: arr[1] forKey:arr[0]];
         }
-
+        
         pm = icalproperty_get_next_parameter(p, ICAL_ANY_PARAMETER);
-    
+        
     }
-                                                         
-    
     
     return [NSDictionary dictionaryWithDictionary:parameters];
     
@@ -184,10 +182,10 @@
             
         }
     }
-
-   
-   // t.is_daylight
-   // t.is_date
+    
+    
+    // t.is_daylight
+    // t.is_date
     
     return [calendar dateFromComponents: components];
     
@@ -195,6 +193,28 @@
 
 -(NSDate *) dateFromValue: (icalvalue *) v {
     return [self.dateFormatter dateFromString: [self stringFromValue:v]];
+}
+
+-(icaltimetype ) icaltimetypeFromObject:(id) date {
+    icaltimetype   t = icaltime_today();
+    if ([date isKindOfClass:[NSDate class]]) {
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    
+    NSCalendar * cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:unitFlags fromDate:date];
+    t.year =  (int)[components year];
+    t.month = (int)[components month];
+    t.day =   (int)[components day];
+    t.hour =  (int)[components hour];
+    t.minute = (int)[components minute];
+    t.second = (int)[components second];
+    
+    icaltime_set_timezone(&t, icaltimezone_get_utc_timezone());
+    }
+    else {
+        NSLog(@"Error: invalid date format");
+    }
+    return t;
 }
 
 -(NSNumber *) numberFromIntValue: (icalvalue *) v {
@@ -220,38 +240,81 @@
 
 #pragma mark - Serialize
 
+//- (icalvalue *)valueForAttachFalue {
+//    icalvalue *value = nil;
+//
+//        icalattach *attach;
+//        
+//        attach = icalattach_new_from_url ([self cstringFromObject: self.value]);
+//        if (!attach) return value;
+//        value = icalvalue_new_attach (attach);
+//        icalattach_unref (attach);
+//
+//    return value;
+//}
+
 -(icalvalue *) icalBuildValue {
     icalvalue * value;
     switch (self.valueKind) {
-//        case ICAL_ACKNOWLEDGED_PROPERTY:
-//        case ICAL_COMPLETED_PROPERTY:
-//        case ICAL_CREATED_PROPERTY:
-//        case ICAL_DATEMAX_PROPERTY :
-//        case ICAL_DATEMIN_PROPERTY:
-//        case ICAL_DTEND_PROPERTY:
-//        case ICAL_DTSTAMP_PROPERTY:
-//        case ICAL_DTSTART_PROPERTY:
-//        case ICAL_DUE_PROPERTY:
-//        case ICAL_EXDATE_PROPERTY:
-//        case ICAL_LASTMODIFIED_PROPERTY:
-//        case ICAL_MAXDATE_PROPERTY:
-//        case ICAL_MINDATE_PROPERTY:
-//        case ICAL_RECURRENCEID_PROPERTY:
-//            property.value = [property dateFromValue: v parameters: property.parameters];
-//            break;
-//            
-//        case ICAL_SEQUENCE_PROPERTY:
-//            property.value = [property numberFromIntValue: v];
-//            break;
-//            
-//        case ICAL_XLICERROR_PROPERTY:
-//            NSLog(@"Error: %d, %@", property.kind, [property stringFromValue:v]);
-//            break;
-        
+            
+        case ICAL_DATETIME_VALUE:
+            value = icalvalue_new_datetime([self icaltimetypeFromObject: self.value]);
+            break;
+
+        case ICAL_INTEGER_VALUE:
+            value = icalvalue_new_integer( [self integerFromObject: self.value]);
+        //    break;
+            
+        case ICAL_DATE_VALUE:
+
+            value = icalvalue_new_date([self icaltimetypeFromObject:self.value]);
+            break;
+            
+        case ICAL_RECUR_VALUE:
+            
+#warning Needs work
+         //   break;
+            
+        case ICAL_UTCOFFSET_VALUE:
+            
+#warning Needs work
+//break;
+            
+        case ICAL_PERIOD_VALUE:
+            
+#warning Needs work
+//break;
+        case ICAL_DURATION_VALUE:
+            
+#warning Needs work
+          //  break;
+        case ICAL_REQUESTSTATUS_VALUE:
+            
+#warning Needs work
+          //  break;
+            
+            
+        case ICAL_NO_VALUE:
+#warning Needs Work
+
+         //   break;
+            
+        case ICAL_ACTION_VALUE:
+        case ICAL_ATTACH_VALUE:
+        case ICAL_CALADDRESS_VALUE:
+        case ICAL_STATUS_VALUE:
+        case ICAL_CLASS_VALUE:
+        case ICAL_URI_VALUE:
+        case ICAL_TEXT_VALUE:
         case ICAL_STRING_VALUE:
-        default:
-            value = icalvalue_new_string([(NSString *)self.value cStringUsingEncoding:(NSASCIIStringEncoding)]);
-        break;
+        case ICAL_TRANSP_VALUE:
+        case ICAL_METHOD_VALUE:
+        case ICAL_X_VALUE:
+            value = icalvalue_new_from_string(self.valueKind, [self cstringFromObject:self.value]);
+            
+            default:
+             value = icalvalue_new_string([(NSString *)self.value cStringUsingEncoding:(NSASCIIStringEncoding)]);
+            break;
     }
     
     return value;
@@ -260,17 +323,39 @@
     icalproperty * ical_property = icalproperty_new(self.kind);
     icalproperty_set_value(ical_property, [self icalBuildValue]);
     
-//    for (XbICProperty * property in self.properties) {
-//        
-//        icalproperty * ical_property = [property icalBuildProperty];
-//        
-//        icalcomponent_add_property(ical_component, ical_property);
-//        
-//    }
+    for (NSString * key in self.parameters) {
+        NSString * value = self.parameters[key];
+        
+        icalparameter * ical_parameter =
+            icalparameter_new_from_string([self cstringFromObject:[NSString stringWithFormat:@"%@=%@", key, value]]);
+        
+        icalproperty_add_parameter(ical_property, ical_parameter);
+        
+    }
     
     return ical_property;
-
+    
 }
+    
+#pragma mark - Helper Methods
+-(const char *) cstringFromObject: (id) string {
+    if ([string isKindOfClass:[NSString class]]) {
+           return [(NSString *)string cStringUsingEncoding:NSUTF8StringEncoding];
+    }
+    else {
+        NSLog(@"Error: unknown type");
+        return "";
+    }
+}
+
+-(int) integerFromObject: (id) number {
+    int result = 0;
+    if ([number isKindOfClass:[NSNumber class]]) {
+        result = [(NSNumber *) number intValue];
+    }
+    return result;
+}
+
 
 #pragma mark - NSObject Overides
 - (NSString *)description {
@@ -296,6 +381,36 @@
     
     return object;
 }
-
+-(BOOL) isEqual: (XbICProperty *) property {
+    
+    if (self.kind != property.kind) {
+        return NO;
+    }
+    if (self.valueKind != property.valueKind) {
+        return NO;
+    }
+    
+    if ([self.value isKindOfClass:[NSString class]]) {
+        if (![(NSString *)self.value isEqualToString: (NSString *) property.value ]) {
+            return NO;
+        }
+        
+    } else if ([self.value isKindOfClass:[NSDate class]]) {
+        if (![(NSDate *) self.value isEqualToDate:(NSDate *) property.value]) {
+            return NO;
+        }
+    }
+    else {
+        if (![self.value isEqual:property.value]) {
+            return NO;
+        }
+    }
+    
+    if (![self.parameters isEqualToDictionary:property.parameters]) {
+        return NO;
+    }
+        
+    return YES;
+}
 
 @end

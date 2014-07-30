@@ -33,6 +33,10 @@
     XbICFile * file = [XbICFile fileWithPathname:self.filePathForTemporaryDirectoryICSFileName];
     [file writeVCalendar:self.calendars[0]];
     
+    XbICVCalendar * calendarFromFile = (XbICVCalendar *) [file read];
+    
+    XCTAssert( [calendarFromFile isEqual:self.calendars[0]], @"Compare Calendars");
+    
 }
 
 //- (void)test_calendar_helper_method

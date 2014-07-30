@@ -140,6 +140,11 @@
         
     }
     
+    for (XbICComponent * component in self.subcomponents) {
+        icalcomponent * child_ical_component = [component icalBuildComponent];
+        icalcomponent_add_component(ical_component, child_ical_component);
+    }
+    
     return ical_component;
 }
 
@@ -153,6 +158,8 @@
     
     return buffer;
 }
+
+#pragma mark - Compare
 
 
 #pragma mark - NSObject Overides
@@ -173,5 +180,37 @@
     return object;
 }
 
+-(BOOL) isEqual: (XbICComponent *) component {
+    
+    if (self.kind != component.kind) {
+        return NO;
+    }
+    
+    
+    if (self.properties.count != component.properties.count) {
+        return NO;
+    }
+    
+    for (NSUInteger index = 0 ; index < self.properties.count; index ++) {
+        if (! [self.properties[index] isEqual: component.properties[0]]) {
+            return NO;
+        }
+    }
+    
 
+    
+    if (self.subcomponents.count != component.subcomponents.count) {
+        return NO;
+    }
+    
+    for (NSUInteger index = 0 ; index < self.subcomponents.count; index ++) {
+        
+        if (![self.subcomponents[index] isEqual:
+                               component.subcomponents[index]]) {
+            return NO;
+        }
+    }
+    return YES;
+    
+}
 @end
