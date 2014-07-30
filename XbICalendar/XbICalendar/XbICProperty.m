@@ -48,7 +48,6 @@
         
         property.kind = icalproperty_isa(p);
         
-        
         icalvalue* v =  icalproperty_get_value (p);
         
         property.valueKind = icalvalue_isa(v);
@@ -95,6 +94,9 @@
 #warning Needs work
                 break;
                 
+            case ICAL_X_VALUE:
+                property.value = [property stringFromValue: v];
+                break;
                 
             case ICAL_NO_VALUE:
                 property.value = nil;
@@ -110,7 +112,6 @@
             case ICAL_STRING_VALUE:
             case ICAL_TRANSP_VALUE:
             case ICAL_METHOD_VALUE:
-            case ICAL_X_VALUE:
                 property.value = [property stringFromValue: v];
                 break;
                 
@@ -154,7 +155,7 @@
 
 #pragma mark - Value Primatives
 
--(NSDate *) datetimeFromValue: (icalvalue *) v parameters: (NSDictionary *) parameters{
+-(NSDate *) datetimeFromValue: (icalvalue *) v parameters: (NSDictionary *) parameters {
     struct icaltimetype t = icalvalue_get_datetime(v);
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -163,10 +164,11 @@
     [components setYear:t.year];
     [components setMonth: t.month];
     [components setDay:t.day];
+
     [components setHour:t.hour];
     [components setMinute: t.minute];
     [components setSecond: t.second];
-    
+
     if (t.is_utc) {
         [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     }
@@ -186,8 +188,8 @@
     
     // t.is_daylight
     // t.is_date
-    
-    return [calendar dateFromComponents: components];
+    NSDate * date =[calendar dateFromComponents: components];
+    return date;
     
 }
 
@@ -195,21 +197,25 @@
     return [self.dateFormatter dateFromString: [self stringFromValue:v]];
 }
 
--(icaltimetype ) icaltimetypeFromObject:(id) date {
+-(icaltimetype ) icaltimetypeFromObject:(id) date isDate:(BOOL) isDate {
     icaltimetype   t = icaltime_today();
     if ([date isKindOfClass:[NSDate class]]) {
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-    
-    NSCalendar * cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:unitFlags fromDate:date];
-    t.year =  (int)[components year];
-    t.month = (int)[components month];
-    t.day =   (int)[components day];
-    t.hour =  (int)[components hour];
-    t.minute = (int)[components minute];
-    t.second = (int)[components second];
-    
-    icaltime_set_timezone(&t, icaltimezone_get_utc_timezone());
+        unsigned unitFlags = (isDate) ? NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit :
+        NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit |NSTimeZoneCalendarUnit ;
+        
+        NSCalendar * calendar = [NSCalendar currentCalendar];
+        [calendar setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        NSDateComponents *components = [calendar components:unitFlags fromDate:date];
+        t.year =  (int)[components year];
+        t.month = (int)[components month];
+        t.day =   (int)[components day];
+        t.hour =  (int)[components hour];
+        t.minute = (int)[components minute];
+        t.second = (int)[components second];
+        
+        t.is_date = isDate;
+        
+        icaltime_set_timezone(&t, icaltimezone_get_utc_timezone());
     }
     else {
         NSLog(@"Error: invalid date format");
@@ -240,34 +246,23 @@
 
 #pragma mark - Serialize
 
-//- (icalvalue *)valueForAttachFalue {
-//    icalvalue *value = nil;
-//
-//        icalattach *attach;
-//        
-//        attach = icalattach_new_from_url ([self cstringFromObject: self.value]);
-//        if (!attach) return value;
-//        value = icalvalue_new_attach (attach);
-//        icalattach_unref (attach);
-//
-//    return value;
-//}
+
 
 -(icalvalue *) icalBuildValue {
     icalvalue * value;
     switch (self.valueKind) {
             
         case ICAL_DATETIME_VALUE:
-            value = icalvalue_new_datetime([self icaltimetypeFromObject: self.value]);
+            value = icalvalue_new_datetime([self icaltimetypeFromObject: self.value isDate: NO]);
             break;
 
         case ICAL_INTEGER_VALUE:
             value = icalvalue_new_integer( [self integerFromObject: self.value]);
-        //    break;
+            break;
             
         case ICAL_DATE_VALUE:
 
-            value = icalvalue_new_date([self icaltimetypeFromObject:self.value]);
+            value = icalvalue_new_date([self icaltimetypeFromObject:self.value isDate:YES]);
             break;
             
         case ICAL_RECUR_VALUE:
@@ -311,8 +306,9 @@
         case ICAL_METHOD_VALUE:
         case ICAL_X_VALUE:
             value = icalvalue_new_from_string(self.valueKind, [self cstringFromObject:self.value]);
+            break;
             
-            default:
+        default:
              value = icalvalue_new_string([(NSString *)self.value cStringUsingEncoding:(NSASCIIStringEncoding)]);
             break;
     }
@@ -359,15 +355,14 @@
 
 #pragma mark - NSObject Overides
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@: %p> Key: %@, Value: %@, Parameters: %@",
-            NSStringFromClass([self class]), self, self.key, self.value, self.parameters];
+    return [NSString stringWithFormat:@"<%@: %p> Value: %@, Kind:%d, ValueKind: %d, Parameters: %@",
+            NSStringFromClass([self class]), self, self.value, self.kind, self.valueKind, self.parameters];
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     XbICProperty *object = [[[self class] allocWithZone:zone] init];
     
     if (object) {
-        object.value = [self.key copyWithZone:zone];
         
         if ([self.value respondsToSelector:@selector(copyWithZone:)]) {
             object.value = [(id) self.value copyWithZone:zone];
@@ -414,3 +409,6 @@
 }
 
 @end
+
+
+

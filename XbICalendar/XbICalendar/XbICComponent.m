@@ -186,13 +186,12 @@
         return NO;
     }
     
-    
     if (self.properties.count != component.properties.count) {
         return NO;
     }
     
     for (NSUInteger index = 0 ; index < self.properties.count; index ++) {
-        if (! [self.properties[index] isEqual: component.properties[0]]) {
+        if (! [self.properties[index] isEqual: component.properties[index]]) {
             return NO;
         }
     }

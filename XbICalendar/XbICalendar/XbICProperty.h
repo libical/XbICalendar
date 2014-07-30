@@ -5,7 +5,7 @@
 
 @interface XbICProperty : NSObject
 
-@property (nonatomic, copy) NSString * key;
+
 @property (nonatomic, copy) NSObject * value;
 @property (nonatomic, copy) NSDictionary * parameters;
 @property (nonatomic, assign) icalproperty_kind kind;
