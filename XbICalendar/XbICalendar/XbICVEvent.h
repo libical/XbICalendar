@@ -20,7 +20,7 @@
 -(NSArray *) attendees;
 -(NSString *) location;
 -(NSString *) description;
--(NSNumber *) sequence;
+-(NSArray *) sequences;
 -(NSString *) status;
 -(NSString *) summary;
 

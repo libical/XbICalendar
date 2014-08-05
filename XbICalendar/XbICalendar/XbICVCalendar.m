@@ -54,20 +54,11 @@
 #pragma mark - Custom Accessors
 
 -(NSString *) method {
-    NSArray * properties = [self propertiesOfKind:ICAL_METHOD_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"Method Error");
-        return nil;
-    }
-    return (NSString *)[((XbICProperty *)properties[0]) value];
+    return (NSString *)[[self firstPropertyOfKind:ICAL_METHOD_PROPERTY] value];
 }
+
 -(void) setMethod: (NSString *) newMethod {
-    NSArray * properties = [self propertiesOfKind:ICAL_METHOD_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"Method Error");
-        return;
-    }
-    XbICProperty * property = properties[0];
+    XbICProperty * property = [self firstPropertyOfKind:ICAL_METHOD_PROPERTY];
     property.value = [newMethod copy];
 
 }

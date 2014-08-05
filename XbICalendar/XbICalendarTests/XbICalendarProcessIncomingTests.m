@@ -133,13 +133,13 @@
 - (void)test_events_with_sequence
 {
     XbICVEvent * vEvent1 = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
-    XCTAssertEqual([vEvent1 sequence], @0, @"Unexpected sequence");
+    XCTAssertEqualObjects([vEvent1 sequences], @[@0], @"Unexpected sequence");
     
     XbICVEvent * vEvent2 = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:1];
-    XCTAssertEqual([vEvent2 sequence], @0, @"Unexpected sequence");
+    XCTAssertEqualObjects([vEvent2 sequences], @[@0], @"Unexpected sequence");
     
     XbICVEvent * vEvent3 = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:2];
-    XCTAssertEqual([vEvent3 sequence], @0, @"Unexpected sequence");
+    XCTAssertEqualObjects([vEvent3 sequences], @[@0], @"Unexpected sequence");
 }
 
 - (void)test_events_with_status

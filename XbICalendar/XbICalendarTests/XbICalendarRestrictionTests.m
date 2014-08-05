@@ -94,7 +94,8 @@
 {
     XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:1];
     
-    XCTAssertNil([vEvent sequence], @"Expected sequence to be nil because there are multiple SEQUENCE parameters");
+    NSArray * expected = @[@0,@1];
+    XCTAssertEqualObjects([vEvent sequences], expected, @"Unexpected Sequence");
 }
 
 - (void)test_event_with_status

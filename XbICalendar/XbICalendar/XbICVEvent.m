@@ -8,113 +8,59 @@
 @implementation XbICVEvent
 
 -(NSDate *) dateStart {
-    NSArray * properties = [self propertiesOfKind:ICAL_DTSTART_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_DTSTART_PROPERTY");
-        return nil;
-    }
-    return (NSDate *)[((XbICProperty *)properties[0]) value];
-
+    return (NSDate *)[[self firstPropertyOfKind:ICAL_DTSTART_PROPERTY] value];
 }
 
 -(NSDate *) dateEnd {
-    NSArray * properties = [self propertiesOfKind:ICAL_DTEND_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_DTEND_PROPERTY");
-        return nil;
-    }
-    return (NSDate *)[((XbICProperty *)properties[0]) value];
-    
+    return (NSDate *)[[self firstPropertyOfKind:ICAL_DTEND_PROPERTY] value];
 }
 
 -(NSDate *) dateStamp {
-    NSArray * properties = [self propertiesOfKind:ICAL_DTSTAMP_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_DTSTAMP_PROPERTY");
-        return nil;
-    }
-    return (NSDate *)[((XbICProperty *)properties[0]) value];
-    
+    return (NSDate *)[[self firstPropertyOfKind:ICAL_DTSTAMP_PROPERTY] value];
 }
 
 -(NSDate *) dateCreated {
-    NSArray * properties = [self propertiesOfKind:ICAL_CREATED_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_CREATED_PROPERTY");
-        return nil;
-    }
-    return (NSDate *)[((XbICProperty *)properties[0]) value];
-    
+    return (NSDate *)[[self firstPropertyOfKind:ICAL_CREATED_PROPERTY] value];
 }
 
 -(NSDate *) dateLastModified {
-    NSArray * properties = [self propertiesOfKind:ICAL_LASTMODIFIED_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_LASTMODIFIED_PROPERTY");
-        return nil;
-    }
-    return (NSDate *)[((XbICProperty *)properties[0]) value];
-    
+    return (NSDate *)[[self firstPropertyOfKind:ICAL_LASTMODIFIED_PROPERTY] value];
 }
--(NSNumber *) sequence {
-    NSArray * properties = [self propertiesOfKind:ICAL_SEQUENCE_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_SEQUENCE_PROPERTY");
-        return nil;
-    }
-    return (NSNumber *)[((XbICProperty *)properties[0]) value];
+
+-(NSArray *) sequences {
+    NSArray * properties =  [self propertiesOfKind:ICAL_SEQUENCE_PROPERTY];
+    NSMutableArray * sequences = [NSMutableArray array];
     
+    for (XbICProperty * sequence in properties) {
+        [sequences addObject:sequence.value];
+    }
+    
+    return sequences;
 }
+
 -(NSString *) UID {
-    NSArray * properties = [self propertiesOfKind:ICAL_UID_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_UID_PROPERTY");
-        return nil;
-    }
-    return (NSString *)[((XbICProperty *)properties[0]) value];
+    return (NSString *)[[self firstPropertyOfKind:ICAL_UID_PROPERTY] value];
 }
 
 -(NSString *) location {
-    NSArray * properties = [self propertiesOfKind:ICAL_LOCATION_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_LOCATION_PROPERTY");
-        return nil;
-    }
-    return (NSString *)[((XbICProperty *)properties[0]) value];
+
+    return (NSString *)[[self firstPropertyOfKind:ICAL_LOCATION_PROPERTY] value];
 }
 
 -(NSString *) summary {
-    NSArray * properties = [self propertiesOfKind:ICAL_SUMMARY_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_SUMMARY_PROPERTY");
-        return nil;
-    }
-    return (NSString *)[((XbICProperty *)properties[0]) value];
+    return (NSString *)[[self firstPropertyOfKind:ICAL_SUMMARY_PROPERTY] value];
 }
+
 -(NSString *) status {
-    NSArray * properties = [self propertiesOfKind:ICAL_STATUS_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_STATUS_PROPERTY");
-        return nil;
-    }
-    return (NSString *)[((XbICProperty *)properties[0]) value];
+    return (NSString *)[[self firstPropertyOfKind:ICAL_STATUS_PROPERTY] value];
 }
+
 -(NSString *) description {
-    NSArray * properties = [self propertiesOfKind:ICAL_DESCRIPTION_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_STATUS_PROPERTY");
-        return nil;
-    }
-    return (NSString *)[((XbICProperty *)properties[0]) value];
+    return (NSString *)[[self firstPropertyOfKind:ICAL_DESCRIPTION_PROPERTY] value];
 }
 
 -(XbICPerson *) organizer {
-    NSArray * properties = [self propertiesOfKind:ICAL_ORGANIZER_PROPERTY];
-    if (properties.count != 1 ) {
-        NSLog(@"ICAL_ORGANIZER_PROPERTY");
-        return nil;
-    }
-    return properties[0];
+    return (XbICPerson *)[self firstPropertyOfKind:ICAL_ORGANIZER_PROPERTY];
 }
 
 
@@ -142,7 +88,6 @@ static NSString * mailto = @"mailto";
         case XbICInviteResponseTenative:
             return @"TENATIVE";
             break;
-
         default:
             return @"UNKNOWN";
             break;

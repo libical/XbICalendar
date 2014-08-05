@@ -96,7 +96,7 @@
 {
     XbICVEvent * vEvent = [self componentAtIndex:0 kind:ICAL_VEVENT_COMPONENT ofCalendarAtIndex:0];
     
-    XCTAssertEqual([vEvent sequence], @2, @"Unexpected sequence");
+    XCTAssertEqualObjects([vEvent sequences], @[@2], @"Unexpected sequence");
 }
 
 - (void)test_event_with_status
