@@ -5,6 +5,7 @@
 #import "ical.h"
 #import "XbICComponent.h"
 #import "XbICPerson.h"
+#import "XbICInvite.h"
 
 
 @interface XbICVEvent : XbICComponent
@@ -22,5 +23,7 @@
 -(NSNumber *) sequence;
 -(NSString *) status;
 -(NSString *) summary;
+
+- (void) updateAttendeeWithEmail: (NSString *) email withResponse: (XbICInviteResponse) response;
 
 @end

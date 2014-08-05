@@ -5,6 +5,7 @@
 #import "XbICComponent.h"
 #import "XbICVCalendar.h"
 #import "XbICVEvent.h"
+#import "XbICProperty.h"
 #import "XbICZoneDirectory.h"
 
 
@@ -106,6 +107,15 @@
     return results;
 }
 
+-(XbICProperty *) firstPropertyOfKind: (icalproperty_kind) kind {
+    NSArray * results = [self  propertiesOfKind: kind];
+    if (results.count > 0) {
+        return results[0];
+    }
+    return nil;
+
+}
+
 - (NSArray *) componentsOfKind: (icalcomponent_kind) kind {
     NSMutableArray * results =[[NSMutableArray alloc] init];
     
@@ -126,8 +136,9 @@
     return nil;
 }
 
-#pragma mark - Output
 
+
+#pragma mark - Output
 
 -(icalcomponent *) icalBuildComponent {
     icalcomponent * ical_component = icalcomponent_new(self.kind);
@@ -159,7 +170,6 @@
     return buffer;
 }
 
-#pragma mark - Compare
 
 
 #pragma mark - NSObject Overides
@@ -170,11 +180,11 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     XbICComponent *object = [[[self class] allocWithZone:zone] init];
+    object.kind = self.kind;
     
     if (object) {
-        object.subcomponents = [self.subcomponents copyWithZone: zone];
-        object.properties = [self.properties copyWithZone:zone];
-        
+        object.subcomponents = [[NSArray alloc] initWithArray: self.subcomponents copyItems:YES];
+        object.properties = [[NSArray alloc] initWithArray: self.properties copyItems:YES];
     }
     
     return object;

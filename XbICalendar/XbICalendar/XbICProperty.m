@@ -364,6 +364,9 @@
     
     if (object) {
         
+        object.kind = self.kind;
+        object.valueKind = self.valueKind;
+        
         if ([self.value respondsToSelector:@selector(copyWithZone:)]) {
             object.value = [(id) self.value copyWithZone:zone];
         }
@@ -371,7 +374,8 @@
             object.value = self.value;
         }
         
-        object.parameters = [self.parameters copyWithZone:zone];
+        object.parameters = [[NSDictionary alloc] initWithDictionary:self.parameters copyItems:YES];
+        
     }
     
     return object;

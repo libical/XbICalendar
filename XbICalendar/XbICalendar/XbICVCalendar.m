@@ -61,6 +61,17 @@
     }
     return (NSString *)[((XbICProperty *)properties[0]) value];
 }
+-(void) setMethod: (NSString *) newMethod {
+    NSArray * properties = [self propertiesOfKind:ICAL_METHOD_PROPERTY];
+    if (properties.count != 1 ) {
+        NSLog(@"Method Error");
+        return;
+    }
+    XbICProperty * property = properties[0];
+    property.value = [newMethod copy];
+
+}
+
 
 -(NSString *) version {
     NSArray * properties = [self propertiesOfKind:ICAL_VERSION_PROPERTY];

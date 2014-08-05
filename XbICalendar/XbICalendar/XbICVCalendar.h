@@ -11,6 +11,7 @@
 
 -(NSString *) version;
 -(NSString *) method;
+-(void) setMethod: (NSString *) newMethod;
 
 
 @end

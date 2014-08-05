@@ -3,6 +3,7 @@
 //
 
 #import "ical.h"
+@class XbICProperty;
 
 @interface XbICComponent : NSObject
 
@@ -19,6 +20,8 @@
 
 - (NSArray *) propertiesOfKind: (icalproperty_kind) kind;
 
+-(XbICProperty *) firstPropertyOfKind: (icalproperty_kind) kind;
+
 - (NSArray *) componentsOfKind: (icalcomponent_kind) kind;
 
 -(instancetype) firstComponentOfKind: (icalcomponent_kind) kind;
@@ -26,6 +29,9 @@
 -(icalcomponent *) icalBuildComponent;
 
 -(NSString *) stringSerializeComponent;
+
+-(void) updateFirstPropertyOfKind: kind  value:(id)value;
+
 
 
 

@@ -3,6 +3,7 @@
 //
 
 #import "XbICVEvent.h"
+#import "XbICInvite.h"
 
 @implementation XbICVEvent
 
@@ -117,9 +118,51 @@
 }
 
 
--(NSArray *) attendees; {
+-(NSArray *) attendees {
     return [self propertiesOfKind:ICAL_ATTENDEE_PROPERTY];
 }
 
+static NSString * mailto = @"mailto";
+-(NSString *) stringFixUpEmail: email {
+    
+    if ([email hasPrefix:mailto]) {
+        return email;
+    }
+    return [NSString stringWithFormat:@"mailto:%@", email];
+}
+
+-(NSString *) stringInviteResponse: (XbICInviteResponse) response  {
+    switch (response) {
+        case XbICInviteResponseAccept:
+            return @"ACCEPT";
+            break;
+        case XbICInviteResponseDecline:
+            return @"DECLINE";
+            break;
+        case XbICInviteResponseTenative:
+            return @"TENATIVE";
+            break;
+
+        default:
+            return @"UNKNOWN";
+            break;
+    }
+}
+
+- (void) updateAttendeeWithEmail: (NSString *) email withResponse: (XbICInviteResponse) response {
+    NSArray  * attendees = self.attendees;
+    for (XbICProperty * attendee in  attendees) {
+        
+        if ([(NSString *)attendee.value isEqualToString:[self stringFixUpEmail:email]]) {
+            NSMutableDictionary * parameters = [attendee.parameters mutableCopy];
+            
+            parameters[@"PARTSTAT"] = [self stringInviteResponse:response];
+            
+            attendee.parameters = [NSDictionary dictionaryWithDictionary:parameters];
+            
+        }
+        
+    }
+}
 
 @end
