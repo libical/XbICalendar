@@ -88,10 +88,25 @@ static NSString * mailto = @"mailto";
         case XbICInviteResponseTenative:
             return @"TENATIVE";
             break;
+        case XbICInviteResponseUnknown:
         default:
             return @"UNKNOWN";
             break;
     }
+}
+
+-(XbICInviteResponse) responseInviteFromString: (NSString *) status {
+
+  if ([status isEqualToString:@"ACCEPT"]) {
+    return XbICInviteResponseAccept;
+  }
+  if ([status isEqualToString:@"DECLINE"]) {
+    return XbICInviteResponseDecline;
+  }
+  if ([status isEqualToString:@"TENATIVE"]) {
+    return XbICInviteResponseTenative;
+  }
+    return XbICInviteResponseUnknown;
 }
 
 - (void) updateAttendeeWithEmail: (NSString *) email withResponse: (XbICInviteResponse) response {
@@ -104,10 +119,23 @@ static NSString * mailto = @"mailto";
             parameters[@"PARTSTAT"] = [self stringInviteResponse:response];
             
             attendee.parameters = [NSDictionary dictionaryWithDictionary:parameters];
-            
         }
-        
     }
+}
+
+
+- (XbICInviteResponse) lookupAttendeeStatusForEmail: (NSString *) email {
+  NSArray  * attendees = self.attendees;
+  for (XbICProperty * attendee in  attendees) {
+
+    if ([(NSString *)attendee.value isEqualToString:[self stringFixUpEmail:email]]) {
+
+      NSDictionary * parameters = attendee.parameters;
+
+      return [self responseInviteFromString: parameters[@"PARTSTAT"]];
+    }
+  }
+  return XbICInviteResponseUnknown;
 }
 
 @end

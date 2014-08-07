@@ -13,7 +13,7 @@
 
 +(XbICVCalendar *) inviteResponseFromCalendar: (XbICVCalendar *) calendar
                                     fromEmail: (NSString *) email
-                                     response:(XbICInviteResponse) response {
+                                     response: (XbICInviteResponse) response {
     
     XbICVCalendar * newCalendar = [calendar copy];
     [newCalendar setMethod:@"REPLY"];
@@ -25,5 +25,23 @@
     
     return newCalendar;
 }
+
++(XbICInviteResponse) responseForCalendar:(XbICVCalendar *) calendar
+                                 forEmail:(NSString *) email {
+
+  XbICInviteResponse result = XbICInviteResponseUnknown;
+  
+
+  XbICVEvent * event = (XbICVEvent *) [calendar firstComponentOfKind:ICAL_VEVENT_COMPONENT];
+  if (event) {
+    result = [event lookupAttendeeStatusForEmail: email];
+  }
+
+
+  return result;
+
+}
+
+
 
 @end

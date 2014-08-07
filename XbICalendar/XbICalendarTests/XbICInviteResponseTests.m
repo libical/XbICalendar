@@ -38,13 +38,8 @@
     
     XbICVEvent * vEvent = response.subcomponents[0];
     XCTAssertNotNil(vEvent, @"Should have an event");
-    
-    for (XbICProperty * attendee in vEvent.attendees) {
-        if ([(NSString *) attendee.value isEqualToString: @"mailto:ahalls@gaggle.net"]) {
-            XCTAssert([attendee.parameters[@"PARTSTAT"] isEqualToString:@"ACCEPT"], @"Should Accept");
-        }
-    }
-    
+
+    XCTAssertEqual(XbICInviteResponseAccept, [XbICInvite responseForCalendar:response forEmail:@"mailto:ahalls@gaggle.net"], @"ACCEPT");
 
 }
 
@@ -59,14 +54,8 @@
     
     XbICVEvent * vEvent = response.subcomponents[0];
     XCTAssertNotNil(vEvent, @"Should have an event");
-    
-    for (XbICProperty * attendee in vEvent.attendees) {
-        if ([(NSString *) attendee.value isEqualToString: @"mailto:ahalls@gaggle.net"]) {
-            XCTAssert([attendee.parameters[@"PARTSTAT"] isEqualToString:@"DECLINE"], @"Should Accept");
-        }
-    }
-    
-    
+
+    XCTAssertEqual(XbICInviteResponseDecline, [XbICInvite responseForCalendar:response forEmail:@"mailto:ahalls@gaggle.net"], @"DECLINE");
 }
 
 - (void)test_InviteTenativeResponse
@@ -80,14 +69,21 @@
     
     XbICVEvent * vEvent = response.subcomponents[0];
     XCTAssertNotNil(vEvent, @"Should have an event");
+
+    XCTAssertEqual(XbICInviteResponseTenative,
+                   [XbICInvite responseForCalendar:response forEmail:@"mailto:ahalls@gaggle.net"], @"TENATIVE");
+
+
+
     
-    for (XbICProperty * attendee in vEvent.attendees) {
-        if ([(NSString *) attendee.value isEqualToString: @"mailto:ahalls@gaggle.net"]) {
-            XCTAssert([attendee.parameters[@"PARTSTAT"] isEqualToString:@"TENATIVE"], @"Should Accept");
-        }
-    }
-    
-    
+}
+
+- (void)test_responseForCalendar
+{
+  XCTAssertEqual(XbICInviteResponseUnknown, [XbICInvite responseForCalendar:self.calendars[0]
+                                                                   forEmail:@"mailto:ahalls@gaggle.net"], @"UNKNOWN");
+
+
 }
 
 //- (void)testExample

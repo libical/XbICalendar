@@ -10,6 +10,7 @@
 #import "XbICVCalendar.h"
 
 typedef NS_ENUM(NSInteger, XbICInviteResponse) {
+    XbICInviteResponseUnknown = -1,
     XbICInviteResponseAccept,
     XbICInviteResponseDecline,
     XbICInviteResponseTenative
@@ -21,5 +22,7 @@ typedef NS_ENUM(NSInteger, XbICInviteResponse) {
                                     fromEmail: (NSString *) email
                                      response:(XbICInviteResponse) response;
 
++(XbICInviteResponse) responseForCalendar:(XbICVCalendar *) calendar
+                                 forEmail:(NSString *) email;
 
 @end
