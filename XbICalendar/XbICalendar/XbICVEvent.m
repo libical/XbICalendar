@@ -97,15 +97,16 @@ static NSString * mailto = @"mailto";
 
 -(XbICInviteResponse) responseInviteFromString: (NSString *) status {
 
-  if ([status isEqualToString:@"ACCEPT"]) {
+  if ([status isEqualToString:@"ACCEPT"] || [status isEqualToString:@"ACCEPTED"] || [status isEqualToString:@"YES"]) {
     return XbICInviteResponseAccept;
   }
-  if ([status isEqualToString:@"DECLINE"]) {
+  if ([status isEqualToString:@"DECLINE"] || [status isEqualToString:@"DECLINED"] || [status isEqualToString:@"NO"]) {
     return XbICInviteResponseDecline;
   }
-  if ([status isEqualToString:@"TENATIVE"]) {
+  if ([status isEqualToString:@"TENATIVE"] || [status isEqualToString:@"TENATIVED"] || [status isEqualToString:@"MAYBE"]) {
     return XbICInviteResponseTenative;
   }
+
     return XbICInviteResponseUnknown;
 }
 
