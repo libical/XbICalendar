@@ -72,6 +72,7 @@
 		F148A223194700DD00ED2C6E /* libical.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F148A222194700DD00ED2C6E /* libical.a */; };
 		F18820261990A41A00177998 /* XbICInvite.m in Sources */ = {isa = PBXBuildFile; fileRef = F18820251990A41A00177998 /* XbICInvite.m */; };
 		F188202A1990A99A00177998 /* XbICInviteResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F18820291990A99A00177998 /* XbICInviteResponseTests.m */; };
+		F1A240C319C9551900139576 /* XbICalendarSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A240C219C9551900139576 /* XbICalendarSwiftTests.swift */; };
 		F1DC7727193F208500DB07D4 /* XbICPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = F1DC7726193F208500DB07D4 /* XbICPerson.m */; };
 		F1F5D71419402CEA00D81F71 /* XbICFileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F5D71319402CEA00D81F71 /* XbICFileTableViewController.m */; };
 		F1F5D71519402E9700D81F71 /* invite.ics in Resources */ = {isa = PBXBuildFile; fileRef = F12F493419346287003631C5 /* invite.ics */; };
@@ -82,6 +83,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		F12F491219332EA5003631C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F12F48E419332EA4003631C5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F12F48EB19332EA4003631C5;
+			remoteInfo = XbICalendar;
+		};
+		F1A240C419C9551A00139576 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F12F48E419332EA4003631C5 /* Project object */;
 			proxyType = 1;
@@ -158,6 +166,9 @@
 		F18820241990A41A00177998 /* XbICInvite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICInvite.h; sourceTree = "<group>"; };
 		F18820251990A41A00177998 /* XbICInvite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICInvite.m; sourceTree = "<group>"; };
 		F18820291990A99A00177998 /* XbICInviteResponseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICInviteResponseTests.m; sourceTree = "<group>"; };
+		F1A240BE19C9551900139576 /* XbICalendarSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XbICalendarSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1A240C119C9551900139576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1A240C219C9551900139576 /* XbICalendarSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XbICalendarSwiftTests.swift; sourceTree = "<group>"; };
 		F1DC7725193F208500DB07D4 /* XbICPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICPerson.h; sourceTree = "<group>"; };
 		F1DC7726193F208500DB07D4 /* XbICPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICPerson.m; sourceTree = "<group>"; };
 		F1F5D71219402CEA00D81F71 /* XbICFileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICFileTableViewController.h; sourceTree = "<group>"; };
@@ -188,6 +199,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1A240BB19C9551900139576 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -198,6 +216,7 @@
 				F12F49241933385D003631C5 /* XbICalendar */,
 				F12F48F519332EA4003631C5 /* XbICalendarExample */,
 				F12F491419332EA5003631C5 /* XbICalendarTests */,
+				F1A240BF19C9551900139576 /* XbICalendarSwiftTests */,
 				F12F48EE19332EA4003631C5 /* Frameworks */,
 				F12F48ED19332EA4003631C5 /* Products */,
 			);
@@ -208,6 +227,7 @@
 			children = (
 				F12F48EC19332EA4003631C5 /* XbICalendar.app */,
 				F12F490D19332EA5003631C5 /* XbICalendarTests.xctest */,
+				F1A240BE19C9551900139576 /* XbICalendarSwiftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -368,6 +388,23 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		F1A240BF19C9551900139576 /* XbICalendarSwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				F1A240C219C9551900139576 /* XbICalendarSwiftTests.swift */,
+				F1A240C019C9551900139576 /* Supporting Files */,
+			);
+			path = XbICalendarSwiftTests;
+			sourceTree = "<group>";
+		};
+		F1A240C019C9551900139576 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F1A240C119C9551900139576 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		F1F5D71119402C1C00D81F71 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +451,24 @@
 			productReference = F12F490D19332EA5003631C5 /* XbICalendarTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F1A240BD19C9551900139576 /* XbICalendarSwiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1A240C619C9551A00139576 /* Build configuration list for PBXNativeTarget "XbICalendarSwiftTests" */;
+			buildPhases = (
+				F1A240BA19C9551900139576 /* Sources */,
+				F1A240BB19C9551900139576 /* Frameworks */,
+				F1A240BC19C9551900139576 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1A240C519C9551A00139576 /* PBXTargetDependency */,
+			);
+			name = XbICalendarSwiftTests;
+			productName = XbICalendarSwiftTests;
+			productReference = F1A240BE19C9551900139576 /* XbICalendarSwiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -425,6 +480,10 @@
 				ORGANIZATIONNAME = GaltSoft;
 				TargetAttributes = {
 					F12F490C19332EA4003631C5 = {
+						TestTargetID = F12F48EB19332EA4003631C5;
+					};
+					F1A240BD19C9551900139576 = {
+						CreatedOnToolsVersion = 6.0;
 						TestTargetID = F12F48EB19332EA4003631C5;
 					};
 				};
@@ -444,6 +503,7 @@
 			targets = (
 				F12F48EB19332EA4003631C5 /* XbICalendar */,
 				F12F490C19332EA4003631C5 /* XbICalendarTests */,
+				F1A240BD19C9551900139576 /* XbICalendarSwiftTests */,
 			);
 		};
 /* End PBXProject section */
@@ -497,6 +557,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1A240BC19C9551900139576 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -544,6 +611,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1A240BA19C9551900139576 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1A240C319C9551900139576 /* XbICalendarSwiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -551,6 +626,11 @@
 			isa = PBXTargetDependency;
 			target = F12F48EB19332EA4003631C5 /* XbICalendar */;
 			targetProxy = F12F491219332EA5003631C5 /* PBXContainerItemProxy */;
+		};
+		F1A240C519C9551A00139576 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F12F48EB19332EA4003631C5 /* XbICalendar */;
+			targetProxy = F1A240C419C9551A00139576 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -694,6 +774,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/XbICalendar.app/XbICalendar";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -706,11 +787,14 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "XbICalendarTests/XbICalendarTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../libical/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "XbICalendarTests/TestData/XbICalendarTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -720,6 +804,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/XbICalendar.app/XbICalendar";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -728,13 +813,56 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XbICalendarExample/XbICalendar-Prefix.pch";
 				INFOPLIST_FILE = "XbICalendarTests/XbICalendarTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../libical/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "XbICalendarTests/TestData/XbICalendarTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		F1A240C719C9551A00139576 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = XbICalendarSwiftTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XbICalendar.app/XbICalendar";
+			};
+			name = Debug;
+		};
+		F1A240C819C9551A00139576 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = XbICalendarSwiftTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XbICalendar.app/XbICalendar";
 			};
 			name = Release;
 		};
@@ -767,6 +895,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F1A240C619C9551A00139576 /* Build configuration list for PBXNativeTarget "XbICalendarSwiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1A240C719C9551A00139576 /* Debug */,
+				F1A240C819C9551A00139576 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
