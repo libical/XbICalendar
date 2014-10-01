@@ -2,6 +2,11 @@
 //  XBICalendar.h
 //
 
+
+
+#define MAGIC magic
+
+
 #import "ical.h"
 
 #import "XbICComponent.h"
