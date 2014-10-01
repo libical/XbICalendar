@@ -20,6 +20,20 @@
                ReferencedContainer = "container:XbICalendar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F1A240BD19C9551900139576"
+               BuildableName = "XbICalendarSwiftTests.xctest"
+               BlueprintName = "XbICalendarSwiftTests"
+               ReferencedContainer = "container:XbICalendar.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -35,6 +49,16 @@
                BlueprintIdentifier = "F12F490C19332EA4003631C5"
                BuildableName = "XbICalendarTests.xctest"
                BlueprintName = "XbICalendarTests"
+               ReferencedContainer = "container:XbICalendar.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F1A240BD19C9551900139576"
+               BuildableName = "XbICalendarSwiftTests.xctest"
+               BlueprintName = "XbICalendarSwiftTests"
                ReferencedContainer = "container:XbICalendar.xcodeproj">
             </BuildableReference>
          </TestableReference>
