@@ -1,4 +1,4 @@
-XbICalendar
+XbICalendar [![Build Status](https://travis-ci.org/chenggehan/XbICalendar.svg?branch=Travis)](https://travis-ci.org/chenggehan/XbICalendar)
 ===========
 
 Easy to use Objective-C Wrapper for the libical library
