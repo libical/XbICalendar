@@ -1,0 +1,3 @@
+language: objective-c
+xcode_project: XbICalendar/XbICalendar.xcodeproj
+xcode_scheme: XbICalendarTests
