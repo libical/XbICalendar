@@ -83,7 +83,7 @@ class XbICalendar2445TestsSwift: XbICalendarIcsTest {
   {
     let vEvent: XbICVEvent = self.componentAtIndex(0, kind:ICAL_VEVENT_COMPONENT, ofCalendarAtIndex:2) as XbICVEvent
 
-    XCTAssertEqual(vEvent.sequences().count, 0, "Unexpected sequence");
+    XCTAssertEqual(vEvent.sequences().count, 1, "Unexpected sequence");
   }
 
   func test_event_with_multiline_description()
