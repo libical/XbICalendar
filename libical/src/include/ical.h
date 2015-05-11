@@ -3,14 +3,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- $Id$
-*/
 #ifndef ICAL_VERSION_H
 #define ICAL_VERSION_H
 
 #define ICAL_PACKAGE "libical"
-#define ICAL_VERSION "1.00"
+#define ICAL_VERSION "2.0"
 
 #endif
 /* -*- Mode: C -*- */
@@ -19,6 +16,8 @@ extern "C" {
  CREATOR: eric 02 June 2000
 
 
+ $Id: icaltime.h,v 1.28 2008-01-15 23:17:42 dothebart Exp $
+ $Locker:  $
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
      http://www.softwarestudio.org
@@ -87,7 +86,6 @@ extern "C" {
  *	- icaltime_is_valid_time(struct icaltimetype t)
  *	- icaltime_is_date(struct icaltimetype t)
  *	- icaltime_is_utc(struct icaltimetype t)
- *	- icaltime_is_floating(struct icaltimetype t)
  *
  *	Modify, compare and utility methods include:
  *
@@ -239,9 +237,6 @@ int icaltime_is_date(const struct icaltimetype t);
 /** @brief Returns true if time is relative to UTC zone */
 int icaltime_is_utc(const struct icaltimetype t);
 
-/** @brief Returns true if time is a floating time */
-int icaltime_is_floating(const struct icaltimetype t);
-
 /** Return -1, 0, or 1 to indicate that a<b, a==b or a>b */
 int icaltime_compare_with_zone(const struct icaltimetype a,
         const struct icaltimetype b);
@@ -304,6 +299,8 @@ int icaltime_span_contains(icaltime_span *s,
  CREATOR: eric 26 Jan 2001
 
 
+ $Id: icalduration.h,v 1.5 2008-01-15 23:17:40 dothebart Exp $
+ $Locker:  $
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
      http://www.softwarestudio.org
@@ -327,6 +324,7 @@ int icaltime_span_contains(icaltime_span *s,
 
 #ifndef ICALDURATION_H
 #define ICALDURATION_H
+
 
 
 struct icaldurationtype
@@ -365,6 +363,8 @@ struct icaldurationtype  icaltime_subtract(struct icaltimetype t1,
  CREATOR: eric 26 Jan 2001
 
 
+ $Id: icalperiod.h,v 1.6 2008-01-15 23:17:41 dothebart Exp $
+ $Locker:  $
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
      http://www.softwarestudio.org
@@ -388,6 +388,7 @@ struct icaldurationtype  icaltime_subtract(struct icaltimetype t1,
 
 #ifndef ICALPERIOD_H
 #define ICALPERIOD_H
+
 
 
 struct icalperiodtype 
@@ -475,8 +476,13 @@ typedef enum icalcomponent_kind {
     ICAL_VCAR_COMPONENT,
     ICAL_VCOMMAND_COMPONENT,
     ICAL_XLICINVALID_COMPONENT,
-    ICAL_XLICMIMEPART_COMPONENT /* a non-stardard component that mirrors
-				structure of MIME data */
+    ICAL_XLICMIMEPART_COMPONENT, /* a non-stardard component that mirrors
+				    structure of MIME data */
+    ICAL_VAVAILABILITY_COMPONENT,
+    ICAL_XAVAILABLE_COMPONENT,
+    ICAL_VPOLL_COMPONENT,
+    ICAL_VVOTER_COMPONENT,
+    ICAL_XVOTE_COMPONENT
 
 } icalcomponent_kind;
 
@@ -610,6 +616,7 @@ char* icalenum_reqstat_code_r(icalrequeststatus stat);
 #include <time.h>
 
 
+
 struct icalgeotype 
 {
 	double lat;
@@ -698,6 +705,70 @@ ical_unknown_token_handling ical_get_unknown_token_handling_setting(void);
 void ical_set_unknown_token_handling_setting(ical_unknown_token_handling newSetting);
 
 #endif /* !ICALTYPES_H */
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 4 -*- */
+/*======================================================================
+ FILE: icalarray.h
+ CREATOR: Damon Chaplin 07 March 2001
+
+
+ $Id: icalarray.h,v 1.5 2008-01-15 23:17:40 dothebart Exp $
+ $Locker:  $
+
+ (C) COPYRIGHT 2001, Ximian, Inc.
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of either: 
+
+    The LGPL as published by the Free Software Foundation, version
+    2.1, available at: http://www.fsf.org/copyleft/lesser.html
+
+  Or:
+
+    The Mozilla Public License Version 1.0. You may obtain a copy of
+    the License at http://www.mozilla.org/MPL/
+
+
+======================================================================*/
+
+
+#ifndef ICALARRAY_H
+#define ICALARRAY_H
+
+/** @file icalarray.h 
+ *
+ *  @brief An array of arbitrarily-sized elements which grows
+ *  dynamically as elements are added. 
+ */
+
+typedef struct _icalarray icalarray;
+struct _icalarray {
+    unsigned int	 element_size;
+    unsigned int	 increment_size;
+    unsigned int	 num_elements;
+    unsigned int	 space_allocated;
+    void		**chunks;
+};
+
+
+
+icalarray *icalarray_new		(int		 element_size,
+					 int		 increment_size);
+icalarray *icalarray_copy		(icalarray	*array);
+void	   icalarray_free		(icalarray	*array);
+
+void	   icalarray_append		(icalarray	*array,
+					 const void		*element);
+void	   icalarray_remove_element_at	(icalarray	*array,
+					 int		 position);
+
+void	  *icalarray_element_at		(icalarray	*array,
+					 int		 position);
+
+void	   icalarray_sort		(icalarray	*array,
+					 int	       (*compare) (const void *, const void *));
+
+
+#endif /* ICALARRAY_H */
 /* -*- Mode: C -*- */
 /*======================================================================
  FILE: icalrecur.h
@@ -771,6 +842,7 @@ whatever timezone that dtstart is in.
 
 #include <time.h>
 
+
 /*
  * Recurrance enumerations
  */
@@ -803,6 +875,13 @@ typedef enum icalrecurrencetype_weekday
     ICAL_SATURDAY_WEEKDAY
 } icalrecurrencetype_weekday;
 
+typedef enum icalrecurrencetype_skip
+{
+    ICAL_SKIP_BACKWARD = 0,
+    ICAL_SKIP_FORWARD,
+    ICAL_SKIP_OMIT
+} icalrecurrencetype_skip;
+
 enum {
     ICAL_RECURRENCE_ARRAY_MAX = 0x7f7f,
     ICAL_RECURRENCE_ARRAY_MAX_BYTE = 0x7f
@@ -814,18 +893,20 @@ enum {
  * Recurrence type routines
  */
 
-/* See RFC 2445 Section 4.3.10, RECUR Value, for an explaination of
-   the values and fields in struct icalrecurrencetype */
-
-#define ICAL_BY_SECOND_SIZE 61
-#define ICAL_BY_MINUTE_SIZE 61
-#define ICAL_BY_HOUR_SIZE 25
-#define ICAL_BY_DAY_SIZE 364 /* 7 days * 52 weeks */
-#define ICAL_BY_MONTHDAY_SIZE 32
-#define ICAL_BY_YEARDAY_SIZE 367
-#define ICAL_BY_WEEKNO_SIZE 54
-#define ICAL_BY_MONTH_SIZE 13
-#define ICAL_BY_SETPOS_SIZE 367
+/* See RFC 5545 Section 3.3.10, RECUR Value, and RFC 7529
+ * for an explanation of the values and fields in struct icalrecurrencetype.
+ *
+ * The maximums below are based on Chinese/Hebrew leap years (13 months)
+ */
+#define ICAL_BY_SECOND_SIZE	62	/* 0 to 60 */
+#define ICAL_BY_MINUTE_SIZE	61	/* 0 to 59 */	
+#define ICAL_BY_HOUR_SIZE	25	/* 0 to 23 */
+#define ICAL_BY_DAY_SIZE	386	/* 7 weekdays * 55 weeks */
+#define ICAL_BY_MONTHDAY_SIZE	32	/* 1 to 31 */
+#define ICAL_BY_YEARDAY_SIZE	386	/* 1 to 385 */
+#define ICAL_BY_WEEKNO_SIZE	56	/* 1 to 55 */
+#define ICAL_BY_MONTH_SIZE	14	/* 1 to 13 */
+#define ICAL_BY_SETPOS_SIZE	386	/* 1 to 385 */
 
 /** Main struct for holding digested recurrence rules */
 struct icalrecurrencetype 
@@ -859,8 +940,15 @@ struct icalrecurrencetype
 	short by_week_no[ICAL_BY_WEEKNO_SIZE];
 	short by_month[ICAL_BY_MONTH_SIZE];
 	short by_set_pos[ICAL_BY_SETPOS_SIZE];
+
+	/* For RSCALE extension (RFC 7529) */
+	char *rscale;
+	icalrecurrencetype_skip skip;
 };
 
+
+int icalrecurrencetype_rscale_is_supported(void);
+icalarray* icalrecurrencetype_rscale_supported_calendars(void);
 
 void icalrecurrencetype_clear(struct icalrecurrencetype *r);
 
@@ -881,6 +969,15 @@ int icalrecurrencetype_day_position(short day);
 
 icalrecurrencetype_weekday icalrecur_string_to_weekday(const char* str);
 
+/**
+ * The 'month' element of the by_month array is encoded to allow
+ * representation of the "L" leap suffix (RFC 7529).
+ * These routines decode the month values.
+ */
+
+int icalrecurrencetype_month_is_leap(short month);
+int icalrecurrencetype_month_month(short month);
+
 /** Recurrance rule parser */
 
 /** Convert between strings and recurrencetype structures. */
@@ -899,8 +996,6 @@ icalrecur_iterator* icalrecur_iterator_new(struct icalrecurrencetype rule,
 
 /** Get the next occurrence from an iterator */
 struct icaltimetype icalrecur_iterator_next(icalrecur_iterator*);
-
-void icalrecur_iterator_decrement_count(icalrecur_iterator*);
 
 /** Free the iterator */
 void icalrecur_iterator_free(icalrecur_iterator*);
@@ -980,6 +1075,8 @@ void* icalattachtype_get_binary(struct icalattachtype* v);
   CREATOR: eric 20 March 1999
 
 
+  $Id: icalderivedvalue.h.in,v 1.10 2007-04-30 13:57:48 artcancro Exp $
+  $Locker:  $
 
   
 
@@ -1002,6 +1099,7 @@ void* icalattachtype_get_binary(struct icalattachtype* v);
 
 #ifndef ICALDERIVEDVALUE_H
 #define ICALDERIVEDVALUE_H
+
 
      
 typedef struct icalvalue_impl icalvalue;
@@ -1039,36 +1137,40 @@ void icalvalue_reset_kind(icalvalue* value);
 
 typedef enum icalvalue_kind {
    ICAL_ANY_VALUE=5000,
-    ICAL_QUERY_VALUE=5001,
-    ICAL_DATE_VALUE=5002,
-    ICAL_ATTACH_VALUE=5003,
-    ICAL_GEO_VALUE=5004,
-    ICAL_STATUS_VALUE=5005,
-    ICAL_TRANSP_VALUE=5006,
-    ICAL_STRING_VALUE=5007,
-    ICAL_TEXT_VALUE=5008,
-    ICAL_REQUESTSTATUS_VALUE=5009,
-    ICAL_CMD_VALUE=5010,
-    ICAL_BINARY_VALUE=5011,
-    ICAL_QUERYLEVEL_VALUE=5012,
-    ICAL_FLOAT_VALUE=5013,
-    ICAL_PERIOD_VALUE=5014,
-    ICAL_DATETIMEPERIOD_VALUE=5015,
-    ICAL_CARLEVEL_VALUE=5016,
-    ICAL_INTEGER_VALUE=5017,
-    ICAL_URI_VALUE=5018,
-    ICAL_CLASS_VALUE=5019,
-    ICAL_DURATION_VALUE=5020,
-    ICAL_BOOLEAN_VALUE=5021,
-    ICAL_X_VALUE=5022,
-    ICAL_CALADDRESS_VALUE=5023,
-    ICAL_TRIGGER_VALUE=5024,
-    ICAL_XLICCLASS_VALUE=5025,
-    ICAL_RECUR_VALUE=5026,
     ICAL_ACTION_VALUE=5027,
+    ICAL_ATTACH_VALUE=5003,
+    ICAL_BINARY_VALUE=5011,
+    ICAL_BOOLEAN_VALUE=5021,
+    ICAL_BUSYTYPE_VALUE=5032,
+    ICAL_CALADDRESS_VALUE=5023,
+    ICAL_CARLEVEL_VALUE=5016,
+    ICAL_CLASS_VALUE=5019,
+    ICAL_CMD_VALUE=5010,
+    ICAL_DATE_VALUE=5002,
     ICAL_DATETIME_VALUE=5028,
-    ICAL_UTCOFFSET_VALUE=5029,
+    ICAL_DATETIMEPERIOD_VALUE=5015,
+    ICAL_DURATION_VALUE=5020,
+    ICAL_FLOAT_VALUE=5013,
+    ICAL_GEO_VALUE=5004,
+    ICAL_INTEGER_VALUE=5017,
     ICAL_METHOD_VALUE=5030,
+    ICAL_PERIOD_VALUE=5014,
+    ICAL_POLLCOMPLETION_VALUE=5034,
+    ICAL_POLLMODE_VALUE=5033,
+    ICAL_QUERY_VALUE=5001,
+    ICAL_QUERYLEVEL_VALUE=5012,
+    ICAL_RECUR_VALUE=5026,
+    ICAL_REQUESTSTATUS_VALUE=5009,
+    ICAL_STATUS_VALUE=5005,
+    ICAL_STRING_VALUE=5007,
+    ICAL_TASKMODE_VALUE=5035,
+    ICAL_TEXT_VALUE=5008,
+    ICAL_TRANSP_VALUE=5006,
+    ICAL_TRIGGER_VALUE=5024,
+    ICAL_URI_VALUE=5018,
+    ICAL_UTCOFFSET_VALUE=5029,
+    ICAL_X_VALUE=5022,
+    ICAL_XLICCLASS_VALUE=5025,
    ICAL_NO_VALUE=5031
 } icalvalue_kind ;
 
@@ -1080,238 +1182,159 @@ typedef enum icalproperty_action {
     ICAL_ACTION_DISPLAY = 10002,
     ICAL_ACTION_EMAIL = 10003,
     ICAL_ACTION_PROCEDURE = 10004,
-    ICAL_ACTION_NONE = 10005
+    ICAL_ACTION_NONE = 10099
 } icalproperty_action;
 
+typedef enum icalproperty_busytype {
+    ICAL_BUSYTYPE_X = 10100,
+    ICAL_BUSYTYPE_BUSY = 10101,
+    ICAL_BUSYTYPE_BUSYUNAVAILABLE = 10102,
+    ICAL_BUSYTYPE_BUSYTENTATIVE = 10103,
+    ICAL_BUSYTYPE_NONE = 10199
+} icalproperty_busytype;
+
 typedef enum icalproperty_carlevel {
-    ICAL_CARLEVEL_X = 10006,
-    ICAL_CARLEVEL_CARNONE = 10007,
-    ICAL_CARLEVEL_CARMIN = 10008,
-    ICAL_CARLEVEL_CARFULL1 = 10009,
-    ICAL_CARLEVEL_NONE = 10010
+    ICAL_CARLEVEL_X = 10200,
+    ICAL_CARLEVEL_CARNONE = 10201,
+    ICAL_CARLEVEL_CARMIN = 10202,
+    ICAL_CARLEVEL_CARFULL1 = 10203,
+    ICAL_CARLEVEL_NONE = 10299
 } icalproperty_carlevel;
 
 typedef enum icalproperty_class {
-    ICAL_CLASS_X = 10011,
-    ICAL_CLASS_PUBLIC = 10012,
-    ICAL_CLASS_PRIVATE = 10013,
-    ICAL_CLASS_CONFIDENTIAL = 10014,
-    ICAL_CLASS_NONE = 10015
+    ICAL_CLASS_X = 10300,
+    ICAL_CLASS_PUBLIC = 10301,
+    ICAL_CLASS_PRIVATE = 10302,
+    ICAL_CLASS_CONFIDENTIAL = 10303,
+    ICAL_CLASS_NONE = 10399
 } icalproperty_class;
 
 typedef enum icalproperty_cmd {
-    ICAL_CMD_X = 10016,
-    ICAL_CMD_ABORT = 10017,
-    ICAL_CMD_CONTINUE = 10018,
-    ICAL_CMD_CREATE = 10019,
-    ICAL_CMD_DELETE = 10020,
-    ICAL_CMD_GENERATEUID = 10021,
-    ICAL_CMD_GETCAPABILITY = 10022,
-    ICAL_CMD_IDENTIFY = 10023,
-    ICAL_CMD_MODIFY = 10024,
-    ICAL_CMD_MOVE = 10025,
-    ICAL_CMD_REPLY = 10026,
-    ICAL_CMD_SEARCH = 10027,
-    ICAL_CMD_SETLOCALE = 10028,
-    ICAL_CMD_NONE = 10029
+    ICAL_CMD_X = 10400,
+    ICAL_CMD_ABORT = 10401,
+    ICAL_CMD_CONTINUE = 10402,
+    ICAL_CMD_CREATE = 10403,
+    ICAL_CMD_DELETE = 10404,
+    ICAL_CMD_GENERATEUID = 10405,
+    ICAL_CMD_GETCAPABILITY = 10406,
+    ICAL_CMD_IDENTIFY = 10407,
+    ICAL_CMD_MODIFY = 10408,
+    ICAL_CMD_MOVE = 10409,
+    ICAL_CMD_REPLY = 10410,
+    ICAL_CMD_SEARCH = 10411,
+    ICAL_CMD_SETLOCALE = 10412,
+    ICAL_CMD_NONE = 10499
 } icalproperty_cmd;
 
 typedef enum icalproperty_method {
-    ICAL_METHOD_X = 10030,
-    ICAL_METHOD_PUBLISH = 10031,
-    ICAL_METHOD_REQUEST = 10032,
-    ICAL_METHOD_REPLY = 10033,
-    ICAL_METHOD_ADD = 10034,
-    ICAL_METHOD_CANCEL = 10035,
-    ICAL_METHOD_REFRESH = 10036,
-    ICAL_METHOD_COUNTER = 10037,
-    ICAL_METHOD_DECLINECOUNTER = 10038,
-    ICAL_METHOD_CREATE = 10039,
-    ICAL_METHOD_READ = 10040,
-    ICAL_METHOD_RESPONSE = 10041,
-    ICAL_METHOD_MOVE = 10042,
-    ICAL_METHOD_MODIFY = 10043,
-    ICAL_METHOD_GENERATEUID = 10044,
-    ICAL_METHOD_DELETE = 10045,
-    ICAL_METHOD_NONE = 10046
+    ICAL_METHOD_X = 10500,
+    ICAL_METHOD_PUBLISH = 10501,
+    ICAL_METHOD_REQUEST = 10502,
+    ICAL_METHOD_REPLY = 10503,
+    ICAL_METHOD_ADD = 10504,
+    ICAL_METHOD_CANCEL = 10505,
+    ICAL_METHOD_REFRESH = 10506,
+    ICAL_METHOD_COUNTER = 10507,
+    ICAL_METHOD_DECLINECOUNTER = 10508,
+    ICAL_METHOD_CREATE = 10509,
+    ICAL_METHOD_READ = 10510,
+    ICAL_METHOD_RESPONSE = 10511,
+    ICAL_METHOD_MOVE = 10512,
+    ICAL_METHOD_MODIFY = 10513,
+    ICAL_METHOD_GENERATEUID = 10514,
+    ICAL_METHOD_DELETE = 10515,
+    ICAL_METHOD_POLLSTATUS = 10516,
+    ICAL_METHOD_NONE = 10599
 } icalproperty_method;
 
+typedef enum icalproperty_pollcompletion {
+    ICAL_POLLCOMPLETION_X = 10600,
+    ICAL_POLLCOMPLETION_SERVER = 10601,
+    ICAL_POLLCOMPLETION_SERVERSUBMIT = 10602,
+    ICAL_POLLCOMPLETION_SERVERCHOICE = 10603,
+    ICAL_POLLCOMPLETION_CLIENT = 10604,
+    ICAL_POLLCOMPLETION_NONE = 10699
+} icalproperty_pollcompletion;
+
+typedef enum icalproperty_pollmode {
+    ICAL_POLLMODE_X = 10700,
+    ICAL_POLLMODE_BASIC = 10701,
+    ICAL_POLLMODE_NONE = 10799
+} icalproperty_pollmode;
+
 typedef enum icalproperty_querylevel {
-    ICAL_QUERYLEVEL_X = 10047,
-    ICAL_QUERYLEVEL_CALQL1 = 10048,
-    ICAL_QUERYLEVEL_CALQLNONE = 10049,
-    ICAL_QUERYLEVEL_NONE = 10050
+    ICAL_QUERYLEVEL_X = 10800,
+    ICAL_QUERYLEVEL_CALQL1 = 10801,
+    ICAL_QUERYLEVEL_CALQLNONE = 10802,
+    ICAL_QUERYLEVEL_NONE = 10899
 } icalproperty_querylevel;
 
 typedef enum icalproperty_status {
-    ICAL_STATUS_X = 10051,
-    ICAL_STATUS_TENTATIVE = 10052,
-    ICAL_STATUS_CONFIRMED = 10053,
-    ICAL_STATUS_COMPLETED = 10054,
-    ICAL_STATUS_NEEDSACTION = 10055,
-    ICAL_STATUS_CANCELLED = 10056,
-    ICAL_STATUS_INPROCESS = 10057,
-    ICAL_STATUS_DRAFT = 10058,
-    ICAL_STATUS_FINAL = 10059,
-    ICAL_STATUS_NONE = 10060
+    ICAL_STATUS_X = 10900,
+    ICAL_STATUS_TENTATIVE = 10901,
+    ICAL_STATUS_CONFIRMED = 10902,
+    ICAL_STATUS_COMPLETED = 10903,
+    ICAL_STATUS_NEEDSACTION = 10904,
+    ICAL_STATUS_CANCELLED = 10905,
+    ICAL_STATUS_INPROCESS = 10906,
+    ICAL_STATUS_DRAFT = 10907,
+    ICAL_STATUS_FINAL = 10908,
+    ICAL_STATUS_SUBMITTED = 10909,
+    ICAL_STATUS_PENDING = 10910,
+    ICAL_STATUS_FAILED = 10911,
+    ICAL_STATUS_NONE = 10999
 } icalproperty_status;
 
+typedef enum icalproperty_taskmode {
+    ICAL_TASKMODE_X = 11200,
+    ICAL_TASKMODE_AUTOMATICCOMPLETION = 11201,
+    ICAL_TASKMODE_AUTOMATICFAILURE = 11202,
+    ICAL_TASKMODE_AUTOMATICSTATUS = 11203,
+    ICAL_TASKMODE_NONE = 11299
+} icalproperty_taskmode;
+
 typedef enum icalproperty_transp {
-    ICAL_TRANSP_X = 10061,
-    ICAL_TRANSP_OPAQUE = 10062,
-    ICAL_TRANSP_OPAQUENOCONFLICT = 10063,
-    ICAL_TRANSP_TRANSPARENT = 10064,
-    ICAL_TRANSP_TRANSPARENTNOCONFLICT = 10065,
-    ICAL_TRANSP_NONE = 10066
+    ICAL_TRANSP_X = 11000,
+    ICAL_TRANSP_OPAQUE = 11001,
+    ICAL_TRANSP_OPAQUENOCONFLICT = 11002,
+    ICAL_TRANSP_TRANSPARENT = 11003,
+    ICAL_TRANSP_TRANSPARENTNOCONFLICT = 11004,
+    ICAL_TRANSP_NONE = 11099
 } icalproperty_transp;
 
 typedef enum icalproperty_xlicclass {
-    ICAL_XLICCLASS_X = 10067,
-    ICAL_XLICCLASS_PUBLISHNEW = 10068,
-    ICAL_XLICCLASS_PUBLISHUPDATE = 10069,
-    ICAL_XLICCLASS_PUBLISHFREEBUSY = 10070,
-    ICAL_XLICCLASS_REQUESTNEW = 10071,
-    ICAL_XLICCLASS_REQUESTUPDATE = 10072,
-    ICAL_XLICCLASS_REQUESTRESCHEDULE = 10073,
-    ICAL_XLICCLASS_REQUESTDELEGATE = 10074,
-    ICAL_XLICCLASS_REQUESTNEWORGANIZER = 10075,
-    ICAL_XLICCLASS_REQUESTFORWARD = 10076,
-    ICAL_XLICCLASS_REQUESTSTATUS = 10077,
-    ICAL_XLICCLASS_REQUESTFREEBUSY = 10078,
-    ICAL_XLICCLASS_REPLYACCEPT = 10079,
-    ICAL_XLICCLASS_REPLYDECLINE = 10080,
-    ICAL_XLICCLASS_REPLYDELEGATE = 10081,
-    ICAL_XLICCLASS_REPLYCRASHERACCEPT = 10082,
-    ICAL_XLICCLASS_REPLYCRASHERDECLINE = 10083,
-    ICAL_XLICCLASS_ADDINSTANCE = 10084,
-    ICAL_XLICCLASS_CANCELEVENT = 10085,
-    ICAL_XLICCLASS_CANCELINSTANCE = 10086,
-    ICAL_XLICCLASS_CANCELALL = 10087,
-    ICAL_XLICCLASS_REFRESH = 10088,
-    ICAL_XLICCLASS_COUNTER = 10089,
-    ICAL_XLICCLASS_DECLINECOUNTER = 10090,
-    ICAL_XLICCLASS_MALFORMED = 10091,
-    ICAL_XLICCLASS_OBSOLETE = 10092,
-    ICAL_XLICCLASS_MISSEQUENCED = 10093,
-    ICAL_XLICCLASS_UNKNOWN = 10094,
-    ICAL_XLICCLASS_NONE = 10095
+    ICAL_XLICCLASS_X = 11100,
+    ICAL_XLICCLASS_PUBLISHNEW = 11101,
+    ICAL_XLICCLASS_PUBLISHUPDATE = 11102,
+    ICAL_XLICCLASS_PUBLISHFREEBUSY = 11103,
+    ICAL_XLICCLASS_REQUESTNEW = 11104,
+    ICAL_XLICCLASS_REQUESTUPDATE = 11105,
+    ICAL_XLICCLASS_REQUESTRESCHEDULE = 11106,
+    ICAL_XLICCLASS_REQUESTDELEGATE = 11107,
+    ICAL_XLICCLASS_REQUESTNEWORGANIZER = 11108,
+    ICAL_XLICCLASS_REQUESTFORWARD = 11109,
+    ICAL_XLICCLASS_REQUESTSTATUS = 11110,
+    ICAL_XLICCLASS_REQUESTFREEBUSY = 11111,
+    ICAL_XLICCLASS_REPLYACCEPT = 11112,
+    ICAL_XLICCLASS_REPLYDECLINE = 11113,
+    ICAL_XLICCLASS_REPLYDELEGATE = 11114,
+    ICAL_XLICCLASS_REPLYCRASHERACCEPT = 11115,
+    ICAL_XLICCLASS_REPLYCRASHERDECLINE = 11116,
+    ICAL_XLICCLASS_ADDINSTANCE = 11117,
+    ICAL_XLICCLASS_CANCELEVENT = 11118,
+    ICAL_XLICCLASS_CANCELINSTANCE = 11119,
+    ICAL_XLICCLASS_CANCELALL = 11120,
+    ICAL_XLICCLASS_REFRESH = 11121,
+    ICAL_XLICCLASS_COUNTER = 11122,
+    ICAL_XLICCLASS_DECLINECOUNTER = 11123,
+    ICAL_XLICCLASS_MALFORMED = 11124,
+    ICAL_XLICCLASS_OBSOLETE = 11125,
+    ICAL_XLICCLASS_MISSEQUENCED = 11126,
+    ICAL_XLICCLASS_UNKNOWN = 11127,
+    ICAL_XLICCLASS_NONE = 11199
 } icalproperty_xlicclass;
 
-#define ICALPROPERTY_LAST_ENUM 10096
-
-
- /* QUERY */ 
-icalvalue* icalvalue_new_query(const char* v); 
-const char* icalvalue_get_query(const icalvalue* value); 
-void icalvalue_set_query(icalvalue* value, const char* v);
-
-
- /* DATE */ 
-icalvalue* icalvalue_new_date(struct icaltimetype v); 
-struct icaltimetype icalvalue_get_date(const icalvalue* value); 
-void icalvalue_set_date(icalvalue* value, struct icaltimetype v);
-
-
- /* STATUS */ 
-icalvalue* icalvalue_new_status(enum icalproperty_status v); 
-enum icalproperty_status icalvalue_get_status(const icalvalue* value); 
-void icalvalue_set_status(icalvalue* value, enum icalproperty_status v);
-
-
- /* TRANSP */ 
-icalvalue* icalvalue_new_transp(enum icalproperty_transp v); 
-enum icalproperty_transp icalvalue_get_transp(const icalvalue* value); 
-void icalvalue_set_transp(icalvalue* value, enum icalproperty_transp v);
-
-
- /* STRING */ 
-icalvalue* icalvalue_new_string(const char* v); 
-const char* icalvalue_get_string(const icalvalue* value); 
-void icalvalue_set_string(icalvalue* value, const char* v);
-
-
- /* TEXT */ 
-icalvalue* icalvalue_new_text(const char* v); 
-const char* icalvalue_get_text(const icalvalue* value); 
-void icalvalue_set_text(icalvalue* value, const char* v);
-
-
- /* REQUEST-STATUS */ 
-icalvalue* icalvalue_new_requeststatus(struct icalreqstattype v); 
-struct icalreqstattype icalvalue_get_requeststatus(const icalvalue* value); 
-void icalvalue_set_requeststatus(icalvalue* value, struct icalreqstattype v);
-
-
- /* CMD */ 
-icalvalue* icalvalue_new_cmd(enum icalproperty_cmd v); 
-enum icalproperty_cmd icalvalue_get_cmd(const icalvalue* value); 
-void icalvalue_set_cmd(icalvalue* value, enum icalproperty_cmd v);
-
-
- /* BINARY */ 
-icalvalue* icalvalue_new_binary(const char* v); 
-const char* icalvalue_get_binary(const icalvalue* value); 
-void icalvalue_set_binary(icalvalue* value, const char* v);
-
-
- /* QUERY-LEVEL */ 
-icalvalue* icalvalue_new_querylevel(enum icalproperty_querylevel v); 
-enum icalproperty_querylevel icalvalue_get_querylevel(const icalvalue* value); 
-void icalvalue_set_querylevel(icalvalue* value, enum icalproperty_querylevel v);
-
-
- /* FLOAT */ 
-icalvalue* icalvalue_new_float(float v); 
-float icalvalue_get_float(const icalvalue* value); 
-void icalvalue_set_float(icalvalue* value, float v);
-
-
- /* PERIOD */ 
-icalvalue* icalvalue_new_period(struct icalperiodtype v); 
-struct icalperiodtype icalvalue_get_period(const icalvalue* value); 
-void icalvalue_set_period(icalvalue* value, struct icalperiodtype v);
-
-
- /* CAR-LEVEL */ 
-icalvalue* icalvalue_new_carlevel(enum icalproperty_carlevel v); 
-enum icalproperty_carlevel icalvalue_get_carlevel(const icalvalue* value); 
-void icalvalue_set_carlevel(icalvalue* value, enum icalproperty_carlevel v);
-
-
- /* INTEGER */ 
-icalvalue* icalvalue_new_integer(int v); 
-int icalvalue_get_integer(const icalvalue* value); 
-void icalvalue_set_integer(icalvalue* value, int v);
-
-
- /* URI */ 
-icalvalue* icalvalue_new_uri(const char* v); 
-const char* icalvalue_get_uri(const icalvalue* value); 
-void icalvalue_set_uri(icalvalue* value, const char* v);
-
-
- /* DURATION */ 
-icalvalue* icalvalue_new_duration(struct icaldurationtype v); 
-struct icaldurationtype icalvalue_get_duration(const icalvalue* value); 
-void icalvalue_set_duration(icalvalue* value, struct icaldurationtype v);
-
-
- /* BOOLEAN */ 
-icalvalue* icalvalue_new_boolean(int v); 
-int icalvalue_get_boolean(const icalvalue* value); 
-void icalvalue_set_boolean(icalvalue* value, int v);
-
-
- /* CAL-ADDRESS */ 
-icalvalue* icalvalue_new_caladdress(const char* v); 
-const char* icalvalue_get_caladdress(const icalvalue* value); 
-void icalvalue_set_caladdress(icalvalue* value, const char* v);
-
-
- /* X-LIC-CLASS */ 
-icalvalue* icalvalue_new_xlicclass(enum icalproperty_xlicclass v); 
-enum icalproperty_xlicclass icalvalue_get_xlicclass(const icalvalue* value); 
-void icalvalue_set_xlicclass(icalvalue* value, enum icalproperty_xlicclass v);
+#define ICALPROPERTY_LAST_ENUM 11300
 
 
  /* ACTION */ 
@@ -1320,16 +1343,154 @@ enum icalproperty_action icalvalue_get_action(const icalvalue* value);
 void icalvalue_set_action(icalvalue* value, enum icalproperty_action v);
 
 
- /* UTC-OFFSET */ 
-icalvalue* icalvalue_new_utcoffset(int v); 
-int icalvalue_get_utcoffset(const icalvalue* value); 
-void icalvalue_set_utcoffset(icalvalue* value, int v);
+ /* BINARY */ 
+icalvalue* icalvalue_new_binary(const char* v); 
+const char* icalvalue_get_binary(const icalvalue* value); 
+void icalvalue_set_binary(icalvalue* value, const char* v);
+
+
+ /* BOOLEAN */ 
+icalvalue* icalvalue_new_boolean(int v); 
+int icalvalue_get_boolean(const icalvalue* value); 
+void icalvalue_set_boolean(icalvalue* value, int v);
+
+
+ /* BUSYTYPE */ 
+icalvalue* icalvalue_new_busytype(enum icalproperty_busytype v); 
+enum icalproperty_busytype icalvalue_get_busytype(const icalvalue* value); 
+void icalvalue_set_busytype(icalvalue* value, enum icalproperty_busytype v);
+
+
+ /* CAL-ADDRESS */ 
+icalvalue* icalvalue_new_caladdress(const char* v); 
+const char* icalvalue_get_caladdress(const icalvalue* value); 
+void icalvalue_set_caladdress(icalvalue* value, const char* v);
+
+
+ /* CAR-LEVEL */ 
+icalvalue* icalvalue_new_carlevel(enum icalproperty_carlevel v); 
+enum icalproperty_carlevel icalvalue_get_carlevel(const icalvalue* value); 
+void icalvalue_set_carlevel(icalvalue* value, enum icalproperty_carlevel v);
+
+
+ /* CMD */ 
+icalvalue* icalvalue_new_cmd(enum icalproperty_cmd v); 
+enum icalproperty_cmd icalvalue_get_cmd(const icalvalue* value); 
+void icalvalue_set_cmd(icalvalue* value, enum icalproperty_cmd v);
+
+
+ /* DATE */ 
+icalvalue* icalvalue_new_date(struct icaltimetype v); 
+struct icaltimetype icalvalue_get_date(const icalvalue* value); 
+void icalvalue_set_date(icalvalue* value, struct icaltimetype v);
+
+
+ /* DURATION */ 
+icalvalue* icalvalue_new_duration(struct icaldurationtype v); 
+struct icaldurationtype icalvalue_get_duration(const icalvalue* value); 
+void icalvalue_set_duration(icalvalue* value, struct icaldurationtype v);
+
+
+ /* FLOAT */ 
+icalvalue* icalvalue_new_float(float v); 
+float icalvalue_get_float(const icalvalue* value); 
+void icalvalue_set_float(icalvalue* value, float v);
+
+
+ /* INTEGER */ 
+icalvalue* icalvalue_new_integer(int v); 
+int icalvalue_get_integer(const icalvalue* value); 
+void icalvalue_set_integer(icalvalue* value, int v);
 
 
  /* METHOD */ 
 icalvalue* icalvalue_new_method(enum icalproperty_method v); 
 enum icalproperty_method icalvalue_get_method(const icalvalue* value); 
 void icalvalue_set_method(icalvalue* value, enum icalproperty_method v);
+
+
+ /* PERIOD */ 
+icalvalue* icalvalue_new_period(struct icalperiodtype v); 
+struct icalperiodtype icalvalue_get_period(const icalvalue* value); 
+void icalvalue_set_period(icalvalue* value, struct icalperiodtype v);
+
+
+ /* POLLCOMPLETION */ 
+icalvalue* icalvalue_new_pollcompletion(enum icalproperty_pollcompletion v); 
+enum icalproperty_pollcompletion icalvalue_get_pollcompletion(const icalvalue* value); 
+void icalvalue_set_pollcompletion(icalvalue* value, enum icalproperty_pollcompletion v);
+
+
+ /* POLLMODE */ 
+icalvalue* icalvalue_new_pollmode(enum icalproperty_pollmode v); 
+enum icalproperty_pollmode icalvalue_get_pollmode(const icalvalue* value); 
+void icalvalue_set_pollmode(icalvalue* value, enum icalproperty_pollmode v);
+
+
+ /* QUERY */ 
+icalvalue* icalvalue_new_query(const char* v); 
+const char* icalvalue_get_query(const icalvalue* value); 
+void icalvalue_set_query(icalvalue* value, const char* v);
+
+
+ /* QUERY-LEVEL */ 
+icalvalue* icalvalue_new_querylevel(enum icalproperty_querylevel v); 
+enum icalproperty_querylevel icalvalue_get_querylevel(const icalvalue* value); 
+void icalvalue_set_querylevel(icalvalue* value, enum icalproperty_querylevel v);
+
+
+ /* REQUEST-STATUS */ 
+icalvalue* icalvalue_new_requeststatus(struct icalreqstattype v); 
+struct icalreqstattype icalvalue_get_requeststatus(const icalvalue* value); 
+void icalvalue_set_requeststatus(icalvalue* value, struct icalreqstattype v);
+
+
+ /* STATUS */ 
+icalvalue* icalvalue_new_status(enum icalproperty_status v); 
+enum icalproperty_status icalvalue_get_status(const icalvalue* value); 
+void icalvalue_set_status(icalvalue* value, enum icalproperty_status v);
+
+
+ /* STRING */ 
+icalvalue* icalvalue_new_string(const char* v); 
+const char* icalvalue_get_string(const icalvalue* value); 
+void icalvalue_set_string(icalvalue* value, const char* v);
+
+
+ /* TASKMODE */ 
+icalvalue* icalvalue_new_taskmode(enum icalproperty_taskmode v); 
+enum icalproperty_taskmode icalvalue_get_taskmode(const icalvalue* value); 
+void icalvalue_set_taskmode(icalvalue* value, enum icalproperty_taskmode v);
+
+
+ /* TEXT */ 
+icalvalue* icalvalue_new_text(const char* v); 
+const char* icalvalue_get_text(const icalvalue* value); 
+void icalvalue_set_text(icalvalue* value, const char* v);
+
+
+ /* TRANSP */ 
+icalvalue* icalvalue_new_transp(enum icalproperty_transp v); 
+enum icalproperty_transp icalvalue_get_transp(const icalvalue* value); 
+void icalvalue_set_transp(icalvalue* value, enum icalproperty_transp v);
+
+
+ /* URI */ 
+icalvalue* icalvalue_new_uri(const char* v); 
+const char* icalvalue_get_uri(const icalvalue* value); 
+void icalvalue_set_uri(icalvalue* value, const char* v);
+
+
+ /* UTC-OFFSET */ 
+icalvalue* icalvalue_new_utcoffset(int v); 
+int icalvalue_get_utcoffset(const icalvalue* value); 
+void icalvalue_set_utcoffset(icalvalue* value, int v);
+
+
+ /* X-LIC-CLASS */ 
+icalvalue* icalvalue_new_xlicclass(enum icalproperty_xlicclass v); 
+enum icalproperty_xlicclass icalvalue_get_xlicclass(const icalvalue* value); 
+void icalvalue_set_xlicclass(icalvalue* value, enum icalproperty_xlicclass v);
 
 #endif /*ICALVALUE_H*/
 
@@ -1343,6 +1504,8 @@ void icalvalue_set_class(icalvalue* value, enum icalproperty_class v);
   CREATOR: eric 20 March 1999
 
 
+  $Id: icalderivedparameter.h.in,v 1.4 2007-04-30 13:57:48 artcancro Exp $
+  $Locker:  $
 
   
 
@@ -1387,6 +1550,7 @@ typedef enum icalparameter_kind {
     ICAL_ENABLE_PARAMETER = 9, 
     ICAL_ENCODING_PARAMETER = 10, 
     ICAL_FBTYPE_PARAMETER = 11, 
+    ICAL_FILENAME_PARAMETER = 42, 
     ICAL_FMTTYPE_PARAMETER = 12, 
     ICAL_IANA_PARAMETER = 33, 
     ICAL_ID_PARAMETER = 13, 
@@ -1394,18 +1558,27 @@ typedef enum icalparameter_kind {
     ICAL_LATENCY_PARAMETER = 15, 
     ICAL_LOCAL_PARAMETER = 16, 
     ICAL_LOCALIZE_PARAMETER = 17, 
+    ICAL_MANAGEDID_PARAMETER = 40, 
     ICAL_MEMBER_PARAMETER = 18, 
+    ICAL_MODIFIED_PARAMETER = 44, 
     ICAL_OPTIONS_PARAMETER = 19, 
     ICAL_PARTSTAT_PARAMETER = 20, 
+    ICAL_PUBLICCOMMENT_PARAMETER = 37, 
     ICAL_RANGE_PARAMETER = 21, 
+    ICAL_REASON_PARAMETER = 43, 
     ICAL_RELATED_PARAMETER = 22, 
     ICAL_RELTYPE_PARAMETER = 23, 
+    ICAL_REQUIRED_PARAMETER = 43, 
+    ICAL_RESPONSE_PARAMETER = 38, 
     ICAL_ROLE_PARAMETER = 24, 
     ICAL_RSVP_PARAMETER = 25, 
     ICAL_SCHEDULEAGENT_PARAMETER = 34, 
     ICAL_SCHEDULEFORCESEND_PARAMETER = 35, 
     ICAL_SCHEDULESTATUS_PARAMETER = 36, 
     ICAL_SENTBY_PARAMETER = 26, 
+    ICAL_SIZE_PARAMETER = 41, 
+    ICAL_STAYINFORMED_PARAMETER = 39, 
+    ICAL_SUBSTATE_PARAMETER = 45, 
     ICAL_TZID_PARAMETER = 27, 
     ICAL_VALUE_PARAMETER = 28, 
     ICAL_X_PARAMETER = 29, 
@@ -1420,161 +1593,185 @@ typedef enum icalparameter_action {
     ICAL_ACTIONPARAM_X = 20000,
     ICAL_ACTIONPARAM_ASK = 20001,
     ICAL_ACTIONPARAM_ABORT = 20002,
-    ICAL_ACTIONPARAM_NONE = 20003
+    ICAL_ACTIONPARAM_NONE = 20099
 } icalparameter_action;
 
 typedef enum icalparameter_cutype {
-    ICAL_CUTYPE_X = 20004,
-    ICAL_CUTYPE_INDIVIDUAL = 20005,
-    ICAL_CUTYPE_GROUP = 20006,
-    ICAL_CUTYPE_RESOURCE = 20007,
-    ICAL_CUTYPE_ROOM = 20008,
-    ICAL_CUTYPE_UNKNOWN = 20009,
-    ICAL_CUTYPE_NONE = 20010
+    ICAL_CUTYPE_X = 20100,
+    ICAL_CUTYPE_INDIVIDUAL = 20101,
+    ICAL_CUTYPE_GROUP = 20102,
+    ICAL_CUTYPE_RESOURCE = 20103,
+    ICAL_CUTYPE_ROOM = 20104,
+    ICAL_CUTYPE_UNKNOWN = 20105,
+    ICAL_CUTYPE_NONE = 20199
 } icalparameter_cutype;
 
 typedef enum icalparameter_enable {
-    ICAL_ENABLE_X = 20011,
-    ICAL_ENABLE_TRUE = 20012,
-    ICAL_ENABLE_FALSE = 20013,
-    ICAL_ENABLE_NONE = 20014
+    ICAL_ENABLE_X = 20200,
+    ICAL_ENABLE_TRUE = 20201,
+    ICAL_ENABLE_FALSE = 20202,
+    ICAL_ENABLE_NONE = 20299
 } icalparameter_enable;
 
 typedef enum icalparameter_encoding {
-    ICAL_ENCODING_X = 20015,
-    ICAL_ENCODING_8BIT = 20016,
-    ICAL_ENCODING_BASE64 = 20017,
-    ICAL_ENCODING_NONE = 20018
+    ICAL_ENCODING_X = 20300,
+    ICAL_ENCODING_8BIT = 20301,
+    ICAL_ENCODING_BASE64 = 20302,
+    ICAL_ENCODING_NONE = 20399
 } icalparameter_encoding;
 
 typedef enum icalparameter_fbtype {
-    ICAL_FBTYPE_X = 20019,
-    ICAL_FBTYPE_FREE = 20020,
-    ICAL_FBTYPE_BUSY = 20021,
-    ICAL_FBTYPE_BUSYUNAVAILABLE = 20022,
-    ICAL_FBTYPE_BUSYTENTATIVE = 20023,
-    ICAL_FBTYPE_NONE = 20024
+    ICAL_FBTYPE_X = 20400,
+    ICAL_FBTYPE_FREE = 20401,
+    ICAL_FBTYPE_BUSY = 20402,
+    ICAL_FBTYPE_BUSYUNAVAILABLE = 20403,
+    ICAL_FBTYPE_BUSYTENTATIVE = 20404,
+    ICAL_FBTYPE_NONE = 20499
 } icalparameter_fbtype;
 
 typedef enum icalparameter_local {
-    ICAL_LOCAL_X = 20025,
-    ICAL_LOCAL_TRUE = 20026,
-    ICAL_LOCAL_FALSE = 20027,
-    ICAL_LOCAL_NONE = 20028
+    ICAL_LOCAL_X = 20500,
+    ICAL_LOCAL_TRUE = 20501,
+    ICAL_LOCAL_FALSE = 20502,
+    ICAL_LOCAL_NONE = 20599
 } icalparameter_local;
 
 typedef enum icalparameter_partstat {
-    ICAL_PARTSTAT_X = 20029,
-    ICAL_PARTSTAT_NEEDSACTION = 20030,
-    ICAL_PARTSTAT_ACCEPTED = 20031,
-    ICAL_PARTSTAT_DECLINED = 20032,
-    ICAL_PARTSTAT_TENTATIVE = 20033,
-    ICAL_PARTSTAT_DELEGATED = 20034,
-    ICAL_PARTSTAT_COMPLETED = 20035,
-    ICAL_PARTSTAT_INPROCESS = 20036,
-    ICAL_PARTSTAT_NONE = 20037
+    ICAL_PARTSTAT_X = 20600,
+    ICAL_PARTSTAT_NEEDSACTION = 20601,
+    ICAL_PARTSTAT_ACCEPTED = 20602,
+    ICAL_PARTSTAT_DECLINED = 20603,
+    ICAL_PARTSTAT_TENTATIVE = 20604,
+    ICAL_PARTSTAT_DELEGATED = 20605,
+    ICAL_PARTSTAT_COMPLETED = 20606,
+    ICAL_PARTSTAT_INPROCESS = 20607,
+    ICAL_PARTSTAT_FAILED = 20608,
+    ICAL_PARTSTAT_NONE = 20699
 } icalparameter_partstat;
 
 typedef enum icalparameter_range {
-    ICAL_RANGE_X = 20038,
-    ICAL_RANGE_THISANDPRIOR = 20039,
-    ICAL_RANGE_THISANDFUTURE = 20040,
-    ICAL_RANGE_NONE = 20041
+    ICAL_RANGE_X = 20700,
+    ICAL_RANGE_THISANDPRIOR = 20701,
+    ICAL_RANGE_THISANDFUTURE = 20702,
+    ICAL_RANGE_NONE = 20799
 } icalparameter_range;
 
 typedef enum icalparameter_related {
-    ICAL_RELATED_X = 20042,
-    ICAL_RELATED_START = 20043,
-    ICAL_RELATED_END = 20044,
-    ICAL_RELATED_NONE = 20045
+    ICAL_RELATED_X = 20800,
+    ICAL_RELATED_START = 20801,
+    ICAL_RELATED_END = 20802,
+    ICAL_RELATED_NONE = 20899
 } icalparameter_related;
 
 typedef enum icalparameter_reltype {
-    ICAL_RELTYPE_X = 20046,
-    ICAL_RELTYPE_PARENT = 20047,
-    ICAL_RELTYPE_CHILD = 20048,
-    ICAL_RELTYPE_SIBLING = 20049,
-    ICAL_RELTYPE_NONE = 20050
+    ICAL_RELTYPE_X = 20900,
+    ICAL_RELTYPE_PARENT = 20901,
+    ICAL_RELTYPE_CHILD = 20902,
+    ICAL_RELTYPE_SIBLING = 20903,
+    ICAL_RELTYPE_POLL = 20904,
+    ICAL_RELTYPE_NONE = 20999
 } icalparameter_reltype;
 
+typedef enum icalparameter_required {
+    ICAL_REQUIRED_X = 21000,
+    ICAL_REQUIRED_TRUE = 21001,
+    ICAL_REQUIRED_FALSE = 21002,
+    ICAL_REQUIRED_NONE = 21099
+} icalparameter_required;
+
 typedef enum icalparameter_role {
-    ICAL_ROLE_X = 20051,
-    ICAL_ROLE_CHAIR = 20052,
-    ICAL_ROLE_REQPARTICIPANT = 20053,
-    ICAL_ROLE_OPTPARTICIPANT = 20054,
-    ICAL_ROLE_NONPARTICIPANT = 20055,
-    ICAL_ROLE_NONE = 20056
+    ICAL_ROLE_X = 21100,
+    ICAL_ROLE_CHAIR = 21101,
+    ICAL_ROLE_REQPARTICIPANT = 21102,
+    ICAL_ROLE_OPTPARTICIPANT = 21103,
+    ICAL_ROLE_NONPARTICIPANT = 21104,
+    ICAL_ROLE_NONE = 21199
 } icalparameter_role;
 
 typedef enum icalparameter_rsvp {
-    ICAL_RSVP_X = 20057,
-    ICAL_RSVP_TRUE = 20058,
-    ICAL_RSVP_FALSE = 20059,
-    ICAL_RSVP_NONE = 20060
+    ICAL_RSVP_X = 21200,
+    ICAL_RSVP_TRUE = 21201,
+    ICAL_RSVP_FALSE = 21202,
+    ICAL_RSVP_NONE = 21299
 } icalparameter_rsvp;
 
 typedef enum icalparameter_scheduleagent {
-    ICAL_SCHEDULEAGENT_X = 20061,
-    ICAL_SCHEDULEAGENT_SERVER = 20062,
-    ICAL_SCHEDULEAGENT_CLIENT = 20063,
-    ICAL_SCHEDULEAGENT_NONE = 20064
+    ICAL_SCHEDULEAGENT_X = 21300,
+    ICAL_SCHEDULEAGENT_SERVER = 21301,
+    ICAL_SCHEDULEAGENT_CLIENT = 21302,
+    ICAL_SCHEDULEAGENT_NONE = 21399
 } icalparameter_scheduleagent;
 
 typedef enum icalparameter_scheduleforcesend {
-    ICAL_SCHEDULEFORCESEND_X = 20065,
-    ICAL_SCHEDULEFORCESEND_REQUEST = 20066,
-    ICAL_SCHEDULEFORCESEND_REPLY = 20067,
-    ICAL_SCHEDULEFORCESEND_NONE = 20068
+    ICAL_SCHEDULEFORCESEND_X = 21400,
+    ICAL_SCHEDULEFORCESEND_REQUEST = 21401,
+    ICAL_SCHEDULEFORCESEND_REPLY = 21402,
+    ICAL_SCHEDULEFORCESEND_NONE = 21499
 } icalparameter_scheduleforcesend;
 
+typedef enum icalparameter_stayinformed {
+    ICAL_STAYINFORMED_X = 21500,
+    ICAL_STAYINFORMED_TRUE = 21501,
+    ICAL_STAYINFORMED_FALSE = 21502,
+    ICAL_STAYINFORMED_NONE = 21599
+} icalparameter_stayinformed;
+
+typedef enum icalparameter_substate {
+    ICAL_SUBSTATE_X = 21900,
+    ICAL_SUBSTATE_OK = 21901,
+    ICAL_SUBSTATE_ERROR = 21902,
+    ICAL_SUBSTATE_SUSPENDED = 21903,
+    ICAL_SUBSTATE_NONE = 21999
+} icalparameter_substate;
+
 typedef enum icalparameter_value {
-    ICAL_VALUE_X = 20069,
-    ICAL_VALUE_BINARY = 20070,
-    ICAL_VALUE_BOOLEAN = 20071,
-    ICAL_VALUE_DATE = 20072,
-    ICAL_VALUE_DURATION = 20073,
-    ICAL_VALUE_FLOAT = 20074,
-    ICAL_VALUE_INTEGER = 20075,
-    ICAL_VALUE_PERIOD = 20076,
-    ICAL_VALUE_RECUR = 20077,
-    ICAL_VALUE_TEXT = 20078,
-    ICAL_VALUE_URI = 20079,
-    ICAL_VALUE_ERROR = 20080,
-    ICAL_VALUE_DATETIME = 20081,
-    ICAL_VALUE_UTCOFFSET = 20082,
-    ICAL_VALUE_CALADDRESS = 20083,
-    ICAL_VALUE_NONE = 20084
+    ICAL_VALUE_X = 21600,
+    ICAL_VALUE_BINARY = 21601,
+    ICAL_VALUE_BOOLEAN = 21602,
+    ICAL_VALUE_DATE = 21603,
+    ICAL_VALUE_DURATION = 21604,
+    ICAL_VALUE_FLOAT = 21605,
+    ICAL_VALUE_INTEGER = 21606,
+    ICAL_VALUE_PERIOD = 21607,
+    ICAL_VALUE_RECUR = 21608,
+    ICAL_VALUE_TEXT = 21609,
+    ICAL_VALUE_URI = 21610,
+    ICAL_VALUE_ERROR = 21611,
+    ICAL_VALUE_DATETIME = 21612,
+    ICAL_VALUE_UTCOFFSET = 21613,
+    ICAL_VALUE_CALADDRESS = 21614,
+    ICAL_VALUE_NONE = 21699
 } icalparameter_value;
 
 typedef enum icalparameter_xliccomparetype {
-    ICAL_XLICCOMPARETYPE_X = 20085,
-    ICAL_XLICCOMPARETYPE_EQUAL = 20086,
-    ICAL_XLICCOMPARETYPE_NOTEQUAL = 20087,
-    ICAL_XLICCOMPARETYPE_LESS = 20088,
-    ICAL_XLICCOMPARETYPE_GREATER = 20089,
-    ICAL_XLICCOMPARETYPE_LESSEQUAL = 20090,
-    ICAL_XLICCOMPARETYPE_GREATEREQUAL = 20091,
-    ICAL_XLICCOMPARETYPE_REGEX = 20092,
-    ICAL_XLICCOMPARETYPE_ISNULL = 20093,
-    ICAL_XLICCOMPARETYPE_ISNOTNULL = 20094,
-    ICAL_XLICCOMPARETYPE_NONE = 20095
+    ICAL_XLICCOMPARETYPE_X = 21700,
+    ICAL_XLICCOMPARETYPE_EQUAL = 21701,
+    ICAL_XLICCOMPARETYPE_NOTEQUAL = 21702,
+    ICAL_XLICCOMPARETYPE_LESS = 21703,
+    ICAL_XLICCOMPARETYPE_GREATER = 21704,
+    ICAL_XLICCOMPARETYPE_LESSEQUAL = 21705,
+    ICAL_XLICCOMPARETYPE_GREATEREQUAL = 21706,
+    ICAL_XLICCOMPARETYPE_REGEX = 21707,
+    ICAL_XLICCOMPARETYPE_ISNULL = 21708,
+    ICAL_XLICCOMPARETYPE_ISNOTNULL = 21709,
+    ICAL_XLICCOMPARETYPE_NONE = 21799
 } icalparameter_xliccomparetype;
 
 typedef enum icalparameter_xlicerrortype {
-    ICAL_XLICERRORTYPE_X = 20096,
-    ICAL_XLICERRORTYPE_COMPONENTPARSEERROR = 20097,
-    ICAL_XLICERRORTYPE_PROPERTYPARSEERROR = 20098,
-    ICAL_XLICERRORTYPE_PARAMETERNAMEPARSEERROR = 20099,
-    ICAL_XLICERRORTYPE_PARAMETERVALUEPARSEERROR = 20100,
-    ICAL_XLICERRORTYPE_VALUEPARSEERROR = 20101,
-    ICAL_XLICERRORTYPE_INVALIDITIP = 20102,
-    ICAL_XLICERRORTYPE_UNKNOWNVCALPROPERROR = 20103,
-    ICAL_XLICERRORTYPE_MIMEPARSEERROR = 20104,
-    ICAL_XLICERRORTYPE_VCALPROPPARSEERROR = 20105,
-    ICAL_XLICERRORTYPE_NONE = 20106
+    ICAL_XLICERRORTYPE_X = 21800,
+    ICAL_XLICERRORTYPE_COMPONENTPARSEERROR = 21801,
+    ICAL_XLICERRORTYPE_PROPERTYPARSEERROR = 21802,
+    ICAL_XLICERRORTYPE_PARAMETERNAMEPARSEERROR = 21803,
+    ICAL_XLICERRORTYPE_PARAMETERVALUEPARSEERROR = 21804,
+    ICAL_XLICERRORTYPE_VALUEPARSEERROR = 21805,
+    ICAL_XLICERRORTYPE_INVALIDITIP = 21806,
+    ICAL_XLICERRORTYPE_UNKNOWNVCALPROPERROR = 21807,
+    ICAL_XLICERRORTYPE_MIMEPARSEERROR = 21808,
+    ICAL_XLICERRORTYPE_VCALPROPPARSEERROR = 21809,
+    ICAL_XLICERRORTYPE_NONE = 21899
 } icalparameter_xlicerrortype;
 
-#define ICALPARAMETER_LAST_ENUM 20107
+#define ICALPARAMETER_LAST_ENUM 22000
 
 /* ACTIONPARAM */
 icalparameter* icalparameter_new_actionparam(icalparameter_action v);
@@ -1631,6 +1828,11 @@ icalparameter* icalparameter_new_fbtype(icalparameter_fbtype v);
 icalparameter_fbtype icalparameter_get_fbtype(const icalparameter* value);
 void icalparameter_set_fbtype(icalparameter* value, icalparameter_fbtype v);
 
+/* FILENAME */
+icalparameter* icalparameter_new_filename(const char* v);
+const char* icalparameter_get_filename(const icalparameter* value);
+void icalparameter_set_filename(icalparameter* value, const char* v);
+
 /* FMTTYPE */
 icalparameter* icalparameter_new_fmttype(const char* v);
 const char* icalparameter_get_fmttype(const icalparameter* value);
@@ -1666,10 +1868,20 @@ icalparameter* icalparameter_new_localize(const char* v);
 const char* icalparameter_get_localize(const icalparameter* value);
 void icalparameter_set_localize(icalparameter* value, const char* v);
 
+/* MANAGED-ID */
+icalparameter* icalparameter_new_managedid(const char* v);
+const char* icalparameter_get_managedid(const icalparameter* value);
+void icalparameter_set_managedid(icalparameter* value, const char* v);
+
 /* MEMBER */
 icalparameter* icalparameter_new_member(const char* v);
 const char* icalparameter_get_member(const icalparameter* value);
 void icalparameter_set_member(icalparameter* value, const char* v);
+
+/* MODIFIED */
+icalparameter* icalparameter_new_modified(const char* v);
+const char* icalparameter_get_modified(const icalparameter* value);
+void icalparameter_set_modified(icalparameter* value, const char* v);
 
 /* OPTIONS */
 icalparameter* icalparameter_new_options(const char* v);
@@ -1681,10 +1893,20 @@ icalparameter* icalparameter_new_partstat(icalparameter_partstat v);
 icalparameter_partstat icalparameter_get_partstat(const icalparameter* value);
 void icalparameter_set_partstat(icalparameter* value, icalparameter_partstat v);
 
+/* PUBLIC-COMMENT */
+icalparameter* icalparameter_new_publiccomment(const char* v);
+const char* icalparameter_get_publiccomment(const icalparameter* value);
+void icalparameter_set_publiccomment(icalparameter* value, const char* v);
+
 /* RANGE */
 icalparameter* icalparameter_new_range(icalparameter_range v);
 icalparameter_range icalparameter_get_range(const icalparameter* value);
 void icalparameter_set_range(icalparameter* value, icalparameter_range v);
+
+/* REASON */
+icalparameter* icalparameter_new_reason(const char* v);
+const char* icalparameter_get_reason(const icalparameter* value);
+void icalparameter_set_reason(icalparameter* value, const char* v);
 
 /* RELATED */
 icalparameter* icalparameter_new_related(icalparameter_related v);
@@ -1695,6 +1917,16 @@ void icalparameter_set_related(icalparameter* value, icalparameter_related v);
 icalparameter* icalparameter_new_reltype(icalparameter_reltype v);
 icalparameter_reltype icalparameter_get_reltype(const icalparameter* value);
 void icalparameter_set_reltype(icalparameter* value, icalparameter_reltype v);
+
+/* REQUIRED */
+icalparameter* icalparameter_new_required(icalparameter_required v);
+icalparameter_required icalparameter_get_required(const icalparameter* value);
+void icalparameter_set_required(icalparameter* value, icalparameter_required v);
+
+/* RESPONSE */
+icalparameter* icalparameter_new_response(int v);
+int icalparameter_get_response(const icalparameter* value);
+void icalparameter_set_response(icalparameter* value, int v);
 
 /* ROLE */
 icalparameter* icalparameter_new_role(icalparameter_role v);
@@ -1725,6 +1957,21 @@ void icalparameter_set_schedulestatus(icalparameter* value, const char* v);
 icalparameter* icalparameter_new_sentby(const char* v);
 const char* icalparameter_get_sentby(const icalparameter* value);
 void icalparameter_set_sentby(icalparameter* value, const char* v);
+
+/* SIZE */
+icalparameter* icalparameter_new_size(const char* v);
+const char* icalparameter_get_size(const icalparameter* value);
+void icalparameter_set_size(icalparameter* value, const char* v);
+
+/* STAY-INFORMED */
+icalparameter* icalparameter_new_stayinformed(icalparameter_stayinformed v);
+icalparameter_stayinformed icalparameter_get_stayinformed(const icalparameter* value);
+void icalparameter_set_stayinformed(icalparameter* value, icalparameter_stayinformed v);
+
+/* SUBSTATE */
+icalparameter* icalparameter_new_substate(icalparameter_substate v);
+icalparameter_substate icalparameter_get_substate(const icalparameter* value);
+void icalparameter_set_substate(icalparameter* value, icalparameter_substate v);
 
 /* TZID */
 icalparameter* icalparameter_new_tzid(const char* v);
@@ -1761,6 +2008,8 @@ void icalparameter_set_xlicerrortype(icalparameter* value, icalparameter_xlicerr
   CREATOR: eric 20 March 1999
 
 
+  $Id: icalvalue.h,v 1.10 2008-01-15 23:17:43 dothebart Exp $
+  $Locker:  $
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
      http://www.softwarestudio.org
@@ -1784,6 +2033,7 @@ void icalparameter_set_xlicerrortype(icalparameter* value, icalparameter_xlicerr
 #define ICALVALUE_H
 
 #include <time.h>
+
                           
 /* Defined in icalderivedvalue.h */
 /*typedef struct icalvalue_impl icalvalue;*/
@@ -1845,6 +2095,8 @@ int icalvalue_decode_ical_string(const char *szText, char *szDecText, int nMaxBu
   CREATOR: eric 20 March 1999
 
 
+  $Id: icalparameter.h,v 1.5 2008-01-15 23:17:40 dothebart Exp $
+  $Locker:  $
 
   
 
@@ -1868,6 +2120,7 @@ int icalvalue_decode_ical_string(const char *szText, char *szDecText, int nMaxBu
 
 #ifndef ICALPARAM_H
 #define ICALPARAM_H
+
 
 
 /* Declared in icalderivedparameter.h */
@@ -1921,6 +2174,7 @@ icalparameter_kind icalparameter_string_to_kind(const char* string);
   FILE: icalderivedproperties.{c,h}
   CREATOR: eric 09 May 1999
   
+  $Id: icalderivedproperty.h.in,v 1.7 2007-04-30 13:57:48 artcancro Exp $
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of either:
@@ -1942,112 +2196,132 @@ icalparameter_kind icalparameter_string_to_kind(const char* string);
 
 #include <time.h>
 
+
 typedef struct icalproperty_impl icalproperty;
 
 typedef enum icalproperty_kind {
     ICAL_ANY_PROPERTY = 0,
-    ICAL_ACKNOWLEDGED_PROPERTY, 
-    ICAL_ACTION_PROPERTY, 
-    ICAL_ALLOWCONFLICT_PROPERTY, 
-    ICAL_ATTACH_PROPERTY, 
-    ICAL_ATTENDEE_PROPERTY, 
-    ICAL_CALID_PROPERTY, 
-    ICAL_CALMASTER_PROPERTY, 
-    ICAL_CALSCALE_PROPERTY, 
-    ICAL_CAPVERSION_PROPERTY, 
-    ICAL_CARLEVEL_PROPERTY, 
-    ICAL_CARID_PROPERTY, 
-    ICAL_CATEGORIES_PROPERTY, 
-    ICAL_CLASS_PROPERTY, 
-    ICAL_CMD_PROPERTY, 
-    ICAL_COMMENT_PROPERTY, 
-    ICAL_COMPLETED_PROPERTY, 
-    ICAL_COMPONENTS_PROPERTY, 
-    ICAL_CONTACT_PROPERTY, 
-    ICAL_CREATED_PROPERTY, 
-    ICAL_CSID_PROPERTY, 
-    ICAL_DATEMAX_PROPERTY, 
-    ICAL_DATEMIN_PROPERTY, 
-    ICAL_DECREED_PROPERTY, 
-    ICAL_DEFAULTCHARSET_PROPERTY, 
-    ICAL_DEFAULTLOCALE_PROPERTY, 
-    ICAL_DEFAULTTZID_PROPERTY, 
-    ICAL_DEFAULTVCARS_PROPERTY, 
-    ICAL_DENY_PROPERTY, 
-    ICAL_DESCRIPTION_PROPERTY, 
-    ICAL_DTEND_PROPERTY, 
-    ICAL_DTSTAMP_PROPERTY, 
-    ICAL_DTSTART_PROPERTY, 
-    ICAL_DUE_PROPERTY, 
-    ICAL_DURATION_PROPERTY, 
-    ICAL_EXDATE_PROPERTY, 
-    ICAL_EXPAND_PROPERTY, 
-    ICAL_EXRULE_PROPERTY, 
-    ICAL_FREEBUSY_PROPERTY, 
-    ICAL_GEO_PROPERTY, 
-    ICAL_GRANT_PROPERTY, 
-    ICAL_ITIPVERSION_PROPERTY, 
-    ICAL_LASTMODIFIED_PROPERTY, 
-    ICAL_LOCATION_PROPERTY, 
-    ICAL_MAXCOMPONENTSIZE_PROPERTY, 
-    ICAL_MAXDATE_PROPERTY, 
-    ICAL_MAXRESULTS_PROPERTY, 
-    ICAL_MAXRESULTSSIZE_PROPERTY, 
-    ICAL_METHOD_PROPERTY, 
-    ICAL_MINDATE_PROPERTY, 
-    ICAL_MULTIPART_PROPERTY, 
-    ICAL_NAME_PROPERTY, 
-    ICAL_ORGANIZER_PROPERTY, 
-    ICAL_OWNER_PROPERTY, 
-    ICAL_PERCENTCOMPLETE_PROPERTY, 
-    ICAL_PERMISSION_PROPERTY, 
-    ICAL_PRIORITY_PROPERTY, 
-    ICAL_PRODID_PROPERTY, 
-    ICAL_QUERY_PROPERTY, 
-    ICAL_QUERYLEVEL_PROPERTY, 
-    ICAL_QUERYID_PROPERTY, 
-    ICAL_QUERYNAME_PROPERTY, 
-    ICAL_RDATE_PROPERTY, 
-    ICAL_RECURACCEPTED_PROPERTY, 
-    ICAL_RECUREXPAND_PROPERTY, 
-    ICAL_RECURLIMIT_PROPERTY, 
-    ICAL_RECURRENCEID_PROPERTY, 
-    ICAL_RELATEDTO_PROPERTY, 
-    ICAL_RELCALID_PROPERTY, 
-    ICAL_REPEAT_PROPERTY, 
-    ICAL_REQUESTSTATUS_PROPERTY, 
-    ICAL_RESOURCES_PROPERTY, 
-    ICAL_RESTRICTION_PROPERTY, 
-    ICAL_RRULE_PROPERTY, 
-    ICAL_SCOPE_PROPERTY, 
-    ICAL_SEQUENCE_PROPERTY, 
-    ICAL_STATUS_PROPERTY, 
-    ICAL_STORESEXPANDED_PROPERTY, 
-    ICAL_SUMMARY_PROPERTY, 
-    ICAL_TARGET_PROPERTY, 
-    ICAL_TRANSP_PROPERTY, 
-    ICAL_TRIGGER_PROPERTY, 
-    ICAL_TZID_PROPERTY, 
-    ICAL_TZNAME_PROPERTY, 
-    ICAL_TZOFFSETFROM_PROPERTY, 
-    ICAL_TZOFFSETTO_PROPERTY, 
-    ICAL_TZURL_PROPERTY, 
-    ICAL_UID_PROPERTY, 
-    ICAL_URL_PROPERTY, 
-    ICAL_VERSION_PROPERTY, 
-    ICAL_X_PROPERTY, 
-    ICAL_XLICCLASS_PROPERTY, 
-    ICAL_XLICCLUSTERCOUNT_PROPERTY, 
-    ICAL_XLICERROR_PROPERTY, 
-    ICAL_XLICMIMECHARSET_PROPERTY, 
-    ICAL_XLICMIMECID_PROPERTY, 
-    ICAL_XLICMIMECONTENTTYPE_PROPERTY, 
-    ICAL_XLICMIMEENCODING_PROPERTY, 
-    ICAL_XLICMIMEFILENAME_PROPERTY, 
-    ICAL_XLICMIMEOPTINFO_PROPERTY, 
-    ICAL_NO_PROPERTY
+    ICAL_ACCEPTRESPONSE_PROPERTY = 102, 
+    ICAL_ACKNOWLEDGED_PROPERTY = 1, 
+    ICAL_ACTION_PROPERTY = 2, 
+    ICAL_ALLOWCONFLICT_PROPERTY = 3, 
+    ICAL_ATTACH_PROPERTY = 4, 
+    ICAL_ATTENDEE_PROPERTY = 5, 
+    ICAL_BUSYTYPE_PROPERTY = 101, 
+    ICAL_CALID_PROPERTY = 6, 
+    ICAL_CALMASTER_PROPERTY = 7, 
+    ICAL_CALSCALE_PROPERTY = 8, 
+    ICAL_CAPVERSION_PROPERTY = 9, 
+    ICAL_CARLEVEL_PROPERTY = 10, 
+    ICAL_CARID_PROPERTY = 11, 
+    ICAL_CATEGORIES_PROPERTY = 12, 
+    ICAL_CLASS_PROPERTY = 13, 
+    ICAL_CMD_PROPERTY = 14, 
+    ICAL_COMMENT_PROPERTY = 15, 
+    ICAL_COMPLETED_PROPERTY = 16, 
+    ICAL_COMPONENTS_PROPERTY = 17, 
+    ICAL_CONTACT_PROPERTY = 18, 
+    ICAL_CREATED_PROPERTY = 19, 
+    ICAL_CSID_PROPERTY = 20, 
+    ICAL_DATEMAX_PROPERTY = 21, 
+    ICAL_DATEMIN_PROPERTY = 22, 
+    ICAL_DECREED_PROPERTY = 23, 
+    ICAL_DEFAULTCHARSET_PROPERTY = 24, 
+    ICAL_DEFAULTLOCALE_PROPERTY = 25, 
+    ICAL_DEFAULTTZID_PROPERTY = 26, 
+    ICAL_DEFAULTVCARS_PROPERTY = 27, 
+    ICAL_DENY_PROPERTY = 28, 
+    ICAL_DESCRIPTION_PROPERTY = 29, 
+    ICAL_DTEND_PROPERTY = 30, 
+    ICAL_DTSTAMP_PROPERTY = 31, 
+    ICAL_DTSTART_PROPERTY = 32, 
+    ICAL_DUE_PROPERTY = 33, 
+    ICAL_DURATION_PROPERTY = 34, 
+    ICAL_ESTIMATEDDURATION_PROPERTY = 113, 
+    ICAL_EXDATE_PROPERTY = 35, 
+    ICAL_EXPAND_PROPERTY = 36, 
+    ICAL_EXRULE_PROPERTY = 37, 
+    ICAL_FREEBUSY_PROPERTY = 38, 
+    ICAL_GEO_PROPERTY = 39, 
+    ICAL_GRANT_PROPERTY = 40, 
+    ICAL_ITIPVERSION_PROPERTY = 41, 
+    ICAL_LASTMODIFIED_PROPERTY = 42, 
+    ICAL_LOCATION_PROPERTY = 43, 
+    ICAL_MAXCOMPONENTSIZE_PROPERTY = 44, 
+    ICAL_MAXDATE_PROPERTY = 45, 
+    ICAL_MAXRESULTS_PROPERTY = 46, 
+    ICAL_MAXRESULTSSIZE_PROPERTY = 47, 
+    ICAL_METHOD_PROPERTY = 48, 
+    ICAL_MINDATE_PROPERTY = 49, 
+    ICAL_MULTIPART_PROPERTY = 50, 
+    ICAL_NAME_PROPERTY = 51, 
+    ICAL_ORGANIZER_PROPERTY = 52, 
+    ICAL_OWNER_PROPERTY = 53, 
+    ICAL_PERCENTCOMPLETE_PROPERTY = 54, 
+    ICAL_PERMISSION_PROPERTY = 55, 
+    ICAL_POLLCOMPLETION_PROPERTY = 110, 
+    ICAL_POLLITEMID_PROPERTY = 103, 
+    ICAL_POLLMODE_PROPERTY = 104, 
+    ICAL_POLLPROPERTIES_PROPERTY = 105, 
+    ICAL_POLLWINNER_PROPERTY = 106, 
+    ICAL_PRIORITY_PROPERTY = 56, 
+    ICAL_PRODID_PROPERTY = 57, 
+    ICAL_QUERY_PROPERTY = 58, 
+    ICAL_QUERYLEVEL_PROPERTY = 59, 
+    ICAL_QUERYID_PROPERTY = 60, 
+    ICAL_QUERYNAME_PROPERTY = 61, 
+    ICAL_RDATE_PROPERTY = 62, 
+    ICAL_RECURACCEPTED_PROPERTY = 63, 
+    ICAL_RECUREXPAND_PROPERTY = 64, 
+    ICAL_RECURLIMIT_PROPERTY = 65, 
+    ICAL_RECURRENCEID_PROPERTY = 66, 
+    ICAL_RELATEDTO_PROPERTY = 67, 
+    ICAL_RELCALID_PROPERTY = 68, 
+    ICAL_REPEAT_PROPERTY = 69, 
+    ICAL_REPLYURL_PROPERTY = 111, 
+    ICAL_REQUESTSTATUS_PROPERTY = 70, 
+    ICAL_RESOURCES_PROPERTY = 71, 
+    ICAL_RESPONSE_PROPERTY = 112, 
+    ICAL_RESTRICTION_PROPERTY = 72, 
+    ICAL_RRULE_PROPERTY = 73, 
+    ICAL_SCOPE_PROPERTY = 74, 
+    ICAL_SEQUENCE_PROPERTY = 75, 
+    ICAL_STATUS_PROPERTY = 76, 
+    ICAL_STORESEXPANDED_PROPERTY = 77, 
+    ICAL_SUMMARY_PROPERTY = 78, 
+    ICAL_TARGET_PROPERTY = 79, 
+    ICAL_TASKMODE_PROPERTY = 114, 
+    ICAL_TRANSP_PROPERTY = 80, 
+    ICAL_TRIGGER_PROPERTY = 81, 
+    ICAL_TZID_PROPERTY = 82, 
+    ICAL_TZIDALIASOF_PROPERTY = 108, 
+    ICAL_TZNAME_PROPERTY = 83, 
+    ICAL_TZOFFSETFROM_PROPERTY = 84, 
+    ICAL_TZOFFSETTO_PROPERTY = 85, 
+    ICAL_TZUNTIL_PROPERTY = 109, 
+    ICAL_TZURL_PROPERTY = 86, 
+    ICAL_UID_PROPERTY = 87, 
+    ICAL_URL_PROPERTY = 88, 
+    ICAL_VERSION_PROPERTY = 89, 
+    ICAL_VOTER_PROPERTY = 107, 
+    ICAL_X_PROPERTY = 90, 
+    ICAL_XLICCLASS_PROPERTY = 91, 
+    ICAL_XLICCLUSTERCOUNT_PROPERTY = 92, 
+    ICAL_XLICERROR_PROPERTY = 93, 
+    ICAL_XLICMIMECHARSET_PROPERTY = 94, 
+    ICAL_XLICMIMECID_PROPERTY = 95, 
+    ICAL_XLICMIMECONTENTTYPE_PROPERTY = 96, 
+    ICAL_XLICMIMEENCODING_PROPERTY = 97, 
+    ICAL_XLICMIMEFILENAME_PROPERTY = 98, 
+    ICAL_XLICMIMEOPTINFO_PROPERTY = 99, 
+    ICAL_NO_PROPERTY = 100
 } icalproperty_kind;
 
+
+/* ACCEPT-RESPONSE */
+icalproperty* icalproperty_new_acceptresponse(const char* v);
+void icalproperty_set_acceptresponse(icalproperty* prop, const char* v);
+const char* icalproperty_get_acceptresponse(const icalproperty* prop);icalproperty* icalproperty_vanew_acceptresponse(const char* v, ...);
 
 /* ACKNOWLEDGED */
 icalproperty* icalproperty_new_acknowledged(struct icaltimetype v);
@@ -2073,6 +2347,11 @@ icalattach * icalproperty_get_attach(const icalproperty* prop);icalproperty* ica
 icalproperty* icalproperty_new_attendee(const char* v);
 void icalproperty_set_attendee(icalproperty* prop, const char* v);
 const char* icalproperty_get_attendee(const icalproperty* prop);icalproperty* icalproperty_vanew_attendee(const char* v, ...);
+
+/* BUSYTYPE */
+icalproperty* icalproperty_new_busytype(enum icalproperty_busytype v);
+void icalproperty_set_busytype(icalproperty* prop, enum icalproperty_busytype v);
+enum icalproperty_busytype icalproperty_get_busytype(const icalproperty* prop);icalproperty* icalproperty_vanew_busytype(enum icalproperty_busytype v, ...);
 
 /* CALID */
 icalproperty* icalproperty_new_calid(const char* v);
@@ -2219,6 +2498,11 @@ icalproperty* icalproperty_new_duration(struct icaldurationtype v);
 void icalproperty_set_duration(icalproperty* prop, struct icaldurationtype v);
 struct icaldurationtype icalproperty_get_duration(const icalproperty* prop);icalproperty* icalproperty_vanew_duration(struct icaldurationtype v, ...);
 
+/* ESTIMATED-DURATION */
+icalproperty* icalproperty_new_estimatedduration(struct icaldurationtype v);
+void icalproperty_set_estimatedduration(icalproperty* prop, struct icaldurationtype v);
+struct icaldurationtype icalproperty_get_estimatedduration(const icalproperty* prop);icalproperty* icalproperty_vanew_estimatedduration(struct icaldurationtype v, ...);
+
 /* EXDATE */
 icalproperty* icalproperty_new_exdate(struct icaltimetype v);
 void icalproperty_set_exdate(icalproperty* prop, struct icaltimetype v);
@@ -2324,6 +2608,31 @@ icalproperty* icalproperty_new_permission(const char* v);
 void icalproperty_set_permission(icalproperty* prop, const char* v);
 const char* icalproperty_get_permission(const icalproperty* prop);icalproperty* icalproperty_vanew_permission(const char* v, ...);
 
+/* POLL-COMPLETION */
+icalproperty* icalproperty_new_pollcompletion(enum icalproperty_pollcompletion v);
+void icalproperty_set_pollcompletion(icalproperty* prop, enum icalproperty_pollcompletion v);
+enum icalproperty_pollcompletion icalproperty_get_pollcompletion(const icalproperty* prop);icalproperty* icalproperty_vanew_pollcompletion(enum icalproperty_pollcompletion v, ...);
+
+/* POLL-ITEM-ID */
+icalproperty* icalproperty_new_pollitemid(int v);
+void icalproperty_set_pollitemid(icalproperty* prop, int v);
+int icalproperty_get_pollitemid(const icalproperty* prop);icalproperty* icalproperty_vanew_pollitemid(int v, ...);
+
+/* POLL-MODE */
+icalproperty* icalproperty_new_pollmode(enum icalproperty_pollmode v);
+void icalproperty_set_pollmode(icalproperty* prop, enum icalproperty_pollmode v);
+enum icalproperty_pollmode icalproperty_get_pollmode(const icalproperty* prop);icalproperty* icalproperty_vanew_pollmode(enum icalproperty_pollmode v, ...);
+
+/* POLL-PROPERTIES */
+icalproperty* icalproperty_new_pollproperties(const char* v);
+void icalproperty_set_pollproperties(icalproperty* prop, const char* v);
+const char* icalproperty_get_pollproperties(const icalproperty* prop);icalproperty* icalproperty_vanew_pollproperties(const char* v, ...);
+
+/* POLL-WINNER */
+icalproperty* icalproperty_new_pollwinner(int v);
+void icalproperty_set_pollwinner(icalproperty* prop, int v);
+int icalproperty_get_pollwinner(const icalproperty* prop);icalproperty* icalproperty_vanew_pollwinner(int v, ...);
+
 /* PRIORITY */
 icalproperty* icalproperty_new_priority(int v);
 void icalproperty_set_priority(icalproperty* prop, int v);
@@ -2394,6 +2703,11 @@ icalproperty* icalproperty_new_repeat(int v);
 void icalproperty_set_repeat(icalproperty* prop, int v);
 int icalproperty_get_repeat(const icalproperty* prop);icalproperty* icalproperty_vanew_repeat(int v, ...);
 
+/* REPLY-URL */
+icalproperty* icalproperty_new_replyurl(const char* v);
+void icalproperty_set_replyurl(icalproperty* prop, const char* v);
+const char* icalproperty_get_replyurl(const icalproperty* prop);icalproperty* icalproperty_vanew_replyurl(const char* v, ...);
+
 /* REQUEST-STATUS */
 icalproperty* icalproperty_new_requeststatus(struct icalreqstattype v);
 void icalproperty_set_requeststatus(icalproperty* prop, struct icalreqstattype v);
@@ -2403,6 +2717,11 @@ struct icalreqstattype icalproperty_get_requeststatus(const icalproperty* prop);
 icalproperty* icalproperty_new_resources(const char* v);
 void icalproperty_set_resources(icalproperty* prop, const char* v);
 const char* icalproperty_get_resources(const icalproperty* prop);icalproperty* icalproperty_vanew_resources(const char* v, ...);
+
+/* RESPONSE */
+icalproperty* icalproperty_new_response(int v);
+void icalproperty_set_response(icalproperty* prop, int v);
+int icalproperty_get_response(const icalproperty* prop);icalproperty* icalproperty_vanew_response(int v, ...);
 
 /* RESTRICTION */
 icalproperty* icalproperty_new_restriction(const char* v);
@@ -2444,6 +2763,11 @@ icalproperty* icalproperty_new_target(const char* v);
 void icalproperty_set_target(icalproperty* prop, const char* v);
 const char* icalproperty_get_target(const icalproperty* prop);icalproperty* icalproperty_vanew_target(const char* v, ...);
 
+/* TASK-MODE */
+icalproperty* icalproperty_new_taskmode(enum icalproperty_taskmode v);
+void icalproperty_set_taskmode(icalproperty* prop, enum icalproperty_taskmode v);
+enum icalproperty_taskmode icalproperty_get_taskmode(const icalproperty* prop);icalproperty* icalproperty_vanew_taskmode(enum icalproperty_taskmode v, ...);
+
 /* TRANSP */
 icalproperty* icalproperty_new_transp(enum icalproperty_transp v);
 void icalproperty_set_transp(icalproperty* prop, enum icalproperty_transp v);
@@ -2459,6 +2783,11 @@ icalproperty* icalproperty_new_tzid(const char* v);
 void icalproperty_set_tzid(icalproperty* prop, const char* v);
 const char* icalproperty_get_tzid(const icalproperty* prop);icalproperty* icalproperty_vanew_tzid(const char* v, ...);
 
+/* TZID-ALIAS-OF */
+icalproperty* icalproperty_new_tzidaliasof(const char* v);
+void icalproperty_set_tzidaliasof(icalproperty* prop, const char* v);
+const char* icalproperty_get_tzidaliasof(const icalproperty* prop);icalproperty* icalproperty_vanew_tzidaliasof(const char* v, ...);
+
 /* TZNAME */
 icalproperty* icalproperty_new_tzname(const char* v);
 void icalproperty_set_tzname(icalproperty* prop, const char* v);
@@ -2473,6 +2802,11 @@ int icalproperty_get_tzoffsetfrom(const icalproperty* prop);icalproperty* icalpr
 icalproperty* icalproperty_new_tzoffsetto(int v);
 void icalproperty_set_tzoffsetto(icalproperty* prop, int v);
 int icalproperty_get_tzoffsetto(const icalproperty* prop);icalproperty* icalproperty_vanew_tzoffsetto(int v, ...);
+
+/* TZUNTIL */
+icalproperty* icalproperty_new_tzuntil(struct icaltimetype v);
+void icalproperty_set_tzuntil(icalproperty* prop, struct icaltimetype v);
+struct icaltimetype icalproperty_get_tzuntil(const icalproperty* prop);icalproperty* icalproperty_vanew_tzuntil(struct icaltimetype v, ...);
 
 /* TZURL */
 icalproperty* icalproperty_new_tzurl(const char* v);
@@ -2493,6 +2827,11 @@ const char* icalproperty_get_url(const icalproperty* prop);icalproperty* icalpro
 icalproperty* icalproperty_new_version(const char* v);
 void icalproperty_set_version(icalproperty* prop, const char* v);
 const char* icalproperty_get_version(const icalproperty* prop);icalproperty* icalproperty_vanew_version(const char* v, ...);
+
+/* VOTER */
+icalproperty* icalproperty_new_voter(const char* v);
+void icalproperty_set_voter(icalproperty* prop, const char* v);
+const char* icalproperty_get_voter(const icalproperty* prop);icalproperty* icalproperty_vanew_voter(const char* v, ...);
 
 /* X */
 icalproperty* icalproperty_new_x(const char* v);
@@ -2552,6 +2891,8 @@ const char* icalproperty_get_xlicmimeoptinfo(const icalproperty* prop);icalprope
   CREATOR: eric 20 March 1999
 
 
+  $Id: icalproperty.h,v 1.20 2008-01-15 23:17:41 dothebart Exp $
+  $Locker:  $
 
   
 
@@ -2580,11 +2921,7 @@ const char* icalproperty_get_xlicmimeoptinfo(const icalproperty* prop);icalprope
 #include <time.h>
 #include <stdarg.h>  /* for va_... */
 
-
-
-/* Actually in icalderivedproperty.h:
-   typedef struct icalproperty_impl icalproperty; */
-
+ /* To get icalproperty_kind enumerations */
 
 icalproperty* icalproperty_new(icalproperty_kind kind);
 
@@ -2791,68 +3128,6 @@ void pvl_apply(pvl_list l,pvl_applyf f, void *v);
 
 
 
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 4 -*- */
-/*======================================================================
- FILE: icalarray.h
- CREATOR: Damon Chaplin 07 March 2001
-
-
-
- (C) COPYRIGHT 2001, Ximian, Inc.
-
- This program is free software; you can redistribute it and/or modify
- it under the terms of either: 
-
-    The LGPL as published by the Free Software Foundation, version
-    2.1, available at: http://www.fsf.org/copyleft/lesser.html
-
-  Or:
-
-    The Mozilla Public License Version 1.0. You may obtain a copy of
-    the License at http://www.mozilla.org/MPL/
-
-
-======================================================================*/
-
-
-#ifndef ICALARRAY_H
-#define ICALARRAY_H
-
-/** @file icalarray.h 
- *
- *  @brief An array of arbitrarily-sized elements which grows
- *  dynamically as elements are added. 
- */
-
-typedef struct _icalarray icalarray;
-struct _icalarray {
-    unsigned int	 element_size;
-    unsigned int	 increment_size;
-    unsigned int	 num_elements;
-    unsigned int	 space_allocated;
-    void		**chunks;
-};
-
-
-
-icalarray *icalarray_new		(int		 element_size,
-					 int		 increment_size);
-icalarray *icalarray_copy		(icalarray	*array);
-void	   icalarray_free		(icalarray	*array);
-
-void	   icalarray_append		(icalarray	*array,
-					 const void		*element);
-void	   icalarray_remove_element_at	(icalarray	*array,
-					 int		 position);
-
-void	  *icalarray_element_at		(icalarray	*array,
-					 int		 position);
-
-void	   icalarray_sort		(icalarray	*array,
-					 int	       (*compare) (const void *, const void *));
-
-
-#endif /* ICALARRAY_H */
 /* -*- Mode: C -*- */
 /*======================================================================
  FILE: icalcomponent.h
@@ -2879,6 +3154,7 @@ void	   icalarray_sort		(icalarray	*array,
 
 #ifndef ICALCOMPONENT_H
 #define ICALCOMPONENT_H
+
 
 
 typedef struct icalcomponent_impl icalcomponent;
@@ -3132,6 +3408,11 @@ icalcomponent* icalcomponent_new_xstandard(void);
 icalcomponent* icalcomponent_new_xdaylight(void);
 icalcomponent* icalcomponent_new_vagenda(void);
 icalcomponent* icalcomponent_new_vquery(void);
+icalcomponent* icalcomponent_new_vavailability(void);
+icalcomponent* icalcomponent_new_xavailable(void);
+icalcomponent* icalcomponent_new_vpoll(void);
+icalcomponent* icalcomponent_new_vvoter(void);
+icalcomponent* icalcomponent_new_xvote(void);
 
 #endif /* !ICALCOMPONENT_H */
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 4 -*- */
@@ -3140,6 +3421,8 @@ icalcomponent* icalcomponent_new_vquery(void);
  CREATOR: Damon Chaplin 15 March 2001
 
 
+ $Id: icaltimezone.h,v 1.14 2008-01-15 23:17:42 dothebart Exp $
+ $Locker:  $
 
  (C) COPYRIGHT 2001, Damon Chaplin
 
@@ -3165,6 +3448,7 @@ icalcomponent* icalcomponent_new_vquery(void);
 #define ICALTIMEZONE_H
 
 #include <stdio.h> /* For FILE* */
+
 
 
 #ifndef ICALTIMEZONE_DEFINED
@@ -3299,6 +3583,12 @@ void free_zone_directory(void);
 void icaltimezone_release_zone_tab(void);
 
 /*
+ * @par Handling whether to use builtin timezone files
+ */
+void icaltimezone_set_builtin_tzdata(int set);
+int icaltimezone_get_builtin_tzdata(void);
+
+/*
  * @par Debugging Output.
  */
 
@@ -3314,6 +3604,7 @@ int	icaltimezone_dump_changes		(icaltimezone *zone,
   FILE: icalparser.h
   CREATOR: eric 20 April 1999
   
+  $Id: icalparser.h,v 1.9 2008-01-15 23:17:41 dothebart Exp $
 
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
@@ -3337,6 +3628,7 @@ int	icaltimezone_dump_changes		(icaltimezone *zone,
 
 #ifndef ICALPARSER_H
 #define ICALPARSER_H
+
 
 
 #include <stdio.h> /* For FILE* */
@@ -3408,6 +3700,8 @@ char* icalparser_string_line_generator(char *out, size_t buf_size, void *d);
  CREATOR: eric 30 June 1999
 
 
+ $Id: icalmemory.h,v 1.6 2008-01-15 23:17:40 dothebart Exp $
+ $Locker:  $
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of either: 
@@ -3490,6 +3784,7 @@ char* icalmemory_strdup(const char *s);
   FILE: icalerror.h
   CREATOR: eric 09 May 1999
   
+  $Id: icalerror.h,v 1.17 2008-01-15 23:17:40 dothebart Exp $
 
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
@@ -3519,6 +3814,7 @@ char* icalmemory_strdup(const char *s);
 
 
 #ifdef HAVE_CONFIG_H
+
 #endif
 
 #define ICAL_SETERROR_ISFUNC
@@ -3549,15 +3845,9 @@ typedef enum icalerrorenum {
 icalerrorenum * icalerrno_return(void);
 #define icalerrno (*(icalerrno_return()))
 
-/*#cmakedefine LIBICAL_STATIC 1*/
-
-/** If true, libicl aborts after a call to icalerror_set_error
- *
- *  @warning NOT THREAD SAFE -- recommended that you do not change
- *           this in a multithreaded program.
- */
+#if !defined(LIBICAL_EXPORT)
 #ifdef _MSC_VER
-  #if defined(LIBICAL_STATIC)
+  #if defined(BUILD_LIBICALSTATIC)
     #define LIBICAL_EXPORT extern
   #elif defined(BUILD_LIBICALDLL)
     #define LIBICAL_EXPORT __declspec(dllexport)
@@ -3567,6 +3857,13 @@ icalerrorenum * icalerrno_return(void);
 #else
   #define LIBICAL_EXPORT extern
 #endif
+#endif
+
+/** If true, libicu aborts after a call to icalerror_set_error
+ *
+ *  @warning NOT THREAD SAFE -- recommended that you do not change
+ *           this in a multithreaded program.
+ */
 
 LIBICAL_EXPORT int icalerror_errors_are_fatal;
 
@@ -3577,7 +3874,6 @@ LIBICAL_EXPORT int icalerror_errors_are_fatal;
 #else /* __GNU_C__ */
 #define icalerror_warn(message) {fprintf(stderr,"%s:%d: %s\n",__FILE__,__LINE__,message);}
 #endif /* __GNU_C__ */
-
 
 void icalerror_clear_errno(void);
 void _icalerror_set_errno(icalerrorenum);
@@ -3669,6 +3965,7 @@ void icalerror_restore(const char* error, icalerrorstate es);
   FILE: icalrestriction.h
   CREATOR: eric 24 April 1999
   
+  $Id: icalrestriction.h,v 1.3 2008-01-15 23:17:42 dothebart Exp $
 
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
@@ -3692,6 +3989,7 @@ void icalerror_restore(const char* error, icalerrorstate es);
 
 
 ======================================================================*/
+
 
 
 #ifndef ICALRESTRICTION_H
@@ -3730,6 +4028,8 @@ int icalrestriction_check(icalcomponent* comp);
   FILE: sspm.h Mime Parser
   CREATOR: eric 25 June 2000
   
+  $Id: sspm.h,v 1.5 2008-01-15 23:17:43 dothebart Exp $
+  $Locker:  $
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
      http://www.softwarestudio.org
@@ -3875,6 +4175,8 @@ int sspm_write_mime(struct sspm_part *parts,size_t num_parts,
  CREATOR: eric 26 July 2000
 
 
+ $Id: icalmime.h,v 1.3 2008-01-15 23:17:40 dothebart Exp $
+ $Locker:  $
 
  (C) COPYRIGHT 2000, Eric Busboom <eric@softwarestudio.org>
      http://www.softwarestudio.org
@@ -3894,6 +4196,7 @@ int sspm_write_mime(struct sspm_part *parts,size_t num_parts,
 
 #ifndef ICALMIME_H
 #define ICALMIME_H
+
 
 
 icalcomponent* icalmime_parse(	char* (*line_gen_func)(char *s, size_t size, 
@@ -3916,6 +4219,8 @@ char* icalmime_as_mime_string(char* component);
   
   DESCRIPTION:
   
+  $Id: icallangbind.h,v 1.8 2008-01-02 20:07:31 dothebart Exp $
+  $Locker:  $
 
   (C) COPYRIGHT 1999 Eric Busboom 
   http://www.softwarestudio.org
@@ -3963,6 +4268,7 @@ int icallangbind_string_to_open_flag(const char* str);
 const char* icallangbind_quote_as_ical(const char* str);
 char* icallangbind_quote_as_ical_r(const char* str);
 #endif /*__ICALLANGBIND_H__*/
+
 #ifdef __cplusplus
 }
 #endif

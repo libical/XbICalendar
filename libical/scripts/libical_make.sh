@@ -13,7 +13,7 @@ fi
 
 
 # Select the desired iPhone SDK
-export SDKVER="7.1"
+export SDKVER="8.2"
 export DEVROOT=`xcode-select --print-path`
 
 if [ "i386" = $ARCH ] || [ "x86_64" = $ARCH ]; then
@@ -55,22 +55,22 @@ echo "IOSROOT = $IOSROOT"
 export CPPFLAGS="-arch $ARCH -I$SDKROOT/usr/include $MIOS --debug"
 export CFLAGS="$CPPFLAGS -pipe -no-cpp-precomp -isysroot $SDKROOT "
 export CXXFLAGS="$CFLAGS"
+
 export LDFLAGS="-L$SDKROOT/usr/lib/ -arch $ARCH"
 
 export CLANG=$DEVROOT/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 
 
 export CC=$CLANG
-export CXX=$CLANG
+export CXX=$CLANG++
 export LD=$IOSROOT/Developer/usr/bin/ld
-export AR=$IOSROOT/Developer/usr/bin/ar 
-export AS=$IOSROOT/Developer/usr/bin/as 
-export LIBTOOL=$IOSROOT/usr/bin/libtool 
-export STRIP=$IOSROOT/Developer/usr/bin/strip 
+export AR=$IOSROOT/Developer/usr/bin/ar
+export AS=$IOSROOT/Developer/usr/bin/as
+export LIBTOOL=$IOSROOT/usr/bin/libtool
+export STRIP=$IOSROOT/Developer/usr/bin/strip
 export RANLIB=$IOSROOT/Developer/usr/bin/ranlib
 export LIPO="xcrun -sdk iphoneos lipo"
 export HOST=arm-apple-darwin10
-
 
 if [ ! -f $CC ]
 then
@@ -96,12 +96,14 @@ then
 fi
 
 find ./src -name \*.a -exec rm {} \;
-make clean
 
 
-./configure --prefix="$OUTPUT_DIR" --disable-dependency-tracking --host $HOST CXX=$CXX CC=$CC LD=$LD AR=$AR AS=$AS LIBTOOL=$LIBTOOL STRIP=$STRIP RANLIB=$RANLIB
+mkdir build
+cd build
+rm -rf *
+cmake -DCMAKE_OSX_ARCHITECTURES=$ARCH -DUSE_BUILTIN_TZDATA=true -DCMAKE_INSTALL_PREFIX="$OUTPUT_DIR" ..
 
-make -j4
+make
 
 # copy the files to the arch folder
 
@@ -109,7 +111,6 @@ mkdir -p $OUTPUT_DIR
 mkdir -p $OUTPUT_DIR/$ARCH
 
 cp `find . -name \*.a` $OUTPUT_DIR/$ARCH/
-cp config.log $OUTPUT_DIR/$ARCH/config.log
 
 $LIPO -info $OUTPUT_DIR/$ARCH/*.a
 
