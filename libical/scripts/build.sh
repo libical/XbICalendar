@@ -42,22 +42,16 @@ LIPO="xcrun -sdk iphoneos lipo"
 #cd $WORKING_DIR
 #
 # Download the latest library
-LIBRARY_TARBALL="libical.tar.gz"
-if [ ! -e  ./$LIBRARY_TARBALL ]; then
-  LIBRARY_DISTRO_URL="http://downloads.sourceforge.net/project/freeassociation/libical/libical-1.0/libical-1.0.tar.gz"
+LIBRARY_TARBALL="libical"
+if [ ! -d  ./$LIBRARY_TARBALL ]; then
+  LIBRARY_DISTRO_URL="https://github.com/libical/libical"
 
-  curl -L  $LIBRARY_DISTRO_URL -o $LIBRARY_TARBALL
-  gunzip -c $LIBRARY_TARBALL| tar xopf -
+  git clone $LIBRARY_DISTRO_URL
 fi
 
 
-LIBRARY_DIR="libical-1.0"
+LIBRARY_DIR="libical"
 pushd $LIBRARY_DIR > /dev/null
-
-
-
-./bootstrap
-./configure --prefix="$OUTPUT_DIR"
 
 archList=( armv7 armv7s arm64 i386 x86_64 )
 for AA in "${archList[@]}"
@@ -74,21 +68,16 @@ $LIPO \
     -arch i386 $OUTPUT_DIR/i386/libical.a \
     -create -output $OUTPUT_DIR/libical.a
 
-#  x86_64 is failing in the configuration step
-
-
 # make zoneinfo directory
-# This isn't 
-pushd zoneinfo
-  make install
-
+pushd build/zoneinfo
+make install
 popd  >/dev/null
 
 # Move things to their final place
 mkdir -p ../../lib
 cp -f $OUTPUT_DIR/libical.a ../../lib
-mkidr - p ../../src/include
-cp  -f ./src/libical/ical.h ../../src/include
+mkdir -p ../../src/include
+cp  -f ./build/src/libical/ical.h ../../src/include
 rm -rf ../../zoneinfo
 mv  $OUTPUT_DIR/share/libical/zoneinfo ../../zoneinfo
 
