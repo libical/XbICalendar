@@ -34,6 +34,7 @@
 		4DC71131197B32FA003D4962 /* XbICalendarStressTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */; };
 		4DC71133197B3F27003D4962 /* XbICalendarInviteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */; };
 		4DC71135197B4A6A003D4962 /* XbICalendar2445Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */; };
+		94B0AB131B05A1330057BF2D /* XbICPropertyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */; };
 		F113ED3419863A7B00C37F81 /* 2446.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE352A19720D050097A2D6 /* 2446.ics */; };
 		F113ED3519863A7F00C37F81 /* calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3531197370380097A2D6 /* calendar.ics */; };
 		F113ED3619863A8200C37F81 /* classify.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3535197379190097A2D6 /* classify.ics */; };
@@ -128,6 +129,7 @@
 		4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarStressTestTests.m; sourceTree = "<group>"; };
 		4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteTests.m; sourceTree = "<group>"; };
 		4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendar2445Tests.m; sourceTree = "<group>"; };
+		94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICPropertyTest.m; sourceTree = "<group>"; };
 		F113ED40198643FD00C37F81 /* XbICalendarInviteWriteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteWriteTests.m; sourceTree = "<group>"; };
 		F117D40619DBA6FC002CD9B5 /* XbICalendar2445Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XbICalendar2445Tests.swift; sourceTree = "<group>"; };
 		F117D40819DBA7BB002CD9B5 /* XbICalendarTestsBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XbICalendarTestsBridge.h; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				4DC7112E197B32EC003D4962 /* XbICalendarSpanListTests.m */,
 				4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */,
 				F18820291990A99A00177998 /* XbICInviteResponseTests.m */,
+				94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */,
 				F117D40619DBA6FC002CD9B5 /* XbICalendar2445Tests.swift */,
 			);
 			path = XbICalendarTests;
@@ -542,6 +545,7 @@
 				4DC7112F197B32EC003D4962 /* XbICalendarSpanListTests.m in Sources */,
 				4DC7112D197B32DC003D4962 /* XbICalendarSmallClusterTests.m in Sources */,
 				F117D41019DBA7F7002CD9B5 /* XbICInvite.m in Sources */,
+				94B0AB131B05A1330057BF2D /* XbICPropertyTest.m in Sources */,
 				F12F491B19332EA5003631C5 /* XbICalendarInMemoryTests.m in Sources */,
 				F117D40B19DBA7F7002CD9B5 /* XbICPerson.m in Sources */,
 				4DC71133197B3F27003D4962 /* XbICalendarInviteTests.m in Sources */,
