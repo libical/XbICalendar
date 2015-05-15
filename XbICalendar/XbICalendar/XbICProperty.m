@@ -73,25 +73,26 @@
                 
             case ICAL_RECUR_VALUE:
                 property.value = [property stringFromValue: v];
+//                property.value = [property recurFromValue: v];
 #warning Needs work
                 break;
                 
             case ICAL_UTCOFFSET_VALUE:
-                property.value = [property stringFromValue: v];
-#warning Needs work
+                property.value = [property utcoffsetFromValue: v];
                 break;
                 
             case ICAL_PERIOD_VALUE:
                 property.value = [property stringFromValue: v];
+//                property.value = [property periodFromValue:v];
 #warning Needs work
                 break;
+                
             case ICAL_DURATION_VALUE:
-                property.value = [property stringFromValue: v];
-#warning Needs work
+                property.value = [property durationFromValue: v];
                 break;
+                
             case ICAL_REQUESTSTATUS_VALUE:
-                property.value = [property stringFromValue: v];
-#warning Needs work
+                property.value = [property requeststatusFromValue: v];
                 break;
                 
             case ICAL_X_VALUE:
@@ -234,6 +235,84 @@
     return [NSString stringWithCString: icalvalue_as_ical_string(v) encoding: NSASCIIStringEncoding];
 }
 
+-(NSDictionary *) recurFromValue: (icalvalue *) v {
+    struct icalrecurrencetype ical_recur = icalvalue_get_recur(v);
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    
+    return dictionary;
+}
+
+-(NSNumber *) utcoffsetFromValue: (icalvalue *) v {
+    int ical_utcoffset = icalvalue_get_utcoffset(v);
+    
+    return [NSNumber numberWithInt:ical_utcoffset];
+}
+
+-(NSDictionary *) periodFromValue: (icalvalue *) v {
+    struct icalperiodtype ical_period = icalvalue_get_period(v);
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    
+    return dictionary;
+}
+
+-(NSDictionary *) durationFromValue: (icalvalue *) v {
+    struct icaldurationtype ical_duration = icalvalue_get_duration(v);
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    
+    [dictionary setObject:[NSNumber numberWithInt:ical_duration.is_neg] forKey:@"is_neg"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.weeks] forKey:@"weeks"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.days] forKey:@"days"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.hours] forKey:@"hours"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.minutes] forKey:@"minutes"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.seconds] forKey:@"seconds"];
+    
+    return dictionary;
+}
+
+-(struct icaldurationtype) icaldurationtypeFromObject:(id) duration {
+    struct icaldurationtype ical_duration = icaldurationtype_from_int([duration[@"is_neg"] intValue]);
+    
+    ical_duration.is_neg = [duration[@"is_neg"] intValue];
+    ical_duration.weeks = [duration[@"weeks"] intValue];
+    ical_duration.days = [duration[@"days"] intValue];
+    ical_duration.hours = [duration[@"hours"] intValue];
+    ical_duration.minutes = [duration[@"minutes"] intValue];
+    ical_duration.seconds = [duration[@"seconds"] intValue];
+    
+    return ical_duration;
+}
+
+-(NSDictionary *) requeststatusFromValue: (icalvalue *) v {
+    struct icalreqstattype ical_reqstat = icalvalue_get_requeststatus(v);
+
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+
+    [dictionary setObject:[NSNumber numberWithInteger:ical_reqstat.code] forKey:@"code"];
+
+    if (ical_reqstat.debug) {
+        [dictionary setObject:[NSString stringWithCString: ical_reqstat.debug encoding: NSASCIIStringEncoding] forKey:@"debug"];
+    }
+
+    if (ical_reqstat.desc) {
+        [dictionary setObject:[NSString stringWithCString: ical_reqstat.desc encoding: NSASCIIStringEncoding] forKey:@"desc"];
+    }
+
+    return dictionary;
+}
+
+-(struct icalreqstattype) icalreqstattypeFromObject:(id) reqstat {
+    struct icalreqstattype ical_reqstat;
+    
+    ical_reqstat.code = [reqstat[@"code"] intValue];
+    ical_reqstat.debug = [reqstat[@"debug"] cStringUsingEncoding:NSASCIIStringEncoding];
+    ical_reqstat.desc = [reqstat[@"desc"] cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    return ical_reqstat;
+}
+
 #pragma mark - custom accessors
 -(NSDateFormatter *) dateFormatter {
     if (!_dateFormatter) {
@@ -268,31 +347,34 @@
         case ICAL_RECUR_VALUE:
             
 #warning Needs work
-         //   break;
+            value = icalvalue_new_from_string(self.valueKind, [self cstringFromObject:self.value]);
+            break;
             
         case ICAL_UTCOFFSET_VALUE:
             
-#warning Needs work
-//break;
+            value = icalvalue_new_utcoffset([(NSNumber *)self.value intValue]);
+            break;
             
         case ICAL_PERIOD_VALUE:
             
 #warning Needs work
-//break;
+            value = icalvalue_new_from_string(self.valueKind, [self cstringFromObject:self.value]);
+            break;
+            
         case ICAL_DURATION_VALUE:
             
-#warning Needs work
-          //  break;
+            value = icalvalue_new_duration([self icaldurationtypeFromObject:self.value]);
+            break;
+            
         case ICAL_REQUESTSTATUS_VALUE:
             
-#warning Needs work
-          //  break;
-            
+            value = icalvalue_new_requeststatus([self icalreqstattypeFromObject:self.value]);
+            break;
             
         case ICAL_NO_VALUE:
-#warning Needs Work
 
-         //   break;
+            value = NULL;
+            break;
             
         case ICAL_ACTION_VALUE:
         case ICAL_ATTACH_VALUE:
