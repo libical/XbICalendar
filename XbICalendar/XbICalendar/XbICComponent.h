@@ -30,7 +30,7 @@
 
 -(NSString *) stringSerializeComponent;
 
--(void) updateFirstPropertyOfKind: kind  value:(id)value;
+//-(void) updateFirstPropertyOfKind: kind  value:(id)value;
 
 
 

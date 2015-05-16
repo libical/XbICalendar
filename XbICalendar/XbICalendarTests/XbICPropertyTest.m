@@ -21,6 +21,19 @@
     return @"2446";
 }
 
+- (void)test_property_with_recur
+{
+    XbICComponent * vTimezone = [self componentAtIndex:0 kind:ICAL_VTIMEZONE_COMPONENT ofCalendarAtIndex:3];
+    XbICComponent * daylight = vTimezone.subcomponents[1];
+    XbICProperty *recur = daylight.properties[1];
+    NSDictionary *v = (NSDictionary *)recur.value;
+    
+    icalproperty *ical_p = icalproperty_new_from_string([@"RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=4" cStringUsingEncoding:NSUTF8StringEncoding]);
+    XbICProperty *p = [XbICProperty propertyWithIcalProperty:ical_p];
+    
+    XCTAssertEqualObjects(v, p.value, @"Unexpected rrule");
+}
+
 - (void)test_property_with_utcoffset
 {
     XbICComponent * vTimezone = [self componentAtIndex:0 kind:ICAL_VTIMEZONE_COMPONENT ofCalendarAtIndex:3];
@@ -31,6 +44,12 @@
     icalvalue *ical_v = icalvalue_new_from_string(ICAL_UTCOFFSET_VALUE, [@"-0500" cStringUsingEncoding:NSUTF8StringEncoding]);
     
     XCTAssertTrue(icalvalue_get_utcoffset(ical_v) == v, @"Unexpected timezone offset");
+}
+
+- (void)test_property_with_period
+{
+    XbICComponent * vFreebusy = [self componentAtIndex:0 kind:ICAL_VFREEBUSY_COMPONENT ofCalendarAtIndex:21];
+    XbICProperty *
 }
 
 - (void)test_property_with_duration

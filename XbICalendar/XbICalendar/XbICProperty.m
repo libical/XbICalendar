@@ -72,9 +72,7 @@
                 break;
                 
             case ICAL_RECUR_VALUE:
-                property.value = [property stringFromValue: v];
-//                property.value = [property recurFromValue: v];
-#warning Needs work
+                property.value = [property recurFromValue: v];
                 break;
                 
             case ICAL_UTCOFFSET_VALUE:
@@ -82,9 +80,7 @@
                 break;
                 
             case ICAL_PERIOD_VALUE:
-                property.value = [property stringFromValue: v];
-//                property.value = [property periodFromValue:v];
-#warning Needs work
+                property.value = [property periodFromValue:v];
                 break;
                 
             case ICAL_DURATION_VALUE:
@@ -199,7 +195,7 @@
 }
 
 -(icaltimetype ) icaltimetypeFromObject:(id) date isDate:(BOOL) isDate {
-    icaltimetype   t = icaltime_today();
+    icaltimetype   t = icaltime_null_time();
     if ([date isKindOfClass:[NSDate class]]) {
         unsigned unitFlags = (isDate) ? NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit :
         NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit |NSTimeZoneCalendarUnit ;
@@ -240,7 +236,51 @@
     
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     
+    [dictionary setObject:[NSNumber numberWithInt:ical_recur.freq] forKey:@"freq"];
+    [dictionary setObject:[self datetimeFromTimeType:ical_recur.until] forKey:@"until"];
+    [dictionary setObject:[NSNumber numberWithInt:ical_recur.count] forKey:@"count"];
+    [dictionary setObject:[NSNumber numberWithShort:ical_recur.interval] forKey:@"interval"];
+    [dictionary setObject:[NSNumber numberWithInt:ical_recur.week_start] forKey:@"week_start"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_second count:ICAL_BY_SECOND_SIZE] forKey:@"by_second"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_minute count:ICAL_BY_MINUTE_SIZE] forKeyedSubscript:@"by_minute"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_hour count:ICAL_BY_HOUR_SIZE] forKeyedSubscript:@"by_hour"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_day count:ICAL_BY_DAY_SIZE] forKeyedSubscript:@"by_day"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_month_day count:ICAL_BY_MONTHDAY_SIZE] forKeyedSubscript:@"by_month_day"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_year_day count:ICAL_BY_YEARDAY_SIZE] forKeyedSubscript:@"by_year_day"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_week_no count:ICAL_BY_WEEKNO_SIZE] forKeyedSubscript:@"by_week_no"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_month count:ICAL_BY_MONTH_SIZE] forKeyedSubscript:@"by_month"];
+    [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_set_pos count:ICAL_BY_SETPOS_SIZE] forKeyedSubscript:@"by_set_pos"];
+    if (ical_recur.rscale) {
+        [dictionary setObject:[NSString stringWithCString: ical_recur.rscale encoding: NSASCIIStringEncoding] forKey:@"rscale"];
+    }
+    [dictionary setObject:[NSNumber numberWithInt:ical_recur.skip] forKey:@"skip"];
+    
     return dictionary;
+}
+
+-(struct icalrecurrencetype) icalrecurrencetypeFromObject:(id) recur {
+    struct icalrecurrencetype ical_recur = icalrecurrencetype_from_string("");
+    
+    ical_recur.freq = [recur[@"freq"] intValue];
+    ical_recur.until = [self icaltimetypeFromObject:recur[@"until"] isDate:NO];
+    ical_recur.count = [recur[@"count"] intValue];
+    ical_recur.interval = [recur[@"interval"] intValue];
+    ical_recur.week_start = (icalrecurrencetype_weekday)[recur[@"week_start"] intValue];
+    [self cshortArrayFromArray:recur[@"by_second"] cshortArray:ical_recur.by_second];
+    [self cshortArrayFromArray:recur[@"by_minute"] cshortArray:ical_recur.by_minute];
+    [self cshortArrayFromArray:recur[@"by_hour"] cshortArray:ical_recur.by_hour];
+    [self cshortArrayFromArray:recur[@"by_day"] cshortArray:ical_recur.by_day];
+    [self cshortArrayFromArray:recur[@"by_month_day"] cshortArray:ical_recur.by_month_day];
+    [self cshortArrayFromArray:recur[@"by_year_day"] cshortArray:ical_recur.by_year_day];
+    [self cshortArrayFromArray:recur[@"by_week_no"] cshortArray:ical_recur.by_week_no];
+    [self cshortArrayFromArray:recur[@"by_month"] cshortArray:ical_recur.by_month];
+    [self cshortArrayFromArray:recur[@"by_set_pos"] cshortArray:ical_recur.by_set_pos];
+    if (recur[@"rscale"]) {
+        ical_recur.rscale = (char *)[recur[@"rscale"] cStringUsingEncoding:NSASCIIStringEncoding];
+    }
+    ical_recur.skip = [recur[@"skip"] intValue];
+    
+    return ical_recur;
 }
 
 -(NSNumber *) utcoffsetFromValue: (icalvalue *) v {
@@ -254,22 +294,27 @@
     
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     
+    [dictionary setObject:[self datetimeFromTimeType:ical_period.start] forKeyedSubscript:@"start"];
+    [dictionary setObject:[self datetimeFromTimeType:ical_period.end] forKeyedSubscript:@"end"];
+    [dictionary setObject:[self durationFromDurationType:ical_period.duration] forKeyedSubscript:@"duration"];
+    
     return dictionary;
+}
+
+-(struct icalperiodtype) icalperiodtypeFromObject:(id) period {
+    struct icalperiodtype ical_period = icalperiodtype_null_period();
+    
+    ical_period.start = [self icaltimetypeFromObject:period[@"start"] isDate:NO];
+    ical_period.end = [self icaltimetypeFromObject:period[@"end"] isDate:NO];
+    ical_period.duration = [self icaldurationtypeFromObject:period[@"duration"]];
+    
+    return ical_period;
 }
 
 -(NSDictionary *) durationFromValue: (icalvalue *) v {
     struct icaldurationtype ical_duration = icalvalue_get_duration(v);
     
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    
-    [dictionary setObject:[NSNumber numberWithInt:ical_duration.is_neg] forKey:@"is_neg"];
-    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.weeks] forKey:@"weeks"];
-    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.days] forKey:@"days"];
-    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.hours] forKey:@"hours"];
-    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.minutes] forKey:@"minutes"];
-    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.seconds] forKey:@"seconds"];
-    
-    return dictionary;
+    return [self durationFromDurationType:ical_duration];
 }
 
 -(struct icaldurationtype) icaldurationtypeFromObject:(id) duration {
@@ -346,8 +391,7 @@
             
         case ICAL_RECUR_VALUE:
             
-#warning Needs work
-            value = icalvalue_new_from_string(self.valueKind, [self cstringFromObject:self.value]);
+            value = icalvalue_new_recur([self icalrecurrencetypeFromObject:self.value]);
             break;
             
         case ICAL_UTCOFFSET_VALUE:
@@ -357,8 +401,7 @@
             
         case ICAL_PERIOD_VALUE:
             
-#warning Needs work
-            value = icalvalue_new_from_string(self.valueKind, [self cstringFromObject:self.value]);
+            value = icalvalue_new_period([self icalperiodtypeFromObject:self.value]);
             break;
             
         case ICAL_DURATION_VALUE:
@@ -492,6 +535,71 @@
     }
         
     return YES;
+}
+
+-(NSObject *) datetimeFromTimeType: (icaltimetype) t {
+    if ((int)icaltime_as_timet(t) == 0) {
+        return [NSNull null];
+    }
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setYear:t.year];
+    [components setMonth: t.month];
+    [components setDay:t.day];
+    
+    [components setHour:t.hour];
+    [components setMinute: t.minute];
+    [components setSecond: t.second];
+    
+    if (t.is_utc) {
+        [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    }
+    else {
+        NSString * tzid = icaltime_get_tzid(t) ? [NSString stringWithCString: icaltime_get_tzid(t) encoding: NSASCIIStringEncoding] : nil;
+        if (tzid) {
+            NSTimeZone * tz = [NSTimeZone timeZoneWithName:tzid];
+            [components setTimeZone: tz];
+        }
+        else {
+            [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        
+        }
+    }
+    
+    NSDate * date =[calendar dateFromComponents: components];
+    return date;
+}
+
+-(NSDictionary *) durationFromDurationType: (struct icaldurationtype) ical_duration {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    
+    [dictionary setObject:[NSNumber numberWithInt:ical_duration.is_neg] forKey:@"is_neg"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.weeks] forKey:@"weeks"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.days] forKey:@"days"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.hours] forKey:@"hours"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.minutes] forKey:@"minutes"];
+    [dictionary setObject:[NSNumber numberWithInteger:ical_duration.seconds] forKey:@"seconds"];
+    
+    return dictionary;
+}
+
+-(NSArray *) arrayFromCShortArray: (short *)cshortArray count: (int)count {
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (int i = 0; i < count; i++) {
+        NSNumber *number = [[NSNumber alloc] initWithShort:cshortArray[i]];
+        [array addObject:number];
+    }
+    
+    return array;
+}
+
+-(void) cshortArrayFromArray: (NSArray *)array cshortArray: (short *)cshortArray {
+    for (int i = 0; i < array.count; ++i) {
+        cshortArray[i] = [[array objectAtIndex:i] shortValue];
+    }
 }
 
 @end
