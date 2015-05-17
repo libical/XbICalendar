@@ -49,7 +49,13 @@
 - (void)test_property_with_period
 {
     XbICComponent * vFreebusy = [self componentAtIndex:0 kind:ICAL_VFREEBUSY_COMPONENT ofCalendarAtIndex:21];
-    XbICProperty *
+    XbICProperty *freebusy = vFreebusy.properties[4];
+    NSDictionary *v = (NSDictionary *)freebusy.value;
+    
+    icalproperty *ical_p = icalproperty_new_from_string([@"FREEBUSY:19980101T180000Z/19980101T190000Z" cStringUsingEncoding:NSUTF8StringEncoding]);
+    XbICProperty *p = [XbICProperty propertyWithIcalProperty:ical_p];
+    
+    XCTAssertEqualObjects(v, p.value, @"Unexpected period value");
 }
 
 - (void)test_property_with_duration
