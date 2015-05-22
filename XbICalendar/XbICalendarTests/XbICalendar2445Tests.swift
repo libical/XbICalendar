@@ -21,7 +21,7 @@ class XbICalendar2445TestsSwift: XbICalendarIcsTest {
 
   func test_calendar_method ()
   {
-    let vCalendar: XbICVCalendar = self.calendars[2] as XbICVCalendar;
+    let vCalendar: XbICVCalendar = self.calendars[2] as! XbICVCalendar;
     XCTAssertEqual(vCalendar.method(), "PUBLISH", "Unexpected method");
   }
 
@@ -47,7 +47,7 @@ class XbICalendar2445TestsSwift: XbICalendarIcsTest {
   func test_event_with_timestamp()
   {
     XCTAssertTrue(self.events.count > 0, "Expected top level events");
-    let vEvent: XbICVEvent = self.events[0] as XbICVEvent
+    let vEvent: XbICVEvent = self.events[0] as! XbICVEvent
 
     self.assertUtcDateString("19970901T130000Z",
     isEqualToDate:vEvent.dateStamp(),
@@ -58,7 +58,7 @@ class XbICalendar2445TestsSwift: XbICalendarIcsTest {
   func test_event_with_summary()
   {
     XCTAssertTrue(self.events.count >= 2, "Expected top level events");
-    let vEvent: XbICVEvent = self.events[1] as XbICVEvent
+    let vEvent: XbICVEvent = self.events[1] as! XbICVEvent
 
     XCTAssertEqual(vEvent.summary(), "Laurel is in sensitivity awareness class.", "event summary is incorrect");
   }

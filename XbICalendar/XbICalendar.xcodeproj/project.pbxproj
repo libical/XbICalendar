@@ -34,6 +34,7 @@
 		4DC71131197B32FA003D4962 /* XbICalendarStressTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */; };
 		4DC71133197B3F27003D4962 /* XbICalendarInviteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */; };
 		4DC71135197B4A6A003D4962 /* XbICalendar2445Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */; };
+		945795251B0897B200B60E82 /* XbICFileCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945795241B0897B200B60E82 /* XbICFileCreateViewController.m */; };
 		94B0AB131B05A1330057BF2D /* XbICPropertyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */; };
 		F113ED3419863A7B00C37F81 /* 2446.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE352A19720D050097A2D6 /* 2446.ics */; };
 		F113ED3519863A7F00C37F81 /* calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3531197370380097A2D6 /* calendar.ics */; };
@@ -129,6 +130,8 @@
 		4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarStressTestTests.m; sourceTree = "<group>"; };
 		4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteTests.m; sourceTree = "<group>"; };
 		4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendar2445Tests.m; sourceTree = "<group>"; };
+		945795231B0897B200B60E82 /* XbICFileCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICFileCreateViewController.h; sourceTree = "<group>"; };
+		945795241B0897B200B60E82 /* XbICFileCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICFileCreateViewController.m; sourceTree = "<group>"; };
 		94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICPropertyTest.m; sourceTree = "<group>"; };
 		F113ED40198643FD00C37F81 /* XbICalendarInviteWriteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteWriteTests.m; sourceTree = "<group>"; };
 		F117D40619DBA6FC002CD9B5 /* XbICalendar2445Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XbICalendar2445Tests.swift; sourceTree = "<group>"; };
@@ -249,6 +252,8 @@
 				F1F5D71319402CEA00D81F71 /* XbICFileTableViewController.m */,
 				F12F490419332EA4003631C5 /* XbICViewController.h */,
 				F12F490519332EA4003631C5 /* XbICViewController.m */,
+				945795231B0897B200B60E82 /* XbICFileCreateViewController.h */,
+				945795241B0897B200B60E82 /* XbICFileCreateViewController.m */,
 				F1A240C919C96C6F00139576 /* Bridge.h */,
 			);
 			path = XbICalendarExample;
@@ -529,6 +534,7 @@
 				F12F48FC19332EA4003631C5 /* main.m in Sources */,
 				F1FAB6001945B057005D0B35 /* XbICZoneDirectory.m in Sources */,
 				F1F5D71419402CEA00D81F71 /* XbICFileTableViewController.m in Sources */,
+				945795251B0897B200B60E82 /* XbICFileCreateViewController.m in Sources */,
 				F12F490619332EA4003631C5 /* XbICViewController.m in Sources */,
 				F12F4E4D1935CF03003631C5 /* XbICVEvent.m in Sources */,
 				F12F4928193338CB003631C5 /* XbICFile.m in Sources */,
