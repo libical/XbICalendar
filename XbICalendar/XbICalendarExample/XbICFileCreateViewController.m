@@ -88,12 +88,15 @@
     
     [dateFormatter setDateFormat:@"MMM dd, yyyy, H:mm a"];
     
+    NSDate *date = self.datePicker.date;
     NSString *formatedDate = [dateFormatter stringFromDate:self.datePicker.date];
     
     if ([self.startDateTextField isFirstResponder]) {
+        self.startDate = date;
         self.startDateTextField.text = formatedDate;
     }
     else if ([self.endDateTextField isFirstResponder]) {
+        self.endDate = date;
         self.endDateTextField.text = formatedDate;
     }
 }
@@ -119,18 +122,10 @@
 
 - (IBAction)onCreate:(id)sender {
     NSString *summaryString = self.summaryTextField.text;
-    NSString *startDateString = self.startDateTextField.text;
-    NSString *endDateString = self.endDateTextField.text;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMM dd, yyyy, H:mm a"];
-    
-    NSDate *startDate = [dateFormatter dateFromString:startDateString];
-    NSDate *endDate = [dateFormatter dateFromString:endDateString];
     
     NSString *fileContent = [NSString stringWithFormat:@"BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:%@\nDTEND:%@\nSUMMARY:%@\nEND:VEVENT\nEND:VCALENDAR",
-                             [self icaltimetypeStringFromDate:startDate],
-                             [self icaltimetypeStringFromDate:endDate],
+                             [self icaltimetypeStringFromDate:self.startDate],
+                             [self icaltimetypeStringFromDate:self.endDate],
                              summaryString];
     
     NSData *data = [fileContent dataUsingEncoding:NSASCIIStringEncoding];

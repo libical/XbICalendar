@@ -11,6 +11,8 @@
 @interface XbICFileCreateViewController : UIViewController
 
 @property UIDatePicker *datePicker;
+@property NSDate *startDate;
+@property NSDate *endDate;
 
 @property (weak, nonatomic) IBOutlet UITextField *fileNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *summaryTextField;
