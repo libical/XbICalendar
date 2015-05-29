@@ -29,7 +29,7 @@ static NSString * kCellReuseIdentifier = @"Cell";
 {
     [super viewDidLoad];
     
-    self.Title = @"XbICalender Example";
+    self.title = @"XbICalender Example";
     
     self.files = [self arrayOfICSFiles];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kCellReuseIdentifier];

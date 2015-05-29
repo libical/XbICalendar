@@ -34,6 +34,11 @@
 		4DC71131197B32FA003D4962 /* XbICalendarStressTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */; };
 		4DC71133197B3F27003D4962 /* XbICalendarInviteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */; };
 		4DC71135197B4A6A003D4962 /* XbICalendar2445Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */; };
+		945795251B0897B200B60E82 /* XbICFileCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945795241B0897B200B60E82 /* XbICFileCreateViewController.m */; };
+		946E26E71B0F60FA00418534 /* XbICCreatedFileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946E26E61B0F60FA00418534 /* XbICCreatedFileTableViewController.m */; };
+		946E26EA1B0F6B5F00418534 /* XbICAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946E26E91B0F6B5F00418534 /* XbICAddViewController.m */; };
+		946E26EC1B0F7B9600418534 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946E26EB1B0F7B9600418534 /* EventKit.framework */; };
+		946E26EE1B0F7BA500418534 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946E26ED1B0F7BA500418534 /* EventKitUI.framework */; };
 		94B0AB131B05A1330057BF2D /* XbICPropertyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */; };
 		F113ED3419863A7B00C37F81 /* 2446.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE352A19720D050097A2D6 /* 2446.ics */; };
 		F113ED3519863A7F00C37F81 /* calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3531197370380097A2D6 /* calendar.ics */; };
@@ -129,6 +134,14 @@
 		4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarStressTestTests.m; sourceTree = "<group>"; };
 		4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteTests.m; sourceTree = "<group>"; };
 		4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendar2445Tests.m; sourceTree = "<group>"; };
+		945795231B0897B200B60E82 /* XbICFileCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICFileCreateViewController.h; sourceTree = "<group>"; };
+		945795241B0897B200B60E82 /* XbICFileCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICFileCreateViewController.m; sourceTree = "<group>"; };
+		946E26E51B0F60FA00418534 /* XbICCreatedFileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICCreatedFileTableViewController.h; sourceTree = "<group>"; };
+		946E26E61B0F60FA00418534 /* XbICCreatedFileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICCreatedFileTableViewController.m; sourceTree = "<group>"; };
+		946E26E81B0F6B5F00418534 /* XbICAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICAddViewController.h; sourceTree = "<group>"; };
+		946E26E91B0F6B5F00418534 /* XbICAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICAddViewController.m; sourceTree = "<group>"; };
+		946E26EB1B0F7B9600418534 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		946E26ED1B0F7BA500418534 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICPropertyTest.m; sourceTree = "<group>"; };
 		F113ED40198643FD00C37F81 /* XbICalendarInviteWriteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteWriteTests.m; sourceTree = "<group>"; };
 		F117D40619DBA6FC002CD9B5 /* XbICalendar2445Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XbICalendar2445Tests.swift; sourceTree = "<group>"; };
@@ -185,6 +198,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				946E26EE1B0F7BA500418534 /* EventKitUI.framework in Frameworks */,
+				946E26EC1B0F7B9600418534 /* EventKit.framework in Frameworks */,
 				F148A223194700DD00ED2C6E /* libical.a in Frameworks */,
 				F12F48F219332EA4003631C5 /* CoreGraphics.framework in Frameworks */,
 				F12F48F419332EA4003631C5 /* UIKit.framework in Frameworks */,
@@ -229,6 +244,8 @@
 		F12F48EE19332EA4003631C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				946E26ED1B0F7BA500418534 /* EventKitUI.framework */,
+				946E26EB1B0F7B9600418534 /* EventKit.framework */,
 				F12F48EF19332EA4003631C5 /* Foundation.framework */,
 				F12F48F119332EA4003631C5 /* CoreGraphics.framework */,
 				F12F48F319332EA4003631C5 /* UIKit.framework */,
@@ -249,6 +266,12 @@
 				F1F5D71319402CEA00D81F71 /* XbICFileTableViewController.m */,
 				F12F490419332EA4003631C5 /* XbICViewController.h */,
 				F12F490519332EA4003631C5 /* XbICViewController.m */,
+				945795231B0897B200B60E82 /* XbICFileCreateViewController.h */,
+				945795241B0897B200B60E82 /* XbICFileCreateViewController.m */,
+				946E26E51B0F60FA00418534 /* XbICCreatedFileTableViewController.h */,
+				946E26E61B0F60FA00418534 /* XbICCreatedFileTableViewController.m */,
+				946E26E81B0F6B5F00418534 /* XbICAddViewController.h */,
+				946E26E91B0F6B5F00418534 /* XbICAddViewController.m */,
 				F1A240C919C96C6F00139576 /* Bridge.h */,
 			);
 			path = XbICalendarExample;
@@ -529,10 +552,13 @@
 				F12F48FC19332EA4003631C5 /* main.m in Sources */,
 				F1FAB6001945B057005D0B35 /* XbICZoneDirectory.m in Sources */,
 				F1F5D71419402CEA00D81F71 /* XbICFileTableViewController.m in Sources */,
+				945795251B0897B200B60E82 /* XbICFileCreateViewController.m in Sources */,
+				946E26EA1B0F6B5F00418534 /* XbICAddViewController.m in Sources */,
 				F12F490619332EA4003631C5 /* XbICViewController.m in Sources */,
 				F12F4E4D1935CF03003631C5 /* XbICVEvent.m in Sources */,
 				F12F4928193338CB003631C5 /* XbICFile.m in Sources */,
 				F12F4E491935B259003631C5 /* XbICVCalendar.m in Sources */,
+				946E26E71B0F60FA00418534 /* XbICCreatedFileTableViewController.m in Sources */,
 				F1DC7727193F208500DB07D4 /* XbICPerson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
