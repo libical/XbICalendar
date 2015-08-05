@@ -138,14 +138,12 @@
     
     XbICProperty * firstProperty = freeBusyProperties[0];
     XCTAssertTrue([firstProperty isKindOfClass:[XbICProperty class]], @"First freebusy is not XbICProperty");
-    NSString * firstValue = (NSString *)firstProperty.value;
-    XCTAssertTrue([firstValue isKindOfClass:[NSString class]], @"First freebusy value is not NSString");
-    
-    NSArray * freeBusyValues = [firstValue componentsSeparatedByString:@"/"];
-    XCTAssertEqual([freeBusyValues count], 2, @"Expected two values separated by '/' in freebusy");
-    
-    NSDate * beginDate = [self.utcDateFormatter dateFromString:freeBusyValues[0]];
-    NSDate * endDate = [self.utcDateFormatter dateFromString:freeBusyValues[1]];
+    NSDictionary * firstValue = (NSDictionary *)firstProperty.value;
+    XCTAssertFalse([firstValue isKindOfClass:[NSString class]], @"First freebusy value is not NSString");
+
+
+  NSDate * beginDate = firstValue[@"start"];
+  NSDate * endDate = firstValue[@"end"];
     XCTAssertNotNil(beginDate, @"Unable to parse begin date of freebusy");
     XCTAssertNotNil(endDate, @"Unable to parse end date of freebusy");
     

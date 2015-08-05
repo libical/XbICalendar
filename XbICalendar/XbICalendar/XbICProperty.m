@@ -585,10 +585,13 @@
     return dictionary;
 }
 
--(NSArray *) arrayFromCShortArray: (short *)cshortArray count: (int)count {
+-(NSArray *) arrayFromCShortArray: (short *)cshortArray count: (int)maxCount {
     NSMutableArray *array = [NSMutableArray array];
     
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < maxCount; i++) {
+      if (cshortArray[i] == ICAL_RECURRENCE_ARRAY_MAX) {
+        break; // for
+      }
         NSNumber *number = [[NSNumber alloc] initWithShort:cshortArray[i]];
         [array addObject:number];
     }
