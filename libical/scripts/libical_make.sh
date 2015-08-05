@@ -4,7 +4,7 @@ set -o xtrace
 
 # SEE: http://www.smallsharptools.com/downloads/libical/
 
-PATH="`xcode-select -print-path`/usr/bin:/usr/bin:/bin"
+PATH="`xcode-select -print-path`:/usr/bin:/usr/bin:/bin:/usr/local/bin"
 
 
 if [ ! -n "$ARCH" ]; then
@@ -13,7 +13,7 @@ fi
 
 
 # Select the desired iPhone SDK
-export SDKVER="8.2"
+export SDKVER="8.4"
 export DEVROOT=`xcode-select --print-path`
 
 if [ "i386" = $ARCH ] || [ "x86_64" = $ARCH ]; then
@@ -75,19 +75,19 @@ export HOST=arm-apple-darwin10
 if [ ! -f $CC ]
 then
         echo "C Compiler not found! - $CC"
-        exit
+        exit 1
 fi
 
 if [ ! -f $CXX ]
 then
         echo "C++ Compiler not found! - $CXX"
-        exit
+        exit 1
 fi
 
 if [ ! -f $LD ]
 then
         echo "Linker not found! - $LD"
-        exit
+        exit 1
 fi
 
 if [ -d $OUTPUT_DIR/$ARCH ]

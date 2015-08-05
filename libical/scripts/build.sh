@@ -4,6 +4,7 @@ set -o xtrace
 
 # Change Working Directory to build
 BUILD_DIR=$(dirname "${0}")/../build
+mkdir -p $BUILD_DIR
 pushd $BUILD_DIR > /dev/null
 WORKING_DIR=`pwd`
 export OUTPUT_DIR="$WORKING_DIR/output"
@@ -15,43 +16,26 @@ echo "SCRIPTS_DIR : $SCRIPTS_DIR"
 echo "OUTPUT_DIR  : $OUTPUT_DIR"
 LIPO="xcrun -sdk iphoneos lipo"
 
-# Download the lastest build Tools
-#curl -OL http://ftpmirror.gnu.org/autoconf/autoconf-2.68.tar.gz
-#tar xzf autoconf-2.68.tar.gz
-#cd  autoconf-2.68
-#./configure --prefix=$WORKING_DIR/autotools-bin
-#make
-#make install
-#export PATH=$WORKING_DIR/autotools-bin/bin:$PATH
-#cd $WORKING_DIR
 #
-#curl -OL http://ftpmirror.gnu.org/automake/automake-1.13.4.tar.gz
-#tar xzf automake-1.13.4.tar.gz
-#cd automake-1.13.4
-#./configure --prefix=$WORKING_DIR/autotools-bin
-#make
-#make install
-#cd $WORKING_DIR
-#
-#curl -OL http://ftpmirror.gnu.org/libtool/libtool-2.4.2.tar.gz
-#tar xzf libtool-2.4.2.tar.gz
-#cd libtool-2.4.2
-#./configure --prefix=$WORKING_DIR/autotools-bin
-#make
-#make install
-#cd $WORKING_DIR
+# Verify Tools Are Installed
+command -v cmake >/dev/null 2>&1 || { echo >&2 "cmake required but it's not installed.  Aborting."; exit 1; }
+
 #
 # Download the latest library
+LIBRARY_VISION="v1.0.1"
 LIBRARY_TARBALL="libical"
 if [ ! -d  ./$LIBRARY_TARBALL ]; then
   LIBRARY_DISTRO_URL="https://github.com/libical/libical"
 
   git clone $LIBRARY_DISTRO_URL
+  git checkout tags/$LIBRARY_VISION > /dev.null
+
 fi
 
 
 LIBRARY_DIR="libical"
 pushd $LIBRARY_DIR > /dev/null
+
 
 archList=( armv7 armv7s arm64 i386 x86_64 )
 for AA in "${archList[@]}"
