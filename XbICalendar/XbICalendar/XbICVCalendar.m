@@ -40,15 +40,25 @@
     }
     
     if (component.kind != ICAL_VCALENDAR_COMPONENT) {
-        NSLog(@"Unexpected Component in ICS File");
+        NSLog(@"Error: Unexpected Component in ICS File");
         return nil;
     }
     
     if (![[(XbICVCalendar *)component version] isEqualToString:@"2.0"] ) {
-        NSLog(@"Unexpected ICS File Version");
+        NSLog(@"Error: Unexpected ICS File Version");
         return nil;
     }
     return (XbICVCalendar *) component;
+}
+
+#pragma mark - Object Lifecycle
+
+-(instancetype) initWithIcalComponent:  (icalcomponent *) c {
+  self = [super initWithIcalComponent: c];
+  if (self) {
+
+  }
+  return self;
 }
 
 #pragma mark - Custom Accessors
@@ -67,15 +77,11 @@
 -(NSString *) version {
     NSArray * properties = [self propertiesOfKind:ICAL_VERSION_PROPERTY];
     if (properties.count != 1 ) {
-        NSLog(@"Version Error");
+        NSLog(@"Error: Version Error");
         return nil;
     }
     return (NSString *)[((XbICProperty *)properties[0]) value];
 }
-
-
-
-#pragma mark - Private Methods
 
 
 

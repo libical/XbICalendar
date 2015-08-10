@@ -7,6 +7,14 @@
 
 @implementation XbICVEvent
 
+-(instancetype) initWithIcalComponent:  (icalcomponent *) c {
+  self = [super initWithIcalComponent: c];
+  if (self) {
+
+  }
+  return self;
+}
+
 -(NSDate *) dateStart {
     return (NSDate *)[[self firstPropertyOfKind:ICAL_DTSTART_PROPERTY] value];
 }

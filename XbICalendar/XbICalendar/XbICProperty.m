@@ -21,6 +21,10 @@
     return self;
 }
 
+-(void) dealloc {
+  self.value = nil;
+  self.parameters = nil;
+}
 
 + (instancetype) propertyFactory: (icalproperty *) p {
     XbICProperty * property;

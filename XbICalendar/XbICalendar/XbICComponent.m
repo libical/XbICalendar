@@ -11,7 +11,7 @@
 
 @interface XbICComponent ()
 
-
+@property (nonatomic, assign) int componentID ;
 @end
 
 @implementation XbICComponent
@@ -26,15 +26,15 @@
     XbICComponent * component;
     switch ( icalcomponent_isa(c)) {
         case ICAL_VCALENDAR_COMPONENT:
-            component = [[XbICVCalendar alloc] init];
+            component = [[XbICVCalendar alloc] initWithIcalComponent: c];
             break;
             
         case ICAL_VEVENT_COMPONENT:
-            component = [[XbICVEvent alloc] init];
+            component = [[XbICVEvent alloc] initWithIcalComponent: c];
             break;
             
         default:
-            component = [[XbICComponent alloc]init];
+            component = [[XbICComponent alloc] initWithIcalComponent:c];
             break;
     }
     return component;
@@ -44,7 +44,6 @@
     XbICComponent * component = [XbICComponent componentFactory: c];
 
     if (component) {
-        component.kind = icalcomponent_isa(c);
         NSMutableArray * propertyList = [[NSMutableArray alloc] init];
         NSMutableArray * childComponentList = [[NSMutableArray alloc] init];
         icalproperty* p = icalcomponent_get_first_property(c, ICAL_ANY_PROPERTY);
@@ -94,6 +93,22 @@
     }
     return component;
 }
+
+#pragma mark - Object Lifecycle
+
+-(instancetype) initWithIcalComponent: (icalcomponent *) c{
+  self = [super init];
+  if (self) {
+    self.kind = icalcomponent_isa(c);
+  }
+  return self;
+}
+-(void) dealloc {
+  self.properties = nil;
+  self.subcomponents = nil;
+}
+
+#pragma mark - Custom Accessors
 
 - (NSArray *) propertiesOfKind: (icalproperty_kind) kind {
     NSMutableArray * results =[[NSMutableArray alloc] init];

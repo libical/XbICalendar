@@ -18,6 +18,8 @@
 
 +(instancetype) componentWithString: (NSString *) content;
 
+-(instancetype) initWithIcalComponent: (icalcomponent *) c;
+
 - (NSArray *) propertiesOfKind: (icalproperty_kind) kind;
 
 -(XbICProperty *) firstPropertyOfKind: (icalproperty_kind) kind;
