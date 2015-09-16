@@ -92,11 +92,11 @@
     [dictionary setObject:[NSNumber numberWithInteger:ical_reqstat.code] forKey:@"code"];
     
     if (ical_reqstat.debug) {
-        [dictionary setObject:[NSString stringWithCString: ical_reqstat.debug encoding: NSASCIIStringEncoding] forKey:@"debug"];
+        [dictionary setObject:[NSString stringWithCString: ical_reqstat.debug encoding: NSUTF8StringEncoding] forKey:@"debug"];
     }
     
     if (ical_reqstat.desc) {
-        [dictionary setObject:[NSString stringWithCString: ical_reqstat.desc encoding: NSASCIIStringEncoding] forKey:@"desc"];
+        [dictionary setObject:[NSString stringWithCString: ical_reqstat.desc encoding: NSUTF8StringEncoding] forKey:@"desc"];
     }
     
     XCTAssertEqualObjects(v, dictionary, @"Unexpected request status");
