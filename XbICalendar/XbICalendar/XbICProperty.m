@@ -138,7 +138,7 @@
     while (pm) {
         
         NSString * keyvaluepair = [NSString stringWithCString:icalparameter_as_ical_string(pm)
-                                                     encoding:NSASCIIStringEncoding];
+                                                     encoding:NSUTF8StringEncoding];
         
         NSArray * arr = [keyvaluepair componentsSeparatedByString:@"="];
         
@@ -232,7 +232,7 @@
 
 
 -(NSString *) stringFromValue: (icalvalue *) v {
-    return [NSString stringWithCString: icalvalue_as_ical_string(v) encoding: NSASCIIStringEncoding];
+    return [NSString stringWithCString: icalvalue_as_ical_string(v) encoding: NSUTF8StringEncoding];
 }
 
 -(NSDictionary *) recurFromValue: (icalvalue *) v {
@@ -255,7 +255,7 @@
     [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_month count:ICAL_BY_MONTH_SIZE] forKeyedSubscript:@"by_month"];
     [dictionary setObject:[self arrayFromCShortArray:ical_recur.by_set_pos count:ICAL_BY_SETPOS_SIZE] forKeyedSubscript:@"by_set_pos"];
     if (ical_recur.rscale) {
-        [dictionary setObject:[NSString stringWithCString: ical_recur.rscale encoding: NSASCIIStringEncoding] forKey:@"rscale"];
+        [dictionary setObject:[NSString stringWithCString: ical_recur.rscale encoding: NSUTF8StringEncoding] forKey:@"rscale"];
     }
     [dictionary setObject:[NSNumber numberWithInt:ical_recur.skip] forKey:@"skip"];
     
@@ -280,7 +280,7 @@
     [self cshortArrayFromArray:recur[@"by_month"] cshortArray:ical_recur.by_month];
     [self cshortArrayFromArray:recur[@"by_set_pos"] cshortArray:ical_recur.by_set_pos];
     if (recur[@"rscale"]) {
-        ical_recur.rscale = (char *)[recur[@"rscale"] cStringUsingEncoding:NSASCIIStringEncoding];
+        ical_recur.rscale = (char *)[recur[@"rscale"] cStringUsingEncoding:NSUTF8StringEncoding];
     }
     ical_recur.skip = [recur[@"skip"] intValue];
     
@@ -341,12 +341,14 @@
 
     [dictionary setObject:[NSNumber numberWithInteger:ical_reqstat.code] forKey:@"code"];
 
-    if (ical_reqstat.debug) {
-        [dictionary setObject:[NSString stringWithCString: ical_reqstat.debug encoding: NSASCIIStringEncoding] forKey:@"debug"];
-    }
+//    Debug is a pointer into the calling string, not relevant
+//    if (ical_reqstat.debug) {
+//        [dictionary setObject:[NSString stringWithCString: ical_reqstat.debug encoding: NSUTF8StringEncoding] forKey:@"debug"];
+//
+//    }
 
     if (ical_reqstat.desc) {
-        [dictionary setObject:[NSString stringWithCString: ical_reqstat.desc encoding: NSASCIIStringEncoding] forKey:@"desc"];
+        [dictionary setObject:[NSString stringWithCString: ical_reqstat.desc encoding: NSUTF8StringEncoding] forKey:@"desc"];
     }
 
     return dictionary;
@@ -356,8 +358,8 @@
     struct icalreqstattype ical_reqstat;
     
     ical_reqstat.code = [reqstat[@"code"] intValue];
-    ical_reqstat.debug = [reqstat[@"debug"] cStringUsingEncoding:NSASCIIStringEncoding];
-    ical_reqstat.desc = [reqstat[@"desc"] cStringUsingEncoding:NSASCIIStringEncoding];
+    ical_reqstat.debug = [reqstat[@"debug"] cStringUsingEncoding:NSUTF8StringEncoding];
+    ical_reqstat.desc = [reqstat[@"desc"] cStringUsingEncoding:NSUTF8StringEncoding];
     
     return ical_reqstat;
 }
@@ -438,7 +440,7 @@
             break;
             
         default:
-             value = icalvalue_new_string([(NSString *)self.value cStringUsingEncoding:(NSASCIIStringEncoding)]);
+             value = icalvalue_new_string([(NSString *)self.value cStringUsingEncoding:(NSUTF8StringEncoding)]);
             break;
     }
     
@@ -561,7 +563,7 @@
         [components setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     }
     else {
-        NSString * tzid = icaltime_get_tzid(t) ? [NSString stringWithCString: icaltime_get_tzid(t) encoding: NSASCIIStringEncoding] : nil;
+        NSString * tzid = icaltime_get_tzid(t) ? [NSString stringWithCString: icaltime_get_tzid(t) encoding: NSUTF8StringEncoding] : nil;
         if (tzid) {
             NSTimeZone * tz = [NSTimeZone timeZoneWithName:tzid];
             [components setTimeZone: tz];

@@ -162,7 +162,7 @@
     else {
         NSLog(@"Error: invalid date format");
     }
-    return [NSString stringWithCString: icalvalue_as_ical_string(icalvalue_new_datetime(t)) encoding: NSASCIIStringEncoding];
+    return [NSString stringWithCString: icalvalue_as_ical_string(icalvalue_new_datetime(t)) encoding: NSUTF8StringEncoding];
 }
 
 @end
