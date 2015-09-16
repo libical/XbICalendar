@@ -5,6 +5,7 @@
 #import "XbICComponent.h"
 #import "XbICVCalendar.h"
 
+
 /**
  The XbICFile class provides an interface to read and write ICalendar (ICS) files.
  */
@@ -14,6 +15,11 @@
  Property that stores the full path name of the underlaying file.
  */
 @property (nonatomic, readonly) NSString *path;
+
+/**
+ Property that stores the  NSError value from the previous call
+ */
+@property (nonatomic, readonly) NSError *error;
 
 
 /**
@@ -44,6 +50,7 @@
  @param vCalendar data structure to write to the file
  */
 - (BOOL) writeVCalendar: (XbICVCalendar *) vCalendar;
+
 
 
 @end

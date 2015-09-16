@@ -16,6 +16,7 @@
 @property (nonatomic, strong, readwrite) XbICComponent * rootComponent;
 @property (nonatomic, copy, readwrite) NSArray * calendars;
 @property (nonatomic, copy, readwrite) NSArray * events;
+@property (nonatomic, strong, readwrite) NSError * error;
 @end
 
 @implementation XbICalendarIcsTest
@@ -71,7 +72,11 @@
 {
     NSString *filePath = [self filePathForIcsFileName:fileName];
     XbICFile * file = [XbICFile fileWithPathname:filePath];
-    return [file read];
+    XbICComponent * result = [file read];
+
+    self.error = file.error;
+
+    return result;
 }
 
 - (XbICVCalendar *)calendarFromIcsFileName:(NSString *)fileName

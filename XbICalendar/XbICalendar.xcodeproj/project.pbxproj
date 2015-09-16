@@ -40,6 +40,8 @@
 		946E26EC1B0F7B9600418534 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946E26EB1B0F7B9600418534 /* EventKit.framework */; };
 		946E26EE1B0F7BA500418534 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946E26ED1B0F7BA500418534 /* EventKitUI.framework */; };
 		94B0AB131B05A1330057BF2D /* XbICPropertyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */; };
+		F10FC2601B85D81600AB6769 /* issue_32.ics in Resources */ = {isa = PBXBuildFile; fileRef = F10FC25F1B85D81600AB6769 /* issue_32.ics */; };
+		F10FC2611B85D8CD00AB6769 /* issue_32.ics in Resources */ = {isa = PBXBuildFile; fileRef = F10FC25F1B85D81600AB6769 /* issue_32.ics */; };
 		F113ED3419863A7B00C37F81 /* 2446.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE352A19720D050097A2D6 /* 2446.ics */; };
 		F113ED3519863A7F00C37F81 /* calendar.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3531197370380097A2D6 /* calendar.ics */; };
 		F113ED3619863A8200C37F81 /* classify.ics in Resources */ = {isa = PBXBuildFile; fileRef = 4DAE3535197379190097A2D6 /* classify.ics */; };
@@ -84,10 +86,12 @@
 		F12F4E4119346A41003631C5 /* XbICComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4019346A41003631C5 /* XbICComponent.m */; };
 		F12F4E491935B259003631C5 /* XbICVCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E481935B259003631C5 /* XbICVCalendar.m */; };
 		F12F4E4D1935CF03003631C5 /* XbICVEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = F12F4E4C1935CF03003631C5 /* XbICVEvent.m */; };
+		F13D0FB41BA7F73400DD0537 /* XbICalendarIssue32Test.m in Sources */ = {isa = PBXBuildFile; fileRef = F13D0FB31BA7F73400DD0537 /* XbICalendarIssue32Test.m */; };
 		F148A223194700DD00ED2C6E /* libical.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F148A222194700DD00ED2C6E /* libical.a */; };
 		F18820261990A41A00177998 /* XbICInvite.m in Sources */ = {isa = PBXBuildFile; fileRef = F18820251990A41A00177998 /* XbICInvite.m */; };
 		F188202A1990A99A00177998 /* XbICInviteResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F18820291990A99A00177998 /* XbICInviteResponseTests.m */; };
 		F1DC7727193F208500DB07D4 /* XbICPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = F1DC7726193F208500DB07D4 /* XbICPerson.m */; };
+		F1E5B9AA1BA92CDC0057B2AF /* NSError+XbICError.m in Sources */ = {isa = PBXBuildFile; fileRef = F1E5B9A91BA92CDC0057B2AF /* NSError+XbICError.m */; };
 		F1F5D71419402CEA00D81F71 /* XbICFileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F5D71319402CEA00D81F71 /* XbICFileTableViewController.m */; };
 		F1F5D71519402E9700D81F71 /* invite.ics in Resources */ = {isa = PBXBuildFile; fileRef = F12F493419346287003631C5 /* invite.ics */; };
 		F1F5D71619402E9C00D81F71 /* 2445.ics in Resources */ = {isa = PBXBuildFile; fileRef = F12F492A19333E35003631C5 /* 2445.ics */; };
@@ -143,6 +147,7 @@
 		946E26EB1B0F7B9600418534 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		946E26ED1B0F7BA500418534 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICPropertyTest.m; sourceTree = "<group>"; };
+		F10FC25F1B85D81600AB6769 /* issue_32.ics */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = issue_32.ics; sourceTree = "<group>"; };
 		F113ED40198643FD00C37F81 /* XbICalendarInviteWriteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarInviteWriteTests.m; sourceTree = "<group>"; };
 		F117D40619DBA6FC002CD9B5 /* XbICalendar2445Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XbICalendar2445Tests.swift; sourceTree = "<group>"; };
 		F117D40819DBA7BB002CD9B5 /* XbICalendarTestsBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XbICalendarTestsBridge.h; sourceTree = "<group>"; };
@@ -180,6 +185,7 @@
 		F12F4E481935B259003631C5 /* XbICVCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICVCalendar.m; sourceTree = "<group>"; };
 		F12F4E4B1935CF03003631C5 /* XbICVEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICVEvent.h; sourceTree = "<group>"; };
 		F12F4E4C1935CF03003631C5 /* XbICVEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICVEvent.m; sourceTree = "<group>"; };
+		F13D0FB31BA7F73400DD0537 /* XbICalendarIssue32Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICalendarIssue32Test.m; sourceTree = "<group>"; };
 		F148A222194700DD00ED2C6E /* libical.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libical.a; sourceTree = "<group>"; };
 		F18820241990A41A00177998 /* XbICInvite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICInvite.h; sourceTree = "<group>"; };
 		F18820251990A41A00177998 /* XbICInvite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICInvite.m; sourceTree = "<group>"; };
@@ -187,6 +193,8 @@
 		F1A240C919C96C6F00139576 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		F1DC7725193F208500DB07D4 /* XbICPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICPerson.h; sourceTree = "<group>"; };
 		F1DC7726193F208500DB07D4 /* XbICPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICPerson.m; sourceTree = "<group>"; };
+		F1E5B9A81BA92CDC0057B2AF /* NSError+XbICError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+XbICError.h"; sourceTree = "<group>"; };
+		F1E5B9A91BA92CDC0057B2AF /* NSError+XbICError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+XbICError.m"; sourceTree = "<group>"; };
 		F1F5D71219402CEA00D81F71 /* XbICFileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICFileTableViewController.h; sourceTree = "<group>"; };
 		F1F5D71319402CEA00D81F71 /* XbICFileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XbICFileTableViewController.m; sourceTree = "<group>"; };
 		F1FAB5FE1945B057005D0B35 /* XbICZoneDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XbICZoneDirectory.h; sourceTree = "<group>"; };
@@ -294,6 +302,7 @@
 				F12F491519332EA5003631C5 /* Supporting Files */,
 				F12F492919333E1A003631C5 /* TestData */,
 				4DC71134197B4A6A003D4962 /* XbICalendar2445Tests.m */,
+				F117D40619DBA6FC002CD9B5 /* XbICalendar2445Tests.swift */,
 				4DAE352F197221770097A2D6 /* XbICalendar2446Tests.m */,
 				4DAE3533197370580097A2D6 /* XbICalendarCalendarTests.m */,
 				4DAE3537197379920097A2D6 /* XbICalendarClassifyTests.m */,
@@ -303,6 +312,7 @@
 				F12F491A19332EA5003631C5 /* XbICalendarInMemoryTests.m */,
 				4DC71132197B3F27003D4962 /* XbICalendarInviteTests.m */,
 				F113ED40198643FD00C37F81 /* XbICalendarInviteWriteTests.m */,
+				F13D0FB31BA7F73400DD0537 /* XbICalendarIssue32Test.m */,
 				4DA795261979F1460033A008 /* XbICalendarLargeTests.m */,
 				4D0767ED197ADF5C0017ED72 /* XbICalendarOverlapTests.m */,
 				4D0767F1197AE4470017ED72 /* XbICalendarProcessCalendarTests.m */,
@@ -313,7 +323,6 @@
 				4DC71130197B32FA003D4962 /* XbICalendarStressTestTests.m */,
 				F18820291990A99A00177998 /* XbICInviteResponseTests.m */,
 				94B0AB121B05A1330057BF2D /* XbICPropertyTest.m */,
-				F117D40619DBA6FC002CD9B5 /* XbICalendar2445Tests.swift */,
 			);
 			path = XbICalendarTests;
 			sourceTree = "<group>";
@@ -331,11 +340,15 @@
 		F12F49241933385D003631C5 /* XbICalendar */ = {
 			isa = PBXGroup;
 			children = (
+				F1E5B9A81BA92CDC0057B2AF /* NSError+XbICError.h */,
+				F1E5B9A91BA92CDC0057B2AF /* NSError+XbICError.m */,
 				F12F492519333899003631C5 /* XbICalendar.h */,
 				F12F4E3F19346A41003631C5 /* XbICComponent.h */,
 				F12F4E4019346A41003631C5 /* XbICComponent.m */,
 				F12F4926193338CB003631C5 /* XbICFile.h */,
 				F12F4927193338CB003631C5 /* XbICFile.m */,
+				F18820241990A41A00177998 /* XbICInvite.h */,
+				F18820251990A41A00177998 /* XbICInvite.m */,
 				F1DC7725193F208500DB07D4 /* XbICPerson.h */,
 				F1DC7726193F208500DB07D4 /* XbICPerson.m */,
 				F12F4E4319346AB6003631C5 /* XbICProperty.h */,
@@ -346,8 +359,6 @@
 				F12F4E4C1935CF03003631C5 /* XbICVEvent.m */,
 				F1FAB5FE1945B057005D0B35 /* XbICZoneDirectory.h */,
 				F1FAB5FF1945B057005D0B35 /* XbICZoneDirectory.m */,
-				F18820241990A41A00177998 /* XbICInvite.h */,
-				F18820251990A41A00177998 /* XbICInvite.m */,
 			);
 			name = XbICalendar;
 			path = XBICalendar;
@@ -370,6 +381,7 @@
 				4DC71126197B32C3003D4962 /* smallcluster.ics */,
 				4DC71127197B32C3003D4962 /* spanlist.ics */,
 				4DC71128197B32C3003D4962 /* stresstest.ics */,
+				F10FC25F1B85D81600AB6769 /* issue_32.ics */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -494,6 +506,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F10FC2611B85D8CD00AB6769 /* issue_32.ics in Resources */,
 				F12F4E3C19346826003631C5 /* zoneinfo in Resources */,
 				F113ED3F19863A9D00C37F81 /* stresstest.ics in Resources */,
 				F113ED3619863A8200C37F81 /* classify.ics in Resources */,
@@ -535,6 +548,7 @@
 				F12F491919332EA5003631C5 /* InfoPlist.strings in Resources */,
 				F12F493519346287003631C5 /* invite.ics in Resources */,
 				4DC7112B197B32C3003D4962 /* stresstest.ics in Resources */,
+				F10FC2601B85D81600AB6769 /* issue_32.ics in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +565,7 @@
 				F1F5D7171940395A00D81F71 /* XbICProperty.m in Sources */,
 				F12F48FC19332EA4003631C5 /* main.m in Sources */,
 				F1FAB6001945B057005D0B35 /* XbICZoneDirectory.m in Sources */,
+				F1E5B9AA1BA92CDC0057B2AF /* NSError+XbICError.m in Sources */,
 				F1F5D71419402CEA00D81F71 /* XbICFileTableViewController.m in Sources */,
 				945795251B0897B200B60E82 /* XbICFileCreateViewController.m in Sources */,
 				946E26EA1B0F6B5F00418534 /* XbICAddViewController.m in Sources */,
@@ -578,6 +593,7 @@
 				4D0767F6197AFE5F0017ED72 /* XbICalendarProcessIncomingTests.m in Sources */,
 				F113ED41198643FD00C37F81 /* XbICalendarInviteWriteTests.m in Sources */,
 				F117D40A19DBA7F7002CD9B5 /* XbICFile.m in Sources */,
+				F13D0FB41BA7F73400DD0537 /* XbICalendarIssue32Test.m in Sources */,
 				4DAE353C19737D1D0097A2D6 /* XbICalendarIncomingTests.m in Sources */,
 				4DA795271979F1460033A008 /* XbICalendarLargeTests.m in Sources */,
 				4DAE352E19721C9C0097A2D6 /* XbICalendarIcsTest.m in Sources */,

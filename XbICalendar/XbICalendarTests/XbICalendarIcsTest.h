@@ -29,6 +29,7 @@
 @property (nonatomic, strong, readonly) XbICComponent * rootComponent;
 @property (nonatomic, copy, readonly) NSArray * calendars;
 @property (nonatomic, copy, readonly) NSArray * events;
+@property (nonatomic, strong, readonly) NSError * error;
 
 - (XbICComponent *)componentFromIcsFileName:(NSString *)fileName;
 - (XbICVCalendar *)calendarFromIcsFileName:(NSString *)fileName;
