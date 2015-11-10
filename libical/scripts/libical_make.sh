@@ -13,15 +13,15 @@ fi
 
 
 # Select the desired iPhone SDK
-export SDKVER="8.4"
+export SDKVER="9.1"
 export DEVROOT=`xcode-select --print-path`
 
 if [ "i386" = $ARCH ] || [ "x86_64" = $ARCH ]; then
     export SDKROOT=$DEVROOT/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator${SDKVER}.sdk
-    export MIOS="-mios-simulator-version-min=7.0"
+    export MIOS="-mios-simulator-version-min=7.1"
 else
     export SDKROOT=$DEVROOT/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS${SDKVER}.sdk
-    export MIOS=""
+    export MIOS="-miphoneos-version-min=7.1"
 fi;
 export IOSROOT=$DEVROOT/Platforms/iPhoneOS.platform
 
@@ -63,12 +63,12 @@ export CLANG=$DEVROOT/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 
 export CC=$CLANG
 export CXX=$CLANG++
-export LD=$IOSROOT/Developer/usr/bin/ld
-export AR=$IOSROOT/Developer/usr/bin/ar
-export AS=$IOSROOT/Developer/usr/bin/as
+export LD=$DEVROOT/usr/bin/ld
+export AR=$DEVROOT/usr/bin/ar
+export AS=$DEVROOT/usr/bin/as
 export LIBTOOL=$IOSROOT/usr/bin/libtool
-export STRIP=$IOSROOT/Developer/usr/bin/strip
-export RANLIB=$IOSROOT/Developer/usr/bin/ranlib
+export STRIP=$DEVROOT/usr/bin/strip
+export RANLIB=$DEVROOT/usr/bin/ranlib
 export LIPO="xcrun -sdk iphoneos lipo"
 export HOST=arm-apple-darwin10
 
