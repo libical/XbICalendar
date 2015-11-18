@@ -153,7 +153,7 @@ LIBICAL_ICAL_EXPORT time_t icaltime_as_timet(const struct icaltimetype);
 /** Return the time as seconds past the UNIX epoch, using timezones. */
 LIBICAL_ICAL_EXPORT time_t icaltime_as_timet_with_zone(const struct icaltimetype tt,
                                                        const icaltimezone *zone);
-/** Return a string represention of the time, in RFC2445 format. */
+/** Return a string represention of the time, in RFC5545 format. */
 LIBICAL_ICAL_EXPORT const char *icaltime_as_ical_string(const struct icaltimetype tt);
 LIBICAL_ICAL_EXPORT char *icaltime_as_ical_string_r(const struct icaltimetype tt);
 /** @brief Return the timezone */
@@ -614,7 +614,7 @@ whatever timezone that dtstart is in.
 
 
 /*
- * Recurrance enumerations
+ * Recurrence enumerations
  */
 typedef enum icalrecurrencetype_frequency
 {
@@ -644,30 +644,40 @@ typedef enum icalrecurrencetype_skip
 {
     ICAL_SKIP_BACKWARD = 0,
     ICAL_SKIP_FORWARD,
-    ICAL_SKIP_OMIT
+    ICAL_SKIP_OMIT,
+    ICAL_SKIP_UNDEFINED
 } icalrecurrencetype_skip;
 enum icalrecurrence_array_max_values
 {
     ICAL_RECURRENCE_ARRAY_MAX = 0x7f7f,
     ICAL_RECURRENCE_ARRAY_MAX_BYTE = 0x7f
 };
+/*
+ * Recurrence enumerations conversion routines.
+ */
+LIBICAL_ICAL_EXPORT icalrecurrencetype_frequency icalrecur_string_to_freq(const char *str);
+LIBICAL_ICAL_EXPORT const char *icalrecur_freq_to_string(icalrecurrencetype_frequency kind);
+LIBICAL_ICAL_EXPORT icalrecurrencetype_skip icalrecur_string_to_skip(const char *str);
+LIBICAL_ICAL_EXPORT const char *icalrecur_skip_to_string(icalrecurrencetype_skip kind);
+LIBICAL_ICAL_EXPORT const char *icalrecur_weekday_to_string(icalrecurrencetype_weekday kind);
+LIBICAL_ICAL_EXPORT icalrecurrencetype_weekday icalrecur_string_to_weekday(const char *str);
 /**
  * Recurrence type routines
  */
 /* See RFC 5545 Section 3.3.10, RECUR Value, and RFC 7529
  * for an explanation of the values and fields in struct icalrecurrencetype.
  *
- * The maximums below are based on Chinese/Hebrew leap years (13 months)
+ * The maximums below are based on lunisolar leap years (13 months)
  */
 #define ICAL_BY_SECOND_SIZE     62      /* 0 to 60 */
 #define ICAL_BY_MINUTE_SIZE     61      /* 0 to 59 */
 #define ICAL_BY_HOUR_SIZE       25      /* 0 to 23 */
-#define ICAL_BY_DAY_SIZE        386     /* 7 weekdays * 55 weeks */
-#define ICAL_BY_MONTHDAY_SIZE   32      /* 1 to 31 */
-#define ICAL_BY_YEARDAY_SIZE    386     /* 1 to 385 */
-#define ICAL_BY_WEEKNO_SIZE     56      /* 1 to 55 */
 #define ICAL_BY_MONTH_SIZE      14      /* 1 to 13 */
-#define ICAL_BY_SETPOS_SIZE     386     /* 1 to 385 */
+#define ICAL_BY_MONTHDAY_SIZE   32      /* 1 to 31 */
+#define ICAL_BY_WEEKNO_SIZE     56      /* 1 to 55 */
+#define ICAL_BY_YEARDAY_SIZE    386     /* 1 to 385 */
+#define ICAL_BY_SETPOS_SIZE     ICAL_BY_YEARDAY_SIZE          /* 1 to N */
+#define ICAL_BY_DAY_SIZE        7*(ICAL_BY_WEEKNO_SIZE-1)+1   /* 1 to N */
 /** Main struct for holding digested recurrence rules */
 struct icalrecurrencetype
 {
@@ -2610,7 +2620,7 @@ LIBICAL_ICAL_EXPORT icalcomponent *icalcomponent_get_first_real_component(icalco
 /** For VEVENT, VTODO, VJOURNAL and VTIMEZONE: report the start and end
    times of an event in UTC */
 LIBICAL_ICAL_EXPORT struct icaltime_span icalcomponent_get_span(icalcomponent *comp);
-/******************** Convienience routines **********************/
+/******************** Convenience routines **********************/
 LIBICAL_ICAL_EXPORT void icalcomponent_set_dtstart(icalcomponent *comp, struct icaltimetype v);
 LIBICAL_ICAL_EXPORT struct icaltimetype icalcomponent_get_dtstart(icalcomponent *comp);
 /* For the icalcomponent routines only, dtend and duration are tied
@@ -2904,7 +2914,7 @@ LIBICAL_ICAL_EXPORT icalparser_state icalparser_get_state(icalparser *parser);
 LIBICAL_ICAL_EXPORT void icalparser_free(icalparser *parser);
 /**
  * Message oriented parsing.  icalparser_parse takes a string that
- * holds the text ( in RFC 2445 format ) and returns a pointer to an
+ * holds the text ( in RFC 5545 format ) and returns a pointer to an
  * icalcomponent. The caller owns the memory. line_gen_func is a
  * pointer to a function that returns one content line per invocation
  */
@@ -3025,9 +3035,8 @@ LIBICAL_ICAL_EXPORT icalerrorenum *icalerrno_return(void);
  *  @warning NOT THREAD SAFE -- recommended that you do not change
  *           this in a multithreaded program.
  */
-#if !defined(__cplusplus)
-LIBICAL_ICAL_EXPORT extern int icalerror_errors_are_fatal;
-#endif
+LIBICAL_ICAL_EXPORT void icalerror_set_errors_are_fatal(int fatal);
+LIBICAL_ICAL_EXPORT int icalerror_get_errors_are_fatal(void);
 /* Warning messages */
 #ifdef __GNUC__ca
 #define icalerror_warn(message) ;{fprintf(stderr, "%s(), %s:%d: %s\n", __FUNCTION__, __FILE__, __LINE__, message);}
@@ -3039,7 +3048,7 @@ LIBICAL_ICAL_EXPORT void _icalerror_set_errno(icalerrorenum);
 /* Make an individual error fatal or non-fatal. */
 typedef enum icalerrorstate
 {
-    ICAL_ERROR_FATAL, /* Not fata */
+    ICAL_ERROR_FATAL, /* Not fatal */
     ICAL_ERROR_NONFATAL, /* Fatal */
     ICAL_ERROR_DEFAULT, /* Use the value of icalerror_errors_are_fatal */
     ICAL_ERROR_UNKNOWN  /* Asked state for an unknown error type */
@@ -3051,7 +3060,7 @@ LIBICAL_ICAL_EXPORT void icalerror_set_error_state(icalerrorenum error, icalerro
 LIBICAL_ICAL_EXPORT icalerrorstate icalerror_get_error_state(icalerrorenum error);
 LIBICAL_ICAL_EXPORT icalerrorenum icalerror_error_from_string(const char *str);
 #if !defined(ICAL_SETERROR_ISFUNC)
-#define icalerror_set_errno(x) ;icalerrno = x; ;if(icalerror_get_error_state(x) == ICAL_ERROR_FATAL || ;   (icalerror_get_error_state(x) == ICAL_ERROR_DEFAULT && ;    icalerror_errors_are_fatal == 1)){ ;   icalerror_warn(icalerror_strerror(x)); ;   ical_bt(); ;   assert(0); ;} }
+#define icalerror_set_errno(x) ;icalerrno = x; ;if(icalerror_get_error_state(x) == ICAL_ERROR_FATAL || ;   (icalerror_get_error_state(x) == ICAL_ERROR_DEFAULT && ;    icalerror_get_errors_are_fatal() == 1)){              ;   icalerror_warn(icalerror_strerror(x)); ;   ical_bt(); ;   assert(0); ;} }
 #else
 LIBICAL_ICAL_EXPORT void icalerror_set_errno(icalerrorenum x);
 #endif
