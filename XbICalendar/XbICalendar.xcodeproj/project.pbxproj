@@ -462,7 +462,8 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = XbIC;
-				LastUpgradeCheck = 0510;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = GaltSoft;
 				TargetAttributes = {
 					F12F490C19332EA4003631C5 = {
@@ -654,6 +655,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -714,12 +716,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XbICalendarExample/XbICalendar-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/XbICalendarExample/XbICalendar-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../libical/lib",
 				);
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anycompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -733,12 +736,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XbICalendarExample/XbICalendar-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/XbICalendarExample/XbICalendar-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../libical/lib",
 				);
 				OTHER_CFLAGS = "-DHAVE_CONFIG_H";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anycompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -766,6 +770,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../libical/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anycompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = XbICalendarTests/XbICalendarTestsBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -792,6 +797,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../libical/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anycompany.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = XbICalendarTests/XbICalendarTestsBridge.h;
 				TEST_HOST = "$(BUNDLE_LOADER)";
